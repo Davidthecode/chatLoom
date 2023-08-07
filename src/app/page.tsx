@@ -1,27 +1,28 @@
 'use client'
 
-import Auth from "@/app/pages/auth/page"
-import Chatloom from "@/app/pages/chatloom/page"
-import Navbar from "@/app/components/navbar"
-import { useState } from "react"
+import Auth from "./components/auth"
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 export default function Home() {
+  const router = useRouter()
   const [isAuth, setIsAuth] = useState(false)
 
-  if (!isAuth) {
-    return (
+  useEffect(() => {
+    // Redirect to Chatloom if user is already authenticated
+    if (isAuth) {
+      router.push("/chatloom");
+    }
+  }, [isAuth]);
+
+  return (
+    <div>
+    {!isAuth && (
       <Auth
         setIsAuth={setIsAuth}
       />
-    )
-  }
-
-  return (
-    <div className="flex flex-col h-screen">
-      <Navbar />
-      <div className="flex flex-grow">
-        <Chatloom />
-      </div>
-    </div>
+    )}
+    
+  </div>
   )
 }

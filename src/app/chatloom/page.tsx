@@ -1,31 +1,17 @@
-export default function SignIn() {
+import Sidebar from "@/app/components/sidebar"
+import Navbar from "../components/navbar"
+import Chats from "./chats/page"
+
+export default function ChatLoom() {
   return (
-    <div>
-      <aside>
-        
-        <section>
-          <h2>UserName</h2>
-        </section>
+    <div className="flex flex-col h-screen" >
+      <div>
+        <Navbar />
+      </div>
 
-        <section>
-            <h2>Create a group</h2>
-        </section>
-
-        <section>
-          <div>
-            <input type="text"  className="border-2"/>
-          </div>
-          <div>
-            <h2>users</h2>
-          </div>
-        </section>
-
-        <section>
-          <h3>settings</h3>
-        </section>
-        
-      </aside>
-
+      <div className="flex flex-grow">
+        <Sidebar />
+      </div>
     </div>
   )
 }

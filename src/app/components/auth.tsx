@@ -1,0 +1,32 @@
+'use client'
+
+import { auth, provider } from '../../../firebase'
+import { signInWithPopup } from 'firebase/auth'
+import { setCookie } from 'cookies-next'
+
+export default function Auth({ setIsAuth }: any) {
+
+  const handleSignIn = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider)
+      setCookie('auth-token', result.user.refreshToken)
+      setIsAuth(true)
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return (
+    <div className="flex flex-col h-screen justify-center items-center bg-[#E6E6FA]">
+      <h1 className='text-5xl mb-6'>ChatLoom</h1>
+      <h1 className="text-3xl font-bold mb-4">SignIn with Google</h1>
+      <button
+        className="border px-8 py-2 text-lg rounded rounded-xl bg-black text-white"
+        onClick={handleSignIn}
+      >
+        Sign In
+      </button>
+    </div>
+  )
+}

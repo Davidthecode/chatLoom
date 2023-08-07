@@ -1,6 +1,6 @@
 import { AiOutlineSearch } from 'react-icons/ai'
 
-export default function SideBarExtension() {
+export default function Chats() {
     return (
         <div className="flex flex-col">
             <h1>Chats</h1>
