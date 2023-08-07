@@ -11,7 +11,8 @@ import NotificationsPopup from './notificationsPopup'
 
 export default function Sidebar() {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-
+    const [activeIcon, setActiveIcon] = useState<null|string>(null)
+    
   const handleNotificationClick = () => {
     setIsPopupVisible(true);
   };
@@ -26,26 +27,26 @@ export default function Sidebar() {
                 <ul className='flex flex-col items-center justify-center space-y-6'>
 
                     <li className="relative group mt-8">
-                        <Link href='/chatloom/chats'>
-                            <BsChat size='1.3rem' />
-                            <span className="tooltip absolute bottom-0 left-[4.1rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
+                        <Link href='/chats'>
+                            <BsChat size='1.3rem' onClick={()=>setActiveIcon('chats')} className={`${activeIcon == 'chats' ? 'text-white' : 'opacity-50'}`}/>
+                            <span className={`tooltip absolute bottom-0 left-[4.1rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100`}>
                                 chats
                             </span>
                         </Link>
                     </li>
 
                     <li className="relative group mt-4">
-                        <Link href='/chatloom/groups'>
-                            <AiOutlineUsergroupDelete size='1.5rem' />
-                            <span className="tooltip absolute bottom-0 left-[4.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
+                        <Link href='/groups'>
+                            <AiOutlineUsergroupDelete size='1.5rem' onClick={()=>setActiveIcon('Groups')} className={`${activeIcon == 'Groups' ? 'text-white' : 'opacity-50'}`} />
+                            <span className={`tooltip absolute bottom-0 left-[4.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                                 Groups
                             </span>
                         </Link>
                     </li>
 
                     <li className="relative group mt-4">
-                        <IoMdNotificationsOutline size='1.5rem'onClick={handleNotificationClick} />
-                        <span className="tooltip absolute bottom-0 left-[5.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
+                        <IoMdNotificationsOutline size='1.5rem'onClick={handleNotificationClick} className='opacity-50' />
+                        <span className={`tooltip absolute bottom-0 left-[5.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Notifications
                         </span>
                     </li>
@@ -53,14 +54,14 @@ export default function Sidebar() {
 
                 <ul className='flex flex-col items-center justify-center space-y-6 mt-auto mb-20'>
                     <li className="relative group mt-4">
-                        <IoSettingsOutline size='1.5rem' />
-                        <span className="tooltip absolute bottom-0 left-[4.7rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
+                        <IoSettingsOutline size='1.5rem' onClick={()=>setActiveIcon('Settings')} className={`${activeIcon == 'Settings' ? 'text-white' : 'opacity-50'}`}/>
+                        <span className={`tooltip absolute bottom-0 left-[4.7rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Settings
                         </span>
                     </li>
                     <li className="relative group mt-4">
-                        <MdOutlineLogout size='1.5rem' />
-                        <span className="tooltip absolute bottom-0 left-[4.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
+                        <MdOutlineLogout size='1.5rem' onClick={()=>setActiveIcon('Logout')} className={`${activeIcon == 'Logout' ? 'text-white' : 'opacity-50'}`}/>
+                        <span className={`tooltip absolute bottom-0 left-[4.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Logout
                         </span>
                     </li>

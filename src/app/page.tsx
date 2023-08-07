@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     // Redirect to Chatloom if user is already authenticated
     if (isAuth) {
-      router.push("/chatloom");
+      router.push("/chats");
     }
   }, [isAuth]);
 

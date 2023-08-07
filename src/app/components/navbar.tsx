@@ -1,6 +1,6 @@
 export default function Navbar() {
     return (
-      <div className="flex bg-blue-200 justify-between h-12 items-center">
+      <div className="flex bg-[#91A3B0] justify-between h-12 items-center">
         <aside>
             <h1>ChatLoom</h1>
         </aside>
