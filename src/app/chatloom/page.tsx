@@ -1,6 +1,5 @@
 import Sidebar from "@/app/components/sidebar"
 import Navbar from "../components/navbar"
-import Chats from "./chats/page"
 
 export default function ChatLoom() {
   return (

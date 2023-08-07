@@ -22,7 +22,7 @@ export default function Auth({ setIsAuth }: any) {
       <h1 className='text-5xl mb-6'>ChatLoom</h1>
       <h1 className="text-3xl font-bold mb-4">SignIn with Google</h1>
       <button
-        className="border px-8 py-2 text-lg rounded rounded-xl bg-black text-white"
+        className="border px-8 py-2 text-lg rounded rounded-xl bg-black text-white transform transition-all duration-300 hover:scale-105"
         onClick={handleSignIn}
       >
         Sign In

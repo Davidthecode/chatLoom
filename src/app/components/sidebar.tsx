@@ -1,11 +1,25 @@
+'use client'
+
 import { BsChat } from 'react-icons/bs'
 import { IoMdNotificationsOutline } from 'react-icons/io'
 import { AiOutlineUsergroupDelete } from 'react-icons/ai'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdOutlineLogout } from 'react-icons/md'
 import Link from 'next/link'
+import { useState } from 'react'
+import NotificationsPopup from './notificationsPopup'
 
 export default function Sidebar() {
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const handleNotificationClick = () => {
+    setIsPopupVisible(true);
+  };
+
+  const closePopup = () => {
+    setIsPopupVisible(false);
+  };
+
     return (
         <div className="w-14 bg-[#1E202E] text-white">
             <aside className='flex flex-col justify-between h-full'>
@@ -21,13 +35,16 @@ export default function Sidebar() {
                     </li>
 
                     <li className="relative group mt-4">
-                        <AiOutlineUsergroupDelete size='1.5rem' />
-                        <span className="tooltip absolute bottom-0 left-[4.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
-                            Groups
-                        </span>
+                        <Link href='/chatloom/groups'>
+                            <AiOutlineUsergroupDelete size='1.5rem' />
+                            <span className="tooltip absolute bottom-0 left-[4.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
+                                Groups
+                            </span>
+                        </Link>
                     </li>
+
                     <li className="relative group mt-4">
-                        <IoMdNotificationsOutline size='1.5rem' />
+                        <IoMdNotificationsOutline size='1.5rem'onClick={handleNotificationClick} />
                         <span className="tooltip absolute bottom-0 left-[5.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100">
                             Notifications
                         </span>
@@ -49,6 +66,7 @@ export default function Sidebar() {
                     </li>
                 </ul>
             </aside>
+            {isPopupVisible && <NotificationsPopup onClose={closePopup} />}
         </div>
     )
 }
