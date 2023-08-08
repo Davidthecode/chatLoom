@@ -1,5 +1,5 @@
 import Chats from '../../page'
-export default function DashboardLayout({
+export default function ServiceExtendedLayout({
     children,
 }: {
     children: React.ReactNode

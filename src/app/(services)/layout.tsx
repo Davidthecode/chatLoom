@@ -1,6 +1,6 @@
 import Sidebar from "@/app/components/sidebar"
 import Navbar from "@/app/components/navbar"
-export default function DashboardLayout({
+export default function ServiceLayout({
   children,
 }: {
   children: React.ReactNode
