@@ -3,13 +3,24 @@
 import { auth, provider } from '../../../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import { setCookie } from 'cookies-next'
+import { useContext } from 'react'
+import { AuthContext } from '../state/authContext'
+
 
 export default function Auth({ setIsAuth }: any) {
-
+  const checkContext = useContext(AuthContext)
+  
   const handleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, provider)
       setCookie('auth-token', result.user.refreshToken)
+      
+      checkContext?.setAuthData({
+        username: result.user.email,
+        photo: result.user.photoURL,
+        email: result.user.email
+      })
+      
       setIsAuth(true)
 
     } catch (error) {

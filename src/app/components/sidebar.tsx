@@ -8,8 +8,10 @@ import { MdOutlineLogout } from 'react-icons/md'
 import Link from 'next/link'
 import { useState } from 'react'
 import NotificationsPopup from './notificationsPopup'
+import { useRouter } from 'next/navigation'
 
 export default function Sidebar() {
+    const router = useRouter()
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [activeIcon, setActiveIcon] = useState<null|string>(null)
     
@@ -21,8 +23,12 @@ export default function Sidebar() {
     setIsPopupVisible(false);
   };
 
+//   const handleLogOut = ()=> {
+//     router.push('/')
+//   }
+
     return (
-        <div className="w-14 bg-[#1E202E] text-white">
+        <div className="w-14 bg-[#1E1F22] text-white">
             <aside className='flex flex-col justify-between h-full'>
                 <ul className='flex flex-col items-center justify-center space-y-6'>
 

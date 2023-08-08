@@ -7,11 +7,12 @@ import { useRouter } from "next/navigation"
 export default function Home() {
   const router = useRouter()
   const [isAuth, setIsAuth] = useState(false)
+  const {push} = router
 
   useEffect(() => {
     // Redirect to Chatloom if user is already authenticated
     if (isAuth) {
-      router.push("/chats");
+      push("/chats");
     }
   }, [isAuth]);
 
