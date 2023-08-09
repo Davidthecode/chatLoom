@@ -17,7 +17,7 @@ export default function Navbar() {
     setCookie('username', username)
   }
   return (
-    <div className="flex bg-[#313338] text-white justify-between h-12 items-center px-4">
+    <div className="flex justify-around h-12 items-center px-4 w-full border-b">
       <aside>
         <h1>CHATLOOM</h1>
       </aside>
