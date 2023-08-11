@@ -1,16 +1,25 @@
 import AuthClient from '../client/authClient'
-import {Dispatch, SetStateAction} from 'react'
+import { Dispatch, SetStateAction } from 'react'
+import Image from 'next/image'
+import loom from '../../../public/loom.png'
+
 
 export type authProps = {
-  setIsAuth:  Dispatch<SetStateAction<boolean>>
+  setIsAuth: Dispatch<SetStateAction<boolean>>
 }
 
 export default function Auth({ setIsAuth }: authProps) {
   return (
-    <div className="flex flex-col h-screen justify-center items-center bg-[#E6E6FA]">
-      <h1 className='text-5xl mb-6'>ChatLoom</h1>
-      <h1 className="text-3xl font-bold mb-4">SignIn with Google</h1>
-      <AuthClient setIsAuth={setIsAuth} />
+    <div className='flex'>
+      <div>
+        <Image src={loom} alt='image' className='w-2/3 h-screen' />
+      </div>
+
+      <div className='flex flex-col mt-[15rem] ml-[-8rem] w-1/4 ml-2'>
+        <h1 className='text-3xl font-semibold'>Sign in to ChatLoom</h1>
+        <AuthClient setIsAuth={setIsAuth} />
+        <p className='text-xs mt-10 text-center'>By creating an account you agree with our <span className='underline'>Terms of Service,</span> <span className='underline'>Privacy Policy,</span> and our default <span className='underline'>Notification Settings.</span></p>
+      </div>
     </div>
   )
 }

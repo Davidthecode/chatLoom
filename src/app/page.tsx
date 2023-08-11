@@ -8,6 +8,8 @@ export default function Home() {
   const router = useRouter()
   const [isAuth, setIsAuth] = useState(false)
   const {push} = router
+  console.log(isAuth);
+  
 
   useEffect(() => {
     // Redirect to Chatloom if user is already authenticated
