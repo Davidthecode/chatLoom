@@ -4,9 +4,13 @@ import { createContext, useState, useContext, ReactNode } from 'react'
 
 type AuthData = {
     username: string | null,
-    photo: string | null,
-    email: string | null
+    photoUrl: string | null,
+    email: string | null,
+    userId: string | null,
+    creationTime ?: string | null,
+    lastSignInTime ?: string | null 
 }
+
 
 type AuthContextType = {
     authData: AuthData | null;
@@ -22,8 +26,4 @@ export const UseAuthContext: React.FC<{ children: ReactNode }> = ({ children }) 
             {children}
         </AuthContext.Provider>
     )
-}
-
-export function useAuth() {
-    return (useContext(AuthContext))
 }

@@ -9,7 +9,7 @@ import { AuthContext } from '../state/authContext'
 import { authProps } from '../components/auth'
 import google from '../../../public/google-icon.png'
 
-export default function AuthClient({setIsAuth}:authProps) {
+export default function AuthClient({ setIsAuth }: authProps) {
     const checkContext = useContext(AuthContext)
 
     const handleSignIn = async () => {
@@ -18,9 +18,12 @@ export default function AuthClient({setIsAuth}:authProps) {
             setCookie('auth-token', result.user.refreshToken)
 
             checkContext?.setAuthData({
-                username: result.user.email,
-                photo: result.user.photoURL,
-                email: result.user.email
+                username: result.user.displayName,
+                photoUrl: result.user.photoURL,
+                email: result.user.email,
+                userId: result.user.uid,
+                creationTime: result.user.metadata.creationTime,
+                lastSignInTime: result.user.metadata.lastSignInTime
             })
 
             setIsAuth(true)

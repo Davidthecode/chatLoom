@@ -5,24 +5,15 @@ import { IoMdNotificationsOutline } from 'react-icons/io'
 import { AiOutlineUsergroupDelete } from 'react-icons/ai'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { MdOutlineLogout } from 'react-icons/md'
+import { IoAdd } from 'react-icons/io5'
 import Link from 'next/link'
 import { useState } from 'react'
-import NotificationsPopup from './notificationsPopup'
 import { useRouter } from 'next/navigation'
 
 export default function Sidebar() {
     const router = useRouter()
-    const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [activeIcon, setActiveIcon] = useState<null | string>(null)
-
-    const handleNotificationClick = () => {
-        setIsPopupVisible(true);
-    };
-
-    const closePopup = () => {
-        setIsPopupVisible(false);
-    };
-
+   
     return (
         <div className="w-14 bg-black text-white">
             <aside className='flex flex-col justify-between h-full'>
@@ -47,9 +38,18 @@ export default function Sidebar() {
                     </li>
 
                     <li className="relative group mt-4">
-                        <IoMdNotificationsOutline size='1.5rem' onClick={handleNotificationClick} className='opacity-50' />
+                        <IoMdNotificationsOutline size='1.5rem' className='opacity-50' />
                         <span className={`tooltip absolute bottom-0 left-[5.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Notifications
+                        </span>
+                    </li>
+                </ul>
+
+                <ul className='flex flex-col items-center justify-center mt-12'>
+                    <li className="relative group mt-4">
+                        <IoAdd size='1.5rem' className={`${activeIcon == 'Settings' ? 'text-white' : 'opacity-50'}`} />
+                        <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100`}>
+                            Creategroup
                         </span>
                     </li>
                 </ul>
@@ -69,7 +69,6 @@ export default function Sidebar() {
                     </li>
                 </ul>
             </aside>
-            {isPopupVisible && <NotificationsPopup onClose={closePopup} />}
         </div>
     )
 }
