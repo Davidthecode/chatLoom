@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { auth, provider } from '../../../firebase'
+import { auth, provider } from '../firebase/firebase-config'
 import { signInWithPopup } from 'firebase/auth'
 import { setCookie } from 'cookies-next'
 import { useContext } from 'react'
