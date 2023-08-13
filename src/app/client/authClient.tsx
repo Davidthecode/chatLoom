@@ -1,16 +1,18 @@
 'use client'
 
 import Image from 'next/image'
-import { auth, provider } from '../firebase/firebase-config'
+import { auth, provider, db } from '../firebase/firebase-config'
 import { signInWithPopup } from 'firebase/auth'
 import { setCookie } from 'cookies-next'
 import { useContext } from 'react'
 import { AuthContext } from '../state/authContext'
 import { authProps } from '../components/auth'
 import google from '../../../public/google-icon.png'
+import { collection, doc, setDoc } from 'firebase/firestore'
 
 export default function AuthClient({ setIsAuth }: authProps) {
     const checkContext = useContext(AuthContext)
+    
 
     const handleSignIn = async () => {
         try {
@@ -25,6 +27,16 @@ export default function AuthClient({ setIsAuth }: authProps) {
                 creationTime: result.user.metadata.creationTime,
                 lastSignInTime: result.user.metadata.lastSignInTime
             })
+
+            const userDocRef = doc(collection(db, 'users'), result.user.uid);
+            await setDoc(userDocRef, {
+                username: result.user.displayName,
+                photoUrl: result.user.photoURL,
+                email: result.user.email,
+                userId: result.user.uid,
+                creationTime: result.user.metadata.creationTime,
+                lastSignInTime: result.user.metadata.lastSignInTime,
+            });
 
             setIsAuth(true)
 

@@ -1,4 +1,6 @@
 import Chats from '../../page'
+import { Suspense } from 'react'
+import Loading from '@/app/components/loading'
 export default function ServiceExtendedLayout({
     children,
 }: {
@@ -7,9 +9,11 @@ export default function ServiceExtendedLayout({
     return (
         <section className='flex h-full w-full'>
             <Chats />
-            <section className='w-4/5'>
-                {children}
-            </section>
+            <Suspense fallback={<Loading />}>
+                <section className='w-4/5'>
+                    {children}
+                </section>
+            </Suspense>
         </section>
     )
 }

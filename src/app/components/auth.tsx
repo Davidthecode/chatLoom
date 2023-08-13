@@ -3,9 +3,8 @@ import { Dispatch, SetStateAction } from 'react'
 import Image from 'next/image'
 import loom from '../../../public/loom.png'
 
-
 export type authProps = {
-  setIsAuth: Dispatch<SetStateAction<boolean>>
+  setIsAuth: Dispatch<SetStateAction<string | boolean | null | undefined>>
 }
 
 export default function Auth({ setIsAuth }: authProps) {

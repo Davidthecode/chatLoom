@@ -3,10 +3,11 @@
 import Auth from "./components/auth"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { getCookie } from "cookies-next"
 
 export default function Home() {
   const router = useRouter()
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(getCookie('auth-token'))
   const {push} = router
   console.log(isAuth);
   

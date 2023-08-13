@@ -8,10 +8,8 @@ import { MdOutlineLogout } from 'react-icons/md'
 import { IoAdd } from 'react-icons/io5'
 import Link from 'next/link'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function Sidebar() {
-    const router = useRouter()
     const [activeIcon, setActiveIcon] = useState<null | string>(null)
    
     return (
@@ -38,7 +36,7 @@ export default function Sidebar() {
                     </li>
 
                     <li className="relative group mt-4">
-                        <IoMdNotificationsOutline size='1.5rem' className='opacity-50' />
+                        <IoMdNotificationsOutline size='1.5rem' onClick={() => setActiveIcon('notifications')} className={`${activeIcon == 'notifications' ? 'text-white' : 'opacity-50'}`} />
                         <span className={`tooltip absolute bottom-0 left-[5.5rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Notifications
                         </span>
@@ -47,7 +45,7 @@ export default function Sidebar() {
 
                 <ul className='flex flex-col items-center justify-center mt-12'>
                     <li className="relative group mt-4">
-                        <IoAdd size='1.5rem' className={`${activeIcon == 'Settings' ? 'text-white' : 'opacity-50'}`} />
+                        <IoAdd size='1.5rem' onClick={() => setActiveIcon('creategroup')} className={`${activeIcon == 'creategroup' ? 'text-white' : 'opacity-50'}`} />
                         <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100`}>
                             Creategroup
                         </span>
