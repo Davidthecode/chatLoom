@@ -16,10 +16,16 @@ type UserData = {
 }
 
 async function fetchCollectionData(): Promise<UserData[]> {
-    const querySnapshot = await getDocs(collection(db, 'users'));
-    const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-    console.log(collectionData);
-    return collectionData;
+    try {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
+        console.log(collectionData);
+        return collectionData;
+    } catch (error) {
+        console.log(error);
+        return []
+
+    }
 }
 
 export default function Users() {
