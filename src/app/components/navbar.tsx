@@ -36,7 +36,7 @@ export default function Navbar() {
     <div className="w-full">
       <div className="flex justify-between h-12 items-center px-4 w-full border-b">
         <aside>
-          <h1>CHATLOOM</h1>
+          <h1 className="font-semibold text-lg">CHATLOOM</h1>
         </aside>
 
         <aside className="flex items-center">
@@ -44,7 +44,7 @@ export default function Navbar() {
             <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6]">
               <IoMdNotificationsOutline size='1.4rem' className='' onClick={handleNotificationClick} />
             </div>
-            <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6]">
+            <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-1 hover:bg-[#E3E3E6]">
               <MdDarkMode size='1.4rem' />
             </div>
           </div>

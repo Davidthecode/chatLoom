@@ -38,12 +38,17 @@ export default function Users() {
             {users?.map((user, index) => {
                 return (
                     <Link href={`/chats/${user.userId}`}>
-                        <div key={index} className="flex mt-4 h-20 hover:bg-white pt-4 pl-2 cursor-pointer">
+                        <div key={index} className="flex mt-2 h-20 hover:bg-white pt-4 pl-2 cursor-pointer font-sans">
                             <div className="">
-                                <Image src={user.photoUrl} alt="image" className="w-6 h-6 rounded-full mr-2" width={10} height={10} />
+                                <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
                             </div>
                             <div>
-                                {user.username}
+                                <h1 className="font-semibold">{user.username}</h1>
+                                <p className="text-sm">Lorem ipsum dolor sit, am</p>
+                            </div>
+                            <div className="ml-auto mr-2">
+                                <p className="text-xs">2m ago</p>
+                                <p className="text-xs rounded-full bg-green-500 w-4 h-4 mt-1 text-white text-center ml-auto">2</p>
                             </div>
                         </div>
                     </Link>

@@ -22,7 +22,7 @@ export default function Chatbox() {
     };
 
     return (
-        <div className='border h-1/6 flex flex-col items-center justify-center w-11/12'>
+        <div className='border h-1/5 mt-6 flex flex-col items-center justify-center w-11/12 shadow-md'>
             <input
                 type="text"
                 className=" outline-none h-5/6 w-11/12"
