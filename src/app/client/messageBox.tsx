@@ -35,7 +35,11 @@ export default function MessageBox() {
     }, [])
 
     if (messages.length < 1) {
-        return <h1>oops...no messages, send a message</h1>
+        return (
+            <div className="flex items-center h-full justify-center">
+                <h1>oops...no messages, send a message</h1>
+            </div>
+        )
     }
 
     return (
