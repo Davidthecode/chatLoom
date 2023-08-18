@@ -15,7 +15,7 @@ export default function ServiceLayout({
           <Sidebar />
         </section>
 
-        <section className="flex flex-col w-full">
+        <section className="flex flex-col w-full h-screen">
           <section className="flex">
             <Navbar />
           </section>

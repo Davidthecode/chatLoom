@@ -1,23 +1,40 @@
 'use client'
 
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import { useState } from 'react'
-import { db, auth } from '../firebase/firebase-config'
-import { BsSend } from 'react-icons/bs'
+import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
+import { useState } from 'react';
+import { db, auth } from '../firebase/firebase-config';
+import { BsSend } from 'react-icons/bs';
+import { useParams } from 'next/navigation';
+
+export type MessageType = {
+    text: string,
+    createdAt: FieldValue,
+    user: string | null | undefined,
+    senderId: string | undefined,
+    receiverId: string | string[],
+    imageUrl: string | null | undefined
+};
 
 export default function Chatbox() {
-    const [newMessage, setNewMessage] = useState('')
-    const messageRef = collection(db, 'messages')
+    const params = useParams();
+    const [newMessage, setNewMessage] = useState('');
+    const messageRef = collection(db, 'messages');
+
+    const userImage = auth.currentUser?.photoURL;
+
+    const MessageDetails: MessageType = {
+        text: newMessage,
+        createdAt: serverTimestamp(),
+        user: auth.currentUser?.displayName,
+        senderId: auth.currentUser?.uid,
+        receiverId: params.name,
+        imageUrl: userImage
+    }
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         if (newMessage === '') return
-        await addDoc(messageRef, {
-            text: newMessage,
-            createdAt: serverTimestamp(),
-            user: auth.currentUser?.displayName,
-            userId: auth.currentUser?.uid
-        })
+        await addDoc(messageRef, MessageDetails)
         setNewMessage('')
     };
 

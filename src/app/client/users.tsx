@@ -19,7 +19,7 @@ async function fetchCollectionData(): Promise<UserData[]> {
     try {
         const querySnapshot = await getDocs(collection(db, 'users'));
         const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-        console.log(collectionData);
+        // console.log(collectionData);
         return collectionData;
     } catch (error) {
         console.log(error);
