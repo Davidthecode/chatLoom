@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { db, auth } from '../firebase/firebase-config';
 import { BsSend } from 'react-icons/bs';
 import { useParams } from 'next/navigation';
+import toast, {Toaster} from 'react-hot-toast';
 
 export type MessageType = {
     text: string,
@@ -29,13 +30,17 @@ export default function Chatbox() {
         senderId: auth.currentUser?.uid,
         receiverId: params.name,
         imageUrl: userImage
-    }
+    };
 
     const handleSubmit = async (e: any) => {
-        e.preventDefault()
-        if (newMessage === '') return
-        await addDoc(messageRef, MessageDetails)
-        setNewMessage('')
+        e.preventDefault();
+        if (newMessage === ''){
+            toast.error('please enter a message before sending');
+        }else {
+            await addDoc(messageRef, MessageDetails);
+            setNewMessage('');
+        }
+       
     };
 
     return (
@@ -50,6 +55,7 @@ export default function Chatbox() {
                 <BsSend className='mr-1' />
                 <p>send</p>
             </div>
+            <Toaster position='top-center' />
         </div>
     )
 } 
