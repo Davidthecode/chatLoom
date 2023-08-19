@@ -9,11 +9,9 @@ export default function ServiceExtendedLayout({
     return (
         <section className='flex h-full w-full'>
             <Chats />
-            <Suspense fallback={<Loading />}>
-                <section className='w-4/5'>
-                    {children}
-                </section>
-            </Suspense>
+            <section className='w-4/5'>
+                {children}
+            </section>
         </section>
     )
 }

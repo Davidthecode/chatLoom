@@ -16,10 +16,10 @@ export default function ServiceLayout({
         </section>
 
         <section className="flex flex-col w-full h-screen">
-          <section className="flex">
+          <section className="flex h-[7%]">
             <Navbar />
           </section>
-          <section className="w-full h-full">
+          <section className="w-full h-[93%]">
             {children}
           </section>
         </section>
