@@ -44,7 +44,7 @@ export default function ChatsExtended() {
     return (
         <div className="h-full flex font-sans">
             <div className="w-3/4">
-                <section className="h-20 flex justify-between items-center">
+                <section className="h-[10%] flex justify-between items-center">
                     <DynamicChatNav />
                     <div className="flex items-center">
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6]">
@@ -59,14 +59,25 @@ export default function ChatsExtended() {
                     </div>
                 </section>
 
-                <section className=" text-center h-5/6 flex flex-col justify-center items-center">
-                    <div className="border-y h-4/5 w-full overflow-y-auto overscroll-contain">
+                <section className=" text-center h-[90%] flex flex-col justify-center items-center">
+                    <div className="border-y h-5/6 w-full overflow-y-auto overscroll-contain">
                         <DynamicMessageBox />
                     </div>
-                    <DynamicChatbox />
+                    <div className="h-1/6 w-full bg-[#FAFAF9] flex items-center justify-center">
+                        <DynamicChatbox />
+                    </div>
                 </section>
             </div>
-            {/* bg-[#F8FAFC]
+            <div className="w-1/4 border bg-[#F2F2F2]">
+                <DymanicChatSidebar />
+            </div>
+        </div>
+    )
+}
+
+
+
+{/* bg-[#F8FAFC]
                 bg-[#F7FAFC]
                 bg-[#F9FAFC]
                 bg-[#F1F5F9]
@@ -78,9 +89,3 @@ export default function ChatsExtended() {
                 bg-[#F7F7F9]
                 bg-[#F8F8F8]
                 bg-[#F2F2F2] */}
-            <div className="w-1/4 border bg-[#F2F2F2]">
-                <DymanicChatSidebar />
-            </div>
-        </div>
-    )
-}

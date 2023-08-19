@@ -7,7 +7,7 @@ import { BsSend } from 'react-icons/bs';
 import { useParams } from 'next/navigation';
 import toast, {Toaster} from 'react-hot-toast';
 
-export type MessageType = {
+type MessageType = {
     text: string,
     createdAt: FieldValue,
     user: string | null | undefined,
@@ -44,14 +44,14 @@ export default function Chatbox() {
     };
 
     return (
-        <div className='border h-1/5 mt-6 flex flex-col items-center justify-center w-11/12 shadow-md'>
+        <div className='border h-5/6 flex items-center justify-center w-11/12 shadow-md bg-white px-1'>
             <input
                 type="text"
-                className=" outline-none h-5/6 w-11/12"
+                className=" outline-none h-5/6 w-11/12 px-3"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
             />
-            <div className='flex items-center justify-between bg-green-500 rounded-xl text-white ml-auto mb-2 px-4 py-1 cursor-pointer text-sm mr-2' onClick={handleSubmit}>
+            <div className='flex items-center justify-between bg-green-500 rounded-xl text-white ml-auto mb-2 px-4 py-1 cursor-pointer text-sm mt-auto' onClick={handleSubmit}>
                 <BsSend className='mr-1' />
                 <p>send</p>
             </div>
