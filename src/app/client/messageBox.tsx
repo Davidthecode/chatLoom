@@ -28,12 +28,10 @@ export default function MessageBox() {
         const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
             let temPmessages: any[] = [];
             snapshot.forEach((doc) => {
-                temPmessages.push({ ...doc.data(), id: doc.id });
-                console.log(messages);
-                setMessages(temPmessages);
-                setLoading(false);
+                temPmessages.push({ ...doc.data(), id: doc.id });         
             });
-
+            setMessages(temPmessages);
+            setLoading(false);
         });
 
         const timeout = setTimeout(() => {
@@ -79,6 +77,7 @@ export default function MessageBox() {
                             <h1>{message.text}</h1>
                         </div>
                     </div>
+                    
                 )
             })}
         </div>

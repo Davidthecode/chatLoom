@@ -63,7 +63,7 @@ export default function ChatsExtended() {
                     <div className="border-y h-5/6 w-full overflow-y-auto overscroll-contain">
                         <DynamicMessageBox />
                     </div>
-                    <div className="h-1/6 w-full bg-[#FAFAF9] flex items-center justify-center">
+                    <div className="h-1/6 w-full bg-[#F8F8F8] flex items-center justify-center">
                         <DynamicChatbox />
                     </div>
                 </section>

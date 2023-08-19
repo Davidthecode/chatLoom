@@ -1,8 +1,13 @@
 import dynamic from 'next/dynamic'
 import { AiOutlineSearch } from 'react-icons/ai'
-const DymanicUsers = dynamic(()=>import('@/app/client/users'), {
+import Loading from '@/app/components/loading'
+const DymanicUsers = dynamic(() => import('@/app/client/users'), {
     ssr: false,
-    loading: ()=> <h1>Loading...</h1>
+    loading: () => (
+        <div className="flex items-center h-full justify-center">
+            <Loading />
+        </div>
+    )
 })
 
 export default function Chats() {
