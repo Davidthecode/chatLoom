@@ -2,25 +2,42 @@ import dynamic from "next/dynamic";
 import { FiMoreHorizontal } from 'react-icons/fi'
 import { AiOutlinePushpin } from 'react-icons/ai'
 import { IoCallOutline } from 'react-icons/io5'
+import Loading from "@/app/components/loading";
 
 const DynamicChatbox = dynamic(() => import('@/app/client/chatbox'), {
     ssr: false,
-    loading: () => <h1>loading</h1>
+    loading: () => (
+        <div className="flex items-center h-full justify-center">
+            <Loading />
+        </div>
+    )
 });
 
 const DynamicMessageBox = dynamic(() => import('@/app/client/messageBox'), {
     ssr: false,
-    loading: () => <h1>loading...</h1>
+    loading: () => (
+        <div className="flex items-center h-full justify-center">
+            <Loading />
+        </div>
+    )
 })
 
 const DynamicChatNav = dynamic(() => import('@/app/client/chatNav'), {
     ssr: false,
-    loading: () => <h1>Loading...</h1>
+    loading: () => (
+        <div className="flex items-center h-full justify-center">
+            <Loading />
+        </div>
+    )
 })
 
-const DymanicChatSidebar = dynamic(()=> import('@/app/client/chatSidebar'), {
+const DymanicChatSidebar = dynamic(() => import('@/app/client/chatSidebar'), {
     ssr: false,
-    loading: ()=> <h1>Loading...</h1>
+    loading: () => (
+        <div className="flex items-center h-full justify-center">
+            <Loading />
+        </div>
+    )
 })
 
 export default function ChatsExtended() {
@@ -49,7 +66,7 @@ export default function ChatsExtended() {
                     <DynamicChatbox />
                 </section>
             </div>
-                {/* bg-[#F8FAFC]
+            {/* bg-[#F8FAFC]
                 bg-[#F7FAFC]
                 bg-[#F9FAFC]
                 bg-[#F1F5F9]
@@ -61,9 +78,9 @@ export default function ChatsExtended() {
                 bg-[#F7F7F9]
                 bg-[#F8F8F8]
                 bg-[#F2F2F2] */}
-             <div className="w-1/4 border bg-[#F2F2F2]">
+            <div className="w-1/4 border bg-[#F2F2F2]">
                 <DymanicChatSidebar />
-            </div> 
+            </div>
         </div>
     )
 }
