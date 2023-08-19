@@ -1,11 +1,11 @@
-import AuthClient from '../client/authClient'
-import { Dispatch, SetStateAction } from 'react'
-import Image from 'next/image'
-import loom from '../../../public/loom.png'
+import { Dispatch, SetStateAction } from 'react';
+import AuthClient from '../client/authClient';
+import Image from 'next/image';
+import loom from '../../../public/loom.png';
 
 export type authProps = {
-  setIsAuth: Dispatch<SetStateAction<string | boolean | null | undefined>>
-}
+  setIsAuth: Dispatch<SetStateAction<string | boolean | null | undefined>>;
+};
 
 export default function Auth({ setIsAuth }: authProps) {
   return (
@@ -20,5 +20,5 @@ export default function Auth({ setIsAuth }: authProps) {
         <p className='text-xs mt-10 text-center'>By creating an account you agree with our <span className='underline'>Terms of Service,</span> <span className='underline'>Privacy Policy,</span> and our default <span className='underline'>Notification Settings.</span></p>
       </div>
     </div>
-  )
-}
+  );
+};

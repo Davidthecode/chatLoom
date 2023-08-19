@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase-config";
@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 
 export default function ChatNav() {
     const params = useParams();
+    const receiveruserUid = params.name
     const [chatDisplayName, setChatDisplayName] = useState('');
     const collectionRef = collection(db, 'users');
 
@@ -15,7 +16,7 @@ export default function ChatNav() {
         const querySnapshot = await getDocs(collectionRef);
         const collectionData = querySnapshot.docs.map(doc => doc.data());
         collectionData.map((data)=> {
-            if(data.userId == params.name){
+            if(data.userId == receiveruserUid){
                 setChatDisplayName(data.username); 
             };
         });   
@@ -23,7 +24,7 @@ export default function ChatNav() {
     
 
     useEffect(()=> {
-        getChatDisplayName()
+        getChatDisplayName();
     },[]);
 
     
@@ -35,5 +36,5 @@ export default function ChatNav() {
                 <p className="text-sm font-medium">Last seen 5mins ago</p>
             </div>
         </div>
-    )
-}
+    );
+};

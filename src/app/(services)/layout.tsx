@@ -1,7 +1,7 @@
-import Sidebar from "@/app/components/sidebar"
-import Navbar from "@/app/components/navbar"
-import { Suspense } from "react"
-import Loading from './loading'
+import Sidebar from "@/app/components/sidebar";
+import Navbar from "@/app/components/navbar";
+import { Suspense } from "react";
+import Loading from './loading';
 
 export default function ServiceLayout({
   children,
@@ -25,5 +25,5 @@ export default function ServiceLayout({
         </section>
       </section>
     </Suspense>
-  )
-}
+  );
+};

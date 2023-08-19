@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import Image from "next/image";
-import { db } from "../firebase/firebase-config";
-import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { db } from "../firebase/firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import Image from "next/image";
 import Loading from "../components/loading";
 
 type Chatsidebar = {
@@ -70,5 +70,5 @@ export default function ChatSidebar() {
                 </div>
             </section>
         </div>
-    )
+    );
 };

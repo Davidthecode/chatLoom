@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import { FiMoreHorizontal } from 'react-icons/fi'
-import { AiOutlinePushpin } from 'react-icons/ai'
-import { IoCallOutline } from 'react-icons/io5'
+import { FiMoreHorizontal } from 'react-icons/fi';
+import { AiOutlinePushpin } from 'react-icons/ai';
+import { IoCallOutline } from 'react-icons/io5';
 import Loading from "@/app/components/loading";
 
 const DynamicChatbox = dynamic(() => import('@/app/client/chatbox'), {
@@ -20,7 +20,7 @@ const DynamicMessageBox = dynamic(() => import('@/app/client/messageBox'), {
             <Loading />
         </div>
     )
-})
+});
 
 const DynamicChatNav = dynamic(() => import('@/app/client/chatNav'), {
     ssr: false,
@@ -29,7 +29,7 @@ const DynamicChatNav = dynamic(() => import('@/app/client/chatNav'), {
             <Loading />
         </div>
     )
-})
+});
 
 const DymanicChatSidebar = dynamic(() => import('@/app/client/chatSidebar'), {
     ssr: false,
@@ -38,7 +38,7 @@ const DymanicChatSidebar = dynamic(() => import('@/app/client/chatSidebar'), {
             <Loading />
         </div>
     )
-})
+});
 
 export default function ChatsExtended() {
     return (
@@ -72,8 +72,8 @@ export default function ChatsExtended() {
                 <DymanicChatSidebar />
             </div>
         </div>
-    )
-}
+    );
+};
 
 
 

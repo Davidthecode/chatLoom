@@ -1,6 +1,6 @@
-import dynamic from 'next/dynamic'
-import { AiOutlineSearch } from 'react-icons/ai'
-import Loading from '@/app/components/loading'
+import dynamic from 'next/dynamic';
+import { AiOutlineSearch } from 'react-icons/ai';
+import Loading from '@/app/components/loading';
 const DymanicUsers = dynamic(() => import('@/app/client/users'), {
     ssr: false,
     loading: () => (
@@ -8,7 +8,7 @@ const DymanicUsers = dynamic(() => import('@/app/client/users'), {
             <Loading />
         </div>
     )
-})
+});
 
 export default function Chats() {
     return (
@@ -25,5 +25,5 @@ export default function Chats() {
             </div>
 
         </div>
-    )
-}
+    );
+};

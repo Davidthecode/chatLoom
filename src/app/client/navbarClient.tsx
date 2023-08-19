@@ -1,25 +1,26 @@
-'use client'
+'use client';
 
-import { PiUserCircleLight } from 'react-icons/pi'
-import { MdDarkMode } from 'react-icons/md'
-import { IoMdNotificationsOutline } from 'react-icons/io'
-import { useState, useEffect } from 'react'
-import { db, auth } from "../firebase/firebase-config"
-import { collection, getDocs } from "firebase/firestore"
-import NotificationsPopup from "../components/notificationsPopup"
-import Image from 'next/image'
-import loom from '../../../public/loom.png'
-import { StaticImageData } from 'next/image'
+import { useState, useEffect } from 'react';
+import { db, auth } from "../firebase/firebase-config";
+import { collection, getDocs } from "firebase/firestore";
+import { PiUserCircleLight } from 'react-icons/pi';
+import { MdDarkMode } from 'react-icons/md';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import NotificationsPopup from "../components/notificationsPopup";
+import Image from 'next/image';
+import loom from '../../../public/loom.png';
+import { StaticImageData } from 'next/image';
 
 type NavData = {
     photoUrl: string | StaticImageData,
     username: string,
     userId: string
-}
+};
 
 export default function NavbarClient() {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
-    const [userData, setUserData] = useState<NavData | null>(null)
+    const [userData, setUserData] = useState<NavData | null>(null);
+    const currentuserProfile = auth.currentUser;
 
     const handleNotificationClick = () => {
         setIsPopupVisible(true);
@@ -29,8 +30,6 @@ export default function NavbarClient() {
         setIsPopupVisible(false);
     };
 
-    const currentuserProfile = auth.currentUser
-
     useEffect(() => {
         async function fetchNavData(): Promise<NavData[]> {
             try {
@@ -38,23 +37,23 @@ export default function NavbarClient() {
                 const userData = queryNavData.docs.map(doc => doc.data() as NavData);
                 const currentUserData = userData.find(user => user.userId === currentuserProfile?.uid);
                 if (currentUserData) {
-                    setUserData(currentUserData)
+                    setUserData(currentUserData);
                 } else {
                     setUserData({
                         photoUrl: loom,
                         username: 'Guest User',
                         userId: ''
-                    })
-                }
+                    });
+                };
 
-                return userData
+                return userData;
             } catch (error) {
                 console.log(error);
-                return []
-            }
-        }
-        fetchNavData()
-    }, [])
+                return [];
+            };
+        };
+        fetchNavData();
+    }, []);
 
     return (
         <div>
@@ -79,5 +78,5 @@ export default function NavbarClient() {
             </aside>
             {isPopupVisible && <NotificationsPopup onClose={closePopup} />}
         </div>
-    )
-}
+    );
+};

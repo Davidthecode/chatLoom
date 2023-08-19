@@ -1,36 +1,34 @@
-'use client'
+'use client';
 
-import { BsChat } from 'react-icons/bs'
-import { IoMdNotificationsOutline } from 'react-icons/io'
-import { AiOutlineUsergroupDelete } from 'react-icons/ai'
-import { IoSettingsOutline } from 'react-icons/io5'
-import { MdOutlineLogout } from 'react-icons/md'
-import { IoAdd } from 'react-icons/io5'
-import Link from 'next/link'
-import { useState } from 'react'
-import { setCookie, getCookie } from 'cookies-next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react';
+import { BsChat } from 'react-icons/bs';
+import { IoMdNotificationsOutline } from 'react-icons/io';
+import { AiOutlineUsergroupDelete } from 'react-icons/ai';
+import { IoSettingsOutline } from 'react-icons/io5';
+import { MdOutlineLogout } from 'react-icons/md';
+import { IoAdd } from 'react-icons/io5';
+import Link from 'next/link';
+import { setCookie, getCookie } from 'cookies-next';
 
 export default function Sidebar() {
-    const [activeIcon, setActiveIcon] = useState<boolean | string>(false)
+    const [activeIcon, setActiveIcon] = useState<boolean | string>(false);
 
     useEffect(() => {
-        const savedActiveTab = getCookie('sidebarActive')
+        const savedActiveTab = getCookie('sidebarActive');
         if (savedActiveTab) {
-            setActiveIcon(savedActiveTab)
-        } else setActiveIcon('chats')
-    }, [])
+            setActiveIcon(savedActiveTab);
+        } else setActiveIcon('chats');
+    }, []);
 
     const handleTabClick = (tab: string) => {
-        setActiveIcon(tab)
-        setCookie('sidebarActive', tab)
-    }
+        setActiveIcon(tab);
+        setCookie('sidebarActive', tab);
+    };
 
     return (
         <div className="w-14 bg-black text-white">
             <aside className='flex flex-col justify-between h-full'>
                 <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
-
                     <li className="relative group mt-8">
                         <Link href='/chats'>
                             <BsChat size='1.3rem' onClick={() => handleTabClick('chats')} className={`${activeIcon == 'chats' ? 'text-white' : 'opacity-50'}`} />
@@ -82,5 +80,5 @@ export default function Sidebar() {
                 </ul>
             </aside>
         </div>
-    )
-}
+    );
+};

@@ -1,4 +1,4 @@
-import { AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai';
 
 type NotificationsPopupProps = {
     onClose: () => void;
@@ -24,5 +24,5 @@ export default function NotificationsPopup({ onClose }: NotificationsPopupProps)
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};

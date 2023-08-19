@@ -1,6 +1,4 @@
-import Chats from '../../page'
-import { Suspense } from 'react'
-import Loading from '@/app/components/loading'
+import Chats from '../../page';
 export default function ServiceExtendedLayout({
     children,
 }: {
@@ -13,5 +11,5 @@ export default function ServiceExtendedLayout({
                 {children}
             </section>
         </section>
-    )
-}
+    );
+};

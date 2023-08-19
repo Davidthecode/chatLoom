@@ -9,5 +9,5 @@ export default function Loading() {
                 <span className="sr-only">Loading...</span>
             </div>
         </div>
-    )
-}
+    );
+};

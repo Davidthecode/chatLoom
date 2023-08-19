@@ -1,10 +1,10 @@
-'use client'
+'use client';
 
-import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
 import { db, auth } from '../firebase/firebase-config';
 import { BsSend } from 'react-icons/bs';
-import { useParams } from 'next/navigation';
 import toast, {Toaster} from 'react-hot-toast';
 
 type MessageType = {
@@ -13,6 +13,7 @@ type MessageType = {
     user: string | null | undefined,
     senderId: string | undefined,
     receiverId: string | string[],
+    conversationId: string,
     imageUrl: string | null | undefined
 };
 
@@ -20,8 +21,16 @@ export default function Chatbox() {
     const params = useParams();
     const [newMessage, setNewMessage] = useState('');
     const messageRef = collection(db, 'messages');
-
     const userImage = auth.currentUser?.photoURL;
+    const currentuserUid = auth.currentUser?.uid;
+    const receiveruserUid = params.name;    
+
+    const generateConversationId = ({currentuserUid, receiveruserUid}:any)=> {
+        const sortedIds = [currentuserUid, receiveruserUid].sort(); //returns the id's in asending order
+        return `${sortedIds[0]}_${sortedIds[1]}`; //concats the two id's with an underscore
+    };
+
+    const conversationId = generateConversationId({currentuserUid, receiveruserUid});
 
     const MessageDetails: MessageType = {
         text: newMessage,
@@ -29,6 +38,7 @@ export default function Chatbox() {
         user: auth.currentUser?.displayName,
         senderId: auth.currentUser?.uid,
         receiverId: params.name,
+        conversationId,
         imageUrl: userImage
     };
 
@@ -39,8 +49,7 @@ export default function Chatbox() {
         }else {
             await addDoc(messageRef, MessageDetails);
             setNewMessage('');
-        }
-       
+        };   
     };
 
     return (
@@ -57,5 +66,5 @@ export default function Chatbox() {
             </div>
             <Toaster position='top-center' />
         </div>
-    )
-} 
+    );
+}; 

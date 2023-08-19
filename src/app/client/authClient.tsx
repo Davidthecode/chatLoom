@@ -1,23 +1,22 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { auth, provider, db } from '../firebase/firebase-config'
-import { signInWithPopup } from 'firebase/auth'
-import { setCookie } from 'cookies-next'
-import { useContext } from 'react'
-import { AuthContext } from '../state/authContext'
-import { authProps } from '../components/auth'
-import google from '../../../public/google-icon.png'
-import { collection, doc, setDoc } from 'firebase/firestore'
+import Image from 'next/image';
+import { auth, provider, db } from '../firebase/firebase-config';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { signInWithPopup } from 'firebase/auth';
+import { setCookie } from 'cookies-next';
+import { useContext } from 'react';
+import { AuthContext } from '../state/authContext';
+import { authProps } from '../components/auth';
+import google from '../../../public/google-icon.png';
 
 export default function AuthClient({ setIsAuth }: authProps) {
-    const checkContext = useContext(AuthContext)
+    const checkContext = useContext(AuthContext);
     
-
     const handleSignIn = async () => {
         try {
-            const result = await signInWithPopup(auth, provider)
-            setCookie('auth-token', result.user.refreshToken)
+            const result = await signInWithPopup(auth, provider);
+            setCookie('auth-token', result.user.refreshToken);
 
             checkContext?.setAuthData({
                 username: result.user.displayName,
@@ -26,7 +25,7 @@ export default function AuthClient({ setIsAuth }: authProps) {
                 userId: result.user.uid,
                 creationTime: result.user.metadata.creationTime,
                 lastSignInTime: result.user.metadata.lastSignInTime
-            })
+            });
 
             const userDocRef = doc(collection(db, 'users'), result.user.uid);
             await setDoc(userDocRef, {
@@ -37,13 +36,12 @@ export default function AuthClient({ setIsAuth }: authProps) {
                 creationTime: result.user.metadata.creationTime,
                 lastSignInTime: result.user.metadata.lastSignInTime,
             });
-
-            setIsAuth(true)
-
+            setIsAuth(true);
         } catch (error) {
             console.log(error);
-        }
-    }
+        };
+    };
+    
     return (
         <div>
             <button
@@ -54,5 +52,5 @@ export default function AuthClient({ setIsAuth }: authProps) {
                 Sign In with Google
             </button>
         </div>
-    )
-}
+    );
+};
