@@ -68,7 +68,7 @@ export default function ChatsExtended() {
                     </div>
                 </section>
             </div>
-            <div className="w-1/4 border bg-[#F2F2F2]">
+            <div className="w-1/4 border bg-[#F8F9FA]">
                 <DymanicChatSidebar />
             </div>
         </div>

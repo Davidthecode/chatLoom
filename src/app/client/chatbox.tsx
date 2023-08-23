@@ -53,9 +53,10 @@ export default function Chatbox() {
     };
 
     return (
-        <div className='border h-5/6 flex items-center justify-center w-11/12 shadow-md bg-white px-1'>
+        <div className='border h-5/6 flex items-center justify-center w-11/12 shadow-md bg-white px-1 rounded-lg'>
             <input
                 type="text"
+                placeholder='write a message'
                 className=" outline-none h-5/6 w-11/12 px-3"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}

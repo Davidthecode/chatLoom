@@ -62,7 +62,7 @@ export default function NavbarClient() {
                     <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6]">
                         <IoMdNotificationsOutline size='1.4rem' className='' onClick={handleNotificationClick} />
                         {notificationCount > 0 && (
-                            <div className="bg-green-500 text-white rounded-full w-4 h-4 text-xs flex items-center justify-center absolute -top-[5px] -right-[-2.8rem]">
+                            <div className="bg-[#4F46E5] text-white rounded-full w-4 h-4 text-xs flex items-center justify-center absolute -top-[5px] -right-[-2.8rem]">
                                 {notificationCount}
                             </div>
                         )}

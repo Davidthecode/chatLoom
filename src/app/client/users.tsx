@@ -63,7 +63,7 @@ export default function Users() {
                             </div>
                             <div className="ml-auto mr-2">
                                 <p className="text-xs">2m ago</p>
-                                <p className="text-xs rounded-full bg-green-500 w-4 h-4 mt-1 text-white text-center ml-auto">2</p>
+                                <p className="text-xs rounded-full bg-[#4F46E5] w-4 h-4 mt-1 text-white text-center ml-auto">2</p>
                             </div>
                         </div>
                     </Link>

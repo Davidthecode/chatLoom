@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { db } from "../firebase/firebase-config";
-import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, query, where, onSnapshot, orderBy, Timestamp } from "firebase/firestore";
 import { auth } from '@/app/firebase/firebase-config'
 import Image from "next/image";
 import Loading from "../components/loading";
@@ -68,18 +68,28 @@ export default function MessageBox() {
         );
     };
 
+    const formatTimestamp = (timestamp: Timestamp) => {
+        const date = timestamp.toDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+        return `${formattedHours}:${formattedMinutes} ${period}`;
+    };
+
+
     return (
         <div>
             {messages?.map((message) => {
                 const isSentByCurrentUser = message.senderId === currentuserUid;
                 return (
-                    <div key={message.createdAt} className={`max-w-[70%] border w-fit px-2 py-2 mb-4 mt-1 shadow-md ${isSentByCurrentUser ? 'ml-auto mr-2 rounded-xl rounded-tr-none' : 'ml-2 rounded-xl rounded-tl-none'}`}>
-                        <div className="flex items-center justify-start">
-                            <Image src={message.imageUrl} alt="image" width={20} height={20} className="rounded-full mr-1" />
-                            <p className="text-xs">{message.user}</p>
-                        </div>
+                    <div key={message.createdAt} className={`flex justify-between items-center max-w-[70%] border w-fit px-4 py-2 mb-4 mt-1 font-sans shadow-md bg-[#4F46E5] text-white text-md ${isSentByCurrentUser ? 'ml-auto mr-2 rounded-md rounded-tr-none' : 'ml-2 rounded-md rounded-tl-none'}`}>
                         <div className="text-start break-words">
                             <h1>{message.text}</h1>
+                        </div>
+                        <div className="ml-2 mt-auto">
+                            <p className="text-sm">{formatTimestamp(message.createdAt)}</p>
                         </div>
                     </div>
                 );
