@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { db } from "../firebase/firebase-config";
-import { getDocs, collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
+import { collection, query, where, onSnapshot, orderBy } from "firebase/firestore";
 import { auth } from '@/app/firebase/firebase-config'
 import Image from "next/image";
 import Loading from "../components/loading";

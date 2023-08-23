@@ -7,26 +7,15 @@ import { signInWithPopup } from 'firebase/auth';
 import { setCookie } from 'cookies-next';
 import { useContext } from 'react';
 import { AuthContext } from '../state/authContext';
-import { authProps } from '../components/auth';
 import google from '../../../public/google-icon.png';
 
-export default function AuthClient({ setIsAuth }: authProps) {
+export default function AuthClient() {
     const checkContext = useContext(AuthContext);
     
     const handleSignIn = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
-            setCookie('auth-token', result.user.refreshToken);
-
-            checkContext?.setAuthData({
-                username: result.user.displayName,
-                photoUrl: result.user.photoURL,
-                email: result.user.email,
-                userId: result.user.uid,
-                creationTime: result.user.metadata.creationTime,
-                lastSignInTime: result.user.metadata.lastSignInTime
-            });
-
+            setCookie('auth-token', result.user.refreshToken); //set auth-token to cookies to keep track of user auth state
             const userDocRef = doc(collection(db, 'users'), result.user.uid);
             await setDoc(userDocRef, {
                 username: result.user.displayName,
@@ -36,7 +25,7 @@ export default function AuthClient({ setIsAuth }: authProps) {
                 creationTime: result.user.metadata.creationTime,
                 lastSignInTime: result.user.metadata.lastSignInTime,
             });
-            setIsAuth(true);
+            checkContext?.setIsAuth(true);
         } catch (error) {
             console.log(error);
         };

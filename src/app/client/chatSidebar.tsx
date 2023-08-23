@@ -6,6 +6,8 @@ import { db } from "../firebase/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import Loading from "../components/loading";
+import { AiFillGithub } from 'react-icons/ai'
+import Link from "next/link";
 
 type Chatsidebar = {
     photoUrl: string,
@@ -14,33 +16,32 @@ type Chatsidebar = {
 };
 
 export default function ChatSidebar() {
-    const params = useParams();
-    const collectionRef = collection(db, 'users');
+    const { name } = useParams();
     const [data, setData] = useState<Chatsidebar>();
-
-    const getInfo = async (): Promise<Chatsidebar[]> => {
-        try {
-            const res = await getDocs(collectionRef);
-            const collectionData = res.docs.map(doc => doc.data() as Chatsidebar);
-            collectionData.map((data) => {
-                if (data.userId == params.name) {
-                    setData({
-                        photoUrl: data.photoUrl,
-                        username: data.username,
-                        userId: data.userId
-                    });
-                };
-            });
-            return collectionData;
-        } catch (error) {
-            console.log(error);
-            return [];
-        }
-    }
+    const collectionRef = collection(db, 'users');
 
     useEffect(() => {
+        const getInfo = async (): Promise<Chatsidebar[]> => {
+            try {
+                const res = await getDocs(collectionRef);
+                const collectionData = res.docs.map(doc => doc.data() as Chatsidebar);
+                collectionData.map((data) => {
+                    if (data.userId == name) {
+                        setData({
+                            photoUrl: data.photoUrl,
+                            username: data.username,
+                            userId: data.userId
+                        });
+                    };
+                });
+                return collectionData;
+            } catch (error) {
+                console.log(error);
+                return [];
+            }
+        }
         getInfo();
-    }, []);
+    }, [])
 
     if (data == undefined) {
         <div className="flex items-center h-full justify-center">
@@ -62,12 +63,31 @@ export default function ChatSidebar() {
                 <div>
                     <h1 className="text-center font-semibold mt-2">{data?.username}</h1>
                 </div>
-                <div>
-                    <p className="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor odit quas, cumque a voluptatem molestias tenetur earum totam consequatur expedita tempore facere libero repellendus quos rerum id corrupti perspiciatis consequuntur.</p>
+                <div className="border rounded-lg bg-white w-full mt-6 px-2 py-3">
+                    <h2>Senior software engineer</h2>
+                    <p>Full time</p>
                 </div>
-                <div className="mt-4">
-                    <p className="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor odit quas, cumque a voluptatem molestias tenetur earum totam consequatur expedita tempore facere libero repellendus quos rerum id corrupti perspiciatis consequuntur.</p>
+                <div className="mt-4 border rounded-lg bg-white w-full mt-10 px-2 py-3 ">
+                    <p>Status: Active</p>
                 </div>
+                <div className="mt-4 border rounded-lg bg-white w-full mt-10 px-2 py-3">
+                    <h1>Socials</h1>
+                    <ol>
+                        <li>Twitter</li>
+                        <li>Facebook</li>
+                        <li>Instagram</li>
+                        <li>Thread</li>
+                    </ol>
+                </div>
+                <div className="mt-4 border rounded-lg bg-white w-full mt-10 h-1"></div>
+                <div className="mt-20">
+                    <div className="cursor-pointer">
+                        <Link href='https://github.com/Davidthecode/chatLoom' target="_blank">
+                            <AiFillGithub size='1.2rem' />
+                        </Link>
+                    </div>
+                </div>
+
             </section>
         </div>
     );

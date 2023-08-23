@@ -1,29 +1,23 @@
-'use client'
+"use client"
 
-import { createContext, useState, useContext, ReactNode } from 'react'
+import { getCookie } from 'cookies-next';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { createContext, useState, ReactNode } from 'react';
 
-type AuthData = {
-    username: string | null,
-    photoUrl: string | null,
-    email: string | null,
-    userId: string | null,
-    creationTime ?: string | null,
-    lastSignInTime ?: string | null 
-}
-
-
-type AuthContextType = {
-    authData: AuthData | null;
-    setAuthData: (data: AuthData | null) => void;
+type AuthType = {
+    isAuth: boolean,
+    setIsAuth: Dispatch<SetStateAction<boolean>>,
 };
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined)
+export const AuthContext = createContext<AuthType | null>(null);
 
 export const UseAuthContext: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [authData, setAuthData] = useState<null | AuthData>(null)
+    const authCookie = getCookie('auth-token');
+    const [isAuth, setIsAuth] = useState<boolean>(!!authCookie);
+
     return (
-        <AuthContext.Provider value={{ authData, setAuthData }}>
+        <AuthContext.Provider value={{ isAuth, setIsAuth }}>
             {children}
         </AuthContext.Provider>
     )
-}
+};

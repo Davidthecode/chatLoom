@@ -5,6 +5,7 @@ import Image from "next/image";
 import { db } from "../firebase/firebase-config";
 import { collection, getDocs } from 'firebase/firestore';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type UserData = {
     creationTime: string,
@@ -27,7 +28,9 @@ async function fetchCollectionData(): Promise<UserData[]> {
 };
 
 export default function Users() {
+    // const router = useRouter();
     const [users, setUsers] = useState<UserData[]>([]);
+    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -37,12 +40,20 @@ export default function Users() {
         fetchData();
     }, []);
 
+    // const handleLinkClick = (userId: string, e: any) => {
+    //     e.preventDefault()
+    //     setSelectedUserId(userId);
+    //     console.log('clicked');
+    // };
+
+
     return (
         <div>
             {users?.map((user, index) => {
+                // const isSelected = user.userId === selectedUserId;
                 return (
                     <Link href={`/chats/${user.userId}`} key={index}>
-                        <div className="flex mt-2 h-20 hover:bg-white pt-4 pl-2 cursor-pointer font-sans">
+                        <div className={`flex mt-2 h-20  pt-4 pl-2 cursor-pointer font-sans`}>
                             <div className="">
                                 <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
                             </div>
