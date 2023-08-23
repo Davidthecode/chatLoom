@@ -1,7 +1,12 @@
-import Sidebar from "@/app/components/sidebar";
 import Navbar from "@/app/components/navbar";
 import { Suspense } from "react";
 import Loading from './loading';
+import dynamic from "next/dynamic";
+
+const DynamicSidebar = dynamic(()=> import('@/app/client/sidebar'), {
+  ssr: false,
+  loading: ()=> <h1 className="h-full w-14 bg-black animate-pulse">.</h1>
+})
 
 export default function ServiceLayout({
   children,
@@ -12,7 +17,7 @@ export default function ServiceLayout({
     <Suspense fallback={<Loading />}>
       <section className="flex">
         <section className="h-screen flex">
-          <Sidebar />
+          <DynamicSidebar />
         </section>
 
         <section className="flex flex-col w-full h-screen">

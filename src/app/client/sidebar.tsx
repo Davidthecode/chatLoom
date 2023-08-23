@@ -13,11 +13,10 @@ import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase/firebase-config';
-import { AuthContext } from '../state/authContext';
-import { useContext } from 'react';
+import { useAuthContext } from '../state/authContext';
 
 export default function Sidebar() {
-    const checkContext = useContext(AuthContext)
+    const {setIsAuth} = useAuthContext();
     const router = useRouter();
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
 
@@ -36,7 +35,7 @@ export default function Sidebar() {
     const handleLogout = async() => {
         await signOut(auth);
         deleteCookie('auth-token');
-        checkContext?.setIsAuth(false)
+        setIsAuth(false)
         router.push('/')
     }
 

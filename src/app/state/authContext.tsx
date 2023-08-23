@@ -1,7 +1,7 @@
 "use client"
 
 import { getCookie } from 'cookies-next';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
 import { createContext, useState, ReactNode } from 'react';
 
 type AuthType = {
@@ -20,4 +20,12 @@ export const UseAuthContext: React.FC<{ children: ReactNode }> = ({ children }) 
             {children}
         </AuthContext.Provider>
     )
+};
+
+export const useAuthContext = () => {
+    const context = useContext(AuthContext);
+    if (!context) {
+        throw new Error('useAuthContext must be used within an AuthContextProvider');
+    }
+    return context;
 };

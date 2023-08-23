@@ -5,12 +5,11 @@ import { auth, provider, db } from '../firebase/firebase-config';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { setCookie } from 'cookies-next';
-import { useContext } from 'react';
-import { AuthContext } from '../state/authContext';
+import { useAuthContext } from '../state/authContext';
 import google from '../../../public/google-icon.png';
 
 export default function AuthClient() {
-    const checkContext = useContext(AuthContext);
+    const {setIsAuth} = useAuthContext();
     
     const handleSignIn = async () => {
         try {
@@ -25,7 +24,7 @@ export default function AuthClient() {
                 creationTime: result.user.metadata.creationTime,
                 lastSignInTime: result.user.metadata.lastSignInTime,
             });
-            checkContext?.setIsAuth(true);
+            setIsAuth(true);
         } catch (error) {
             console.log(error);
         };
