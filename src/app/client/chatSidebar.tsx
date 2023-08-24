@@ -83,7 +83,8 @@ export default function ChatSidebar() {
                         </ol>
                     </div>
                     <div className="mt-4 border rounded-lg bg-white w-full mt-10 h-1"></div>
-                    <div className="mt-20">
+                    <div className="mt-20 flex items-center">
+                        <p className="mr-2">Star on github</p>
                         <div className="cursor-pointer">
                             <Link href='https://github.com/Davidthecode/chatLoom' target="_blank">
                                 <AiFillGithub size='1.2rem' />
