@@ -12,14 +12,17 @@ import Link from 'next/link';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase/firebase-config';
+import { auth, db } from '../firebase/firebase-config';
 import { useAuthContext } from '../state/authContext';
+import { updateDoc, doc } from 'firebase/firestore';
 
 export default function Sidebar() {
-    const {setIsAuth} = useAuthContext();
+    const { setIsAuth } = useAuthContext();
     const router = useRouter();
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
-
+    const currentUserUid = auth.currentUser?.uid;
+    
+    //Handle active sidebar
     useEffect(() => {
         const savedActiveTab = getCookie('sidebarActive');
         if (savedActiveTab) {
@@ -27,20 +30,48 @@ export default function Sidebar() {
         } else setActiveIcon('chats');
     }, []);
 
+    //Handle sidebar tab click
     const handleTabClick = (tab: string) => {
         setActiveIcon(tab);
         setCookie('sidebarActive', tab);
     };
 
-    const handleLogout = async() => {
+    //Handle logout
+    const handleLogout = async () => {
+        if (currentUserUid) {
+            const userRef = doc(db, 'users', currentUserUid);
+            await updateDoc(userRef, { online: false })
+        } else return
         await signOut(auth);
         deleteCookie('auth-token');
-        setIsAuth(false)
-        router.push('/')
+        setIsAuth(false);
+        router.push('/');
     }
+
+    //Function to update online status
+    function OnlineStatusUpdater() {
+        useEffect(() => {
+            if (!currentUserUid) return;
+            const userRef = doc(db, 'users', currentUserUid);
+            const handleVisibilityChange = async () => {
+                if (document.visibilityState === 'hidden') {
+                    await updateDoc(userRef, { online: false });
+                } else if (document.visibilityState === 'visible') {
+                    await updateDoc(userRef, { online: true })
+                }
+            };
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+            return () => {
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+            };
+        }, [currentUserUid]);
+        return null;
+    }
+
 
     return (
         <div className="w-14 bg-black text-white">
+            <OnlineStatusUpdater />
             <aside className='flex flex-col justify-between h-full'>
                 <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
                     <li className={`${activeIcon == 'chats' ? 'border-l-2 border-white' : ''} relative group mt-8  w-full flex justify-center items-center`}>
@@ -80,7 +111,7 @@ export default function Sidebar() {
 
                 <ul className='flex flex-col items-center justify-center space-y-6 mt-auto mb-20'>
                     <li className="relative group mt-4 w-full flex justify-center items-center">
-                        <IoSettingsOutline size='1.5rem' onClick={() => handleTabClick('Settings')} className='opacity-80'/>
+                        <IoSettingsOutline size='1.5rem' onClick={() => handleTabClick('Settings')} className='opacity-80' />
                         <span className={`tooltip absolute bottom-0 left-[5.7rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Settings
                         </span>
@@ -93,7 +124,7 @@ export default function Sidebar() {
                     </li>
                     <li className="relative group mt-4 w-full flex justify-center items-center">
                         <Link href='https://github.com/Davidthecode/chatLoom' target='_blank'>
-                            <AiFillGithub size='1.5rem' className='opacity-80'/>
+                            <AiFillGithub size='1.5rem' className='opacity-80' />
                             <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                                 Github
                             </span>

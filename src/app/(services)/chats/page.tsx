@@ -23,7 +23,6 @@ export default function Chats() {
             <div>
                 <DymanicUsers />
             </div>
-
         </div>
     );
 };

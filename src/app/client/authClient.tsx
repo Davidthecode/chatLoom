@@ -2,34 +2,37 @@
 
 import Image from 'next/image';
 import { auth, provider, db } from '../firebase/firebase-config';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc} from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { setCookie } from 'cookies-next';
 import { useAuthContext } from '../state/authContext';
 import google from '../../../public/google-icon.png';
 
 export default function AuthClient() {
-    const {setIsAuth} = useAuthContext();
+    const { setIsAuth } = useAuthContext();
+    const usersCollectionRef = collection(db, 'users');
     
     const handleSignIn = async () => {
         try {
             const result = await signInWithPopup(auth, provider);
             setCookie('auth-token', result.user.refreshToken); //set auth-token to cookies to keep track of user auth state
-            const userDocRef = doc(collection(db, 'users'), result.user.uid);
-            await setDoc(userDocRef, {
+            const userDocRef = doc(usersCollectionRef, result.user.uid);
+            const userData = {
                 username: result.user.displayName,
                 photoUrl: result.user.photoURL,
                 email: result.user.email,
                 userId: result.user.uid,
                 creationTime: result.user.metadata.creationTime,
                 lastSignInTime: result.user.metadata.lastSignInTime,
-            });
+                online: true
+            };
+            await setDoc(userDocRef, userData);
             setIsAuth(true);
         } catch (error) {
             console.log(error);
         };
     };
-    
+
     return (
         <div>
             <button
