@@ -21,7 +21,7 @@ export default function Sidebar() {
     const router = useRouter();
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
     const currentUserUid = auth.currentUser?.uid;
-    
+
     //Handle active sidebar
     useEffect(() => {
         const savedActiveTab = getCookie('sidebarActive');
@@ -68,11 +68,11 @@ export default function Sidebar() {
         return null;
     }
 
-
     return (
         <div className="w-14 bg-black text-white">
-            <OnlineStatusUpdater />
-            <aside className='flex flex-col justify-between h-full'>
+            {currentUserUid && <OnlineStatusUpdater />}
+            {currentUserUid ? (
+                <aside className='flex flex-col justify-between h-full'>
                 <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
                     <li className={`${activeIcon == 'chats' ? 'border-l-2 border-white' : ''} relative group mt-8  w-full flex justify-center items-center`}>
                         <Link href='/chats'>
@@ -132,6 +132,9 @@ export default function Sidebar() {
                     </li>
                 </ul>
             </aside>
+            ) : (
+                <div className='h-full'></div>
+            )}
         </div>
     );
 };
