@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
 import { db, auth } from '../firebase/firebase-config';
 import { BsSend } from 'react-icons/bs';
-import toast, {Toaster} from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 type MessageType = {
     text: string,
@@ -23,14 +23,14 @@ export default function Chatbox() {
     const messageRef = collection(db, 'messages');
     const userImage = auth.currentUser?.photoURL;
     const currentuserUid = auth.currentUser?.uid;
-    const receiveruserUid = params.name;    
+    const receiveruserUid = params.name;
 
-    const generateConversationId = ({currentuserUid, receiveruserUid}:any)=> {
+    const generateConversationId = ({ currentuserUid, receiveruserUid }: any) => {
         const sortedIds = [currentuserUid, receiveruserUid].sort(); //returns the id's in asending order
         return `${sortedIds[0]}_${sortedIds[1]}`; //concats the two id's with an underscore
     };
 
-    const conversationId = generateConversationId({currentuserUid, receiveruserUid});
+    const conversationId = generateConversationId({ currentuserUid, receiveruserUid });
 
     const MessageDetails: MessageType = {
         text: newMessage,
@@ -44,28 +44,34 @@ export default function Chatbox() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        if (newMessage === ''){
+        if (newMessage === '') {
             toast.error('please enter a message before sending');
-        }else {
+        } else {
             await addDoc(messageRef, MessageDetails);
             setNewMessage('');
-        };   
+        };
     };
 
     return (
         <div className='border h-5/6 flex items-center justify-center w-11/12 shadow-md bg-white px-1 rounded-lg'>
-            <input
-                type="text"
-                placeholder='write a message'
-                className=" outline-none h-5/6 w-11/12 px-3"
-                value={newMessage}
-                onChange={(e) => setNewMessage(e.target.value)}
-            />
-            <div className='flex items-center justify-between bg-green-500 rounded-xl text-white ml-auto mb-2 px-4 py-1 cursor-pointer text-sm mt-auto' onClick={handleSubmit}>
-                <BsSend className='mr-1' />
-                <p>send</p>
-            </div>
-            <Toaster position='top-center' />
+            {currentuserUid ? (
+                <div>
+                    <input
+                        type="text"
+                        placeholder='write a message'
+                        className=" outline-none h-5/6 w-11/12 px-3"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                    />
+                    <div className='flex items-center justify-between bg-green-500 rounded-xl text-white ml-auto mb-2 px-4 py-1 cursor-pointer text-sm mt-auto' onClick={handleSubmit}>
+                        <BsSend className='mr-1' />
+                        <p>send</p>
+                    </div>
+                    <Toaster position='top-center' />
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 }; 
