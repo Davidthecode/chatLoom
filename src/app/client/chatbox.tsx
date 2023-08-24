@@ -53,9 +53,9 @@ export default function Chatbox() {
     };
 
     return (
-        <div className='border h-5/6 flex items-center justify-center w-11/12 shadow-md bg-white px-1 rounded-lg'>
+        <div className='border h-5/6 flex items-center justify-center w-11/12 bg-white rounded-lg'>
             {currentuserUid ? (
-                <div>
+                <div className='border h-full flex items-center justify-center w-full shadow-md bg-white px-1 rounded-lg'>
                     <input
                         type="text"
                         placeholder='write a message'
