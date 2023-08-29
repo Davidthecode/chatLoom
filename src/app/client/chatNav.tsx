@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import { db } from "../firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import { collection, doc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
 import { useParams } from "next/navigation";
 
@@ -18,6 +18,7 @@ export default function ChatNav() {
         online: null
     })
 
+    const currentUsreUid = auth.currentUser?.uid
     const userRef = doc(db, 'users', receiveruserUid);
 
     useEffect(() => {
@@ -36,7 +37,7 @@ export default function ChatNav() {
                     });
                 }
             })
-            return ()=> {
+            return () => {
                 unsubscribe();
             }
         }
@@ -45,10 +46,14 @@ export default function ChatNav() {
 
     return (
         <div>
-            <div className="mx-2">
-                <h1 className="font-semibold text-lg">{userInfo?.username ? userInfo.username : ''}</h1>
-                {userInfo?.online ? <p><span className="mr-1 inline-block w-2 h-2 bg-green-500 rounded-full"></span>Online</p> : <p><span className="mr-1 inline-block w-2 h-2 bg-red-500 rounded-full"></span>Offline</p>}
-            </div>
+            {currentUsreUid ? (
+                <div className="mx-2">
+                    <h1 className="font-semibold text-lg">{userInfo?.username ? userInfo.username : ''}</h1>
+                    {userInfo?.online ? <p><span className="mr-1 inline-block w-2 h-2 bg-green-500 rounded-full"></span>Online</p> : <p><span className="mr-1 inline-block w-2 h-2 bg-red-500 rounded-full"></span>Offline</p>}
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 };
