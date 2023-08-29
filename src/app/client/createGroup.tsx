@@ -6,6 +6,7 @@ import {toast, Toaster} from 'react-hot-toast'
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 import { useRouter } from 'next/navigation';
+import { v4 as uuidv4 } from 'uuid';
 
 type CreateGroupPopupProps = {
     onClose: () => void;
@@ -34,7 +35,8 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
     const groupInfo = {
         groupName,
         groupDescription,
-        groupType: isPublic ? 'public' : 'private'
+        groupType: isPublic ? 'public' : 'private',
+        groupId: uuidv4()
     };
 
     const handleCreateGroup = async () => {
