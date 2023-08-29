@@ -7,7 +7,7 @@ type NotificationsPopupProps = {
 export default function NotificationsPopup({ onClose }: NotificationsPopupProps) {
     return (
         <div>
-            <div className="fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
+            <div className="fixed top-0 z-20 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
                 <div className="bg-white rounded-lg text-black w-2/5 h-2/5">
                     <section className='flex items-center border-b px-4 py-2 bg-[#313338] text-white'>
                         <div>
