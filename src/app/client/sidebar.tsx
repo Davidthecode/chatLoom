@@ -15,11 +15,13 @@ import { signOut } from 'firebase/auth';
 import { auth, db } from '../firebase/firebase-config';
 import { useAuthContext } from '../state/authContext';
 import { updateDoc, doc } from 'firebase/firestore';
+import CreateGroup from './createGroup';
 
 export default function Sidebar() {
     const { setIsAuth } = useAuthContext();
     const router = useRouter();
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
     const currentUserUid = auth.currentUser?.uid;
 
     //Handle active sidebar
@@ -68,8 +70,18 @@ export default function Sidebar() {
         return null;
     }
 
+    //Function to handle create group
+    const handleCreateGroup = () => {
+        setIsPopupVisible(true)
+    }
+
+    //Function to close popup
+    const closePopup = () => {
+        setIsPopupVisible(false);
+    };
+
     return (
-        <div className="w-14 bg-black text-white">
+        <section className="w-14 bg-black text-white">
             {currentUserUid && <OnlineStatusUpdater />}
             {currentUserUid ? (
                 <aside className='flex flex-col justify-between h-full'>
@@ -101,7 +113,7 @@ export default function Sidebar() {
                 </ul>
 
                 <ul className='flex flex-col items-center justify-center mt-12'>
-                    <li className="relative group mt-4 w-full flex justify-center items-center">
+                    <li className="relative group mt-4 w-full flex justify-center items-center" onClick={handleCreateGroup}>
                         <IoAdd size='1.5rem' onClick={() => setActiveIcon('creategroup')} className='opacity-80' />
                         <span className={`tooltip absolute bottom-0 left-[6.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100`}>
                             Creategroup
@@ -135,6 +147,7 @@ export default function Sidebar() {
             ) : (
                 <div className='h-full'></div>
             )}
-        </div>
+            {isPopupVisible && <CreateGroup onClose={closePopup} />}
+        </section>
     );
 };
