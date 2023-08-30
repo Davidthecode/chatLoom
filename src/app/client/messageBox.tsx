@@ -61,14 +61,16 @@ export default function MessageBox() {
         );
     };
 
-    const formatTimestamp = (timestamp: Timestamp) => {
-        const date = timestamp.toDate();
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const period = hours >= 12 ? 'PM' : 'AM';
-        const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
-        const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-        return `${formattedHours}:${formattedMinutes} ${period}`;
+    const formatTimestamp = (timestamp: Timestamp | null | undefined) => {
+        if (timestamp) {
+            const date = timestamp.toDate();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const period = hours >= 12 ? 'PM' : 'AM';
+            const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            return `${formattedHours}:${formattedMinutes} ${period}`;
+        }
     };
 
 
