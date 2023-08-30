@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai';
-import {toast, Toaster} from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../firebase/firebase-config';
 import { useRouter } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 type CreateGroupPopupProps = {
     onClose: () => void;
@@ -32,20 +32,20 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
 
     const isFormValid = groupName !== '' && groupDescription !== '' && (isPublic || isPrivate);
 
-    const groupInfo = {
-        groupName,
-        groupDescription,
-        groupType: isPublic ? 'public' : 'private',
-        groupId: uuidv4()
-    };
-
     const handleCreateGroup = async () => {
-        if(isFormValid){
+        if (isFormValid) {
+            const groupId = uuidv4();
+            const groupInfo = {
+                groupName,
+                groupDescription,
+                groupType: isPublic ? 'public' : 'private',
+                groupId
+            };
             await addDoc(collectionRef, groupInfo);
             toast.success('Group created successfully');
             onClose();
             router.push('/groups');
-        }else{
+        } else {
             toast.error('fill up all the fields to create a group');
         }
     };
@@ -70,7 +70,15 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
                         </div>
                         <div className='flex flex-col items-center'>
                             <h1 className='mr-2'>Group Description</h1>
-                            <textarea name="" id="" cols={40} rows={4} className='border-2 p-1' value={groupDescription} onChange={(e) => setGroupDescription(e.target.value)}></textarea>
+                            <textarea
+                                name=""
+                                id=""
+                                cols={40}
+                                rows={4}
+                                className='border-2 p-1'
+                                value={groupDescription}
+                                onChange={(e)=> setGroupDescription(e.target.value)}>
+                            </textarea>
                         </div>
                         <div className='flex items-center'>
                             <input

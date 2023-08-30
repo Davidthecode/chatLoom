@@ -1,45 +1,33 @@
 'use client';
 
 import { useState } from 'react';
-import { useParams } from 'next/navigation';
-import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
+import { collection, addDoc, FieldValue, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase/firebase-config';
 import { BsSend } from 'react-icons/bs';
 import toast from 'react-hot-toast';
+import { useParams } from 'next/navigation';
 
 type MessageType = {
     text: string,
     createdAt: FieldValue,
     user: string | null | undefined,
     senderId: string | undefined,
-    receiverId: string | string[],
-    conversationId: string,
-    imageUrl: string | null | undefined
+    groupId: string | null
 };
 
-export default function Chatbox() {
-    const params = useParams();
+export default function GroupChatbox() {
+    const {name} = useParams()
+    
     const [newMessage, setNewMessage] = useState('');
-    const messageRef = collection(db, 'messages');
-    const userImage = auth.currentUser?.photoURL;
+    const groupsRef = collection(db, 'groupMessages');
     const currentuserUid = auth.currentUser?.uid;
-    const receiveruserUid = params.name;
-
-    const generateConversationId = ({ currentuserUid, receiveruserUid }: any) => {
-        const sortedIds = [currentuserUid, receiveruserUid].sort(); //returns the id's in asending order
-        return `${sortedIds[0]}_${sortedIds[1]}`; //concats the two id's with an underscore
-    };
-
-    const conversationId = generateConversationId({ currentuserUid, receiveruserUid });
 
     const MessageDetails: MessageType = {
         text: newMessage,
         createdAt: serverTimestamp(),
         user: auth.currentUser?.displayName,
         senderId: auth.currentUser?.uid,
-        receiverId: params.name,
-        conversationId,
-        imageUrl: userImage
+        groupId: name as string
     };
 
     const handleSubmit = async (e: any) => {
@@ -47,7 +35,7 @@ export default function Chatbox() {
         if (newMessage === '') {
             toast.error('Enter a message before sending');
         } else {
-            await addDoc(messageRef, MessageDetails);
+            await addDoc(groupsRef, MessageDetails);
             setNewMessage('');
         };
     };
@@ -72,5 +60,5 @@ export default function Chatbox() {
                 <div></div>
             )}
         </div>
-    );
-}; 
+    )
+}

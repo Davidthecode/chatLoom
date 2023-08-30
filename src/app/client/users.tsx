@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
-import { db } from "../firebase/firebase-config";
-import { collection, getDocs } from 'firebase/firestore';
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+// import { useUserDataContext } from "../state/userDataContext";
+import { useEffect, useState } from "react";
+import { getDocs, collection } from "firebase/firestore";
+import { db } from "../firebase/firebase-config";
 
 type UserData = {
     creationTime: string,
@@ -16,54 +16,43 @@ type UserData = {
     username: string
 };
 
-async function fetchCollectionData(): Promise<UserData[]> {
-    try {
-        const querySnapshot = await getDocs(collection(db, 'users'));
-        const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-        return collectionData;
-    } catch (error) {
-        console.log(error);
-        return [];
-    };
-};
-
 export default function Users() {
-    // const router = useRouter();
+    // const {users} = useUserDataContext();
     const [users, setUsers] = useState<UserData[]>([]);
-    const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
     useEffect(() => {
-        async function fetchData() {
-            const collectionData = await fetchCollectionData();
-            setUsers(collectionData);
+        async function fetchCollectionData(): Promise<UserData[]> {
+            try {
+                const querySnapshot = await getDocs(collection(db, 'users'));
+                const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
+                setUsers(collectionData);
+                return collectionData;
+            } catch (error) {
+                console.log(error);
+                return [];
+            };
         };
-        fetchData();
+        fetchCollectionData();
     }, []);
-
-    // const handleLinkClick = (userId: string, e: any) => {
-    //     e.preventDefault()
-    //     setSelectedUserId(userId);
-    //     console.log('clicked');
-    // };
-
 
     return (
         <div>
-            {users?.map((user, index) => {
-                // const isSelected = user.userId === selectedUserId;
+            {users?.map((user: UserData, index: number) => {
                 return (
                     <Link href={`/chats/${user.userId}`} key={index}>
-                        <div className={`flex mt-2 h-20  pt-4 pl-2 cursor-pointer font-sans`}>
-                            <div className="">
-                                <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
+                        <div className={`flex mt-2 h-20  pt-4 pl-2 cursor-pointer font-sans items-center`}>
+                            <div className="flex justify-start items-center w-11/12">
+                                <div className="">
+                                    <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
+                                </div>
+                                <div>
+                                    <h1 className="font-semibold">{user.username}</h1>
+                                    <p className="text-sm">Lorem ipsum dolor sit, am</p>
+                                </div>
                             </div>
-                            <div>
-                                <h1 className="font-semibold">{user.username}</h1>
-                                <p className="text-sm">Lorem ipsum dolor sit, am</p>
-                            </div>
-                            <div className="ml-auto mr-2">
-                                <p className="text-xs">2m ago</p>
-                                <p className="text-xs rounded-full bg-[#4F46E5] w-4 h-4 mt-1 text-white text-center ml-auto">2</p>
+                            <div className="ml-auto mr-2 w-1/12">
+                                <p className="text-xs ml-auto">2m</p>
+                                <p className="text-xs rounded-full bg-[#4F46E5] w-4 h-4 mt-1 text-white text-center">2</p>
                             </div>
                         </div>
                     </Link>

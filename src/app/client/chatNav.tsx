@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { auth, db } from "../firebase/firebase-config";
-import { collection, doc, getDoc, getDocs, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { useParams } from "next/navigation";
 
 type chatNav = {
