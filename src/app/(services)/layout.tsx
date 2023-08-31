@@ -2,6 +2,7 @@ import Navbar from "@/app/components/navbar";
 import { Suspense } from "react";
 import Loading from './loading';
 import dynamic from "next/dynamic";
+import {Toaster} from 'react-hot-toast'
 
 const DynamicSidebar = dynamic(()=> import('@/app/client/sidebar'), {
   ssr: false,
@@ -28,6 +29,7 @@ export default function ServiceLayout({
             {children}
           </section>
         </section>
+        <Toaster position='top-center' />
       </section>
     </Suspense>
   );

@@ -1,4 +1,15 @@
-import { AiOutlineSearch } from 'react-icons/ai'
+import { AiOutlineSearch } from 'react-icons/ai';
+import dynamic from 'next/dynamic';
+import Loading from '@/app/components/loading';
+
+const DynamicGroupsClient = dynamic(() => import('@/app/client/groupsClient'), {
+    ssr: false,
+    loading: () => (
+        <div className="flex items-center h-full justify-center">
+            <Loading />
+        </div>
+    )
+})
 
 export default function Groups() {
     return (
@@ -9,6 +20,9 @@ export default function Groups() {
                     <AiOutlineSearch size="1.3rem" />
                 </div>
                 <input type="text" className="w-4/5 outline-none text-black" placeholder='search...' />
+            </div>
+            <div>
+                <DynamicGroupsClient />
             </div>
 
         </div>

@@ -70,11 +70,11 @@ export default function ChatSidebar() {
                         <h2>Senior software engineer</h2>
                         <p>Full time</p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full mt-10 px-2 py-3 ">
+                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 ">
                         <p>Status: Active</p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full mt-10 px-2 py-3">
-                        <h1>Socials</h1>
+                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3">
+                        <h1 className="font-semibold">Socials</h1>
                         <ol>
                             <li>Twitter</li>
                             <li>Facebook</li>
@@ -82,7 +82,7 @@ export default function ChatSidebar() {
                             <li>Thread</li>
                         </ol>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full mt-10 h-1"></div>
+                    <div className="mt-4 border rounded-lg bg-white w-full h-1"></div>
                     <div className="mt-20 flex items-center">
                         <p className="mr-2">Star on github</p>
                         <div className="cursor-pointer">

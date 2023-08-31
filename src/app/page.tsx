@@ -1,29 +1,27 @@
 'use client';
 
 import Auth from "./components/auth";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { getCookie } from "cookies-next";
-import { useContext } from "react";
-import { AuthContext } from "./state/authContext";
+import { useAuthContext } from "./state/authContext";
 
 export default function Home() {
-  const checkContext = useContext(AuthContext)
+  const {isAuth} = useAuthContext();
   const router = useRouter();
   const { push } = router;
 
   useEffect(() => {
     // Redirect to Chatloom if user is already authenticated
-    if (checkContext?.isAuth) {
+    if (isAuth) {
       push("/chats");
     };
-  }, [checkContext?.isAuth]);
+  }, [isAuth]);
 
   return (
     <div>
-      {!checkContext?.isAuth && (
+      {!isAuth && (
         <Auth/>
-      )};
+      )}
     </div>
   );
 };

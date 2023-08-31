@@ -1,12 +1,17 @@
 import dynamic from 'next/dynamic';
 import { AiOutlineSearch } from 'react-icons/ai';
-import Loading from '@/app/components/loading';
+import UserCardSkeleton from '@/app/components/userSkeleton';
+
+const numberOfSkeletons = 3;
+
 const DymanicUsers = dynamic(() => import('@/app/client/users'), {
     ssr: false,
     loading: () => (
-        <div className="flex items-center h-full justify-center">
-            <Loading />
-        </div>
+        <>
+            {Array.from({ length: numberOfSkeletons }, (_: any, index: number) => (
+                <UserCardSkeleton key={index} />
+            ))}
+        </>
     )
 });
 
