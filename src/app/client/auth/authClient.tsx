@@ -1,12 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { auth, provider, db } from '../firebase/firebase-config';
+import { auth, provider, db } from '../../firebase/firebase-config';
 import { collection, doc, setDoc} from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { setCookie } from 'cookies-next';
-import { useAuthContext } from '../state/authContext';
-import google from '../../../public/google-icon.png';
+import { useAuthContext } from '../../state/authContext';
+import google from '../../../../public/google-icon.png';
 
 export default function AuthClient() {
     const { setIsAuth } = useAuthContext();

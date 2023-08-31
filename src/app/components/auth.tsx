@@ -1,4 +1,4 @@
-import AuthClient from '../client/authClient';
+import AuthClient from '../client/auth/authClient';
 import Image from 'next/image';
 import loom from '../../../public/loom.png';
 

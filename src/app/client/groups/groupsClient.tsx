@@ -1,11 +1,11 @@
 'use client';
 
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import { db } from "../firebase/firebase-config";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../../firebase/firebase-config";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import groupImage from '../../../public/no-user.png'
+import groupImage from '../../../../public/no-user.png'
 
 type GroupData = {
     groupName: string,
@@ -15,30 +15,35 @@ type GroupData = {
 };
 
 export default function GroupsClient() {
-    const collectionRef = collection(db, 'groups');
     const [groups, setGroups] = useState<GroupData[]>([]);
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        const unsubscribe = onSnapshot(collectionRef, (snapshot) => {
+        const q = query(
+            collection(db, 'groups'),
+            orderBy('createdAt', 'desc')
+        )
+        const unsubscribe = onSnapshot(q, (snapshot) => {
             let tempGroup: any[] = []
             snapshot.forEach((doc) => {
                 tempGroup.push({ ...doc.data() as GroupData, id: doc.id })
             })
+            console.log(tempGroup);
+            
             setGroups(tempGroup)
             setIsLoading(false)
         })
-        
-        return ()=> {
+
+        return () => {
             unsubscribe()
         }
     }, [])
 
     if (isLoading) {
-        return <div className="text-center">Loading...</div>
+        return <div className="text-center"></div>
     }
 
-    if(groups.length == 0){
+    if (groups.length == 0) {
         <h1>oops..no groups, create a group</h1>
     }
 

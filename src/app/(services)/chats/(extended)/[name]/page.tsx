@@ -4,7 +4,7 @@ import { AiOutlinePushpin } from 'react-icons/ai';
 import { IoCallOutline } from 'react-icons/io5';
 import Loading from "@/app/components/loading";
 
-const DynamicChatbox = dynamic(() => import('@/app/client/chatbox'), {
+const DynamicChatbox = dynamic(() => import('@/app/client/chats/chatbox'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -13,7 +13,7 @@ const DynamicChatbox = dynamic(() => import('@/app/client/chatbox'), {
     )
 });
 
-const DynamicMessageBox = dynamic(() => import('@/app/client/messageBox'), {
+const DynamicMessageBox = dynamic(() => import('@/app/client/chats/messageBox'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -22,7 +22,7 @@ const DynamicMessageBox = dynamic(() => import('@/app/client/messageBox'), {
     )
 });
 
-const DynamicChatNav = dynamic(() => import('@/app/client/chatNav'), {
+const DynamicChatNav = dynamic(() => import('@/app/client/chats/chatNav'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -31,7 +31,7 @@ const DynamicChatNav = dynamic(() => import('@/app/client/chatNav'), {
     )
 });
 
-const DymanicChatSidebar = dynamic(() => import('@/app/client/chatSidebar'), {
+const DymanicChatSidebar = dynamic(() => import('@/app/client/chats/chatSidebar'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -74,18 +74,3 @@ export default function ChatsExtended() {
         </div>
     );
 };
-
-
-
-{/* bg-[#F8FAFC]
-                bg-[#F7FAFC]
-                bg-[#F9FAFC]
-                bg-[#F1F5F9]
-                bg-[#F9FAFB]
-                bg-[#FAFAFA]
-                bg-[#FAFAF9]
-                bg-[#F6F6F8]
-                bg-[#F5F5F4]
-                bg-[#F7F7F9]
-                bg-[#F8F8F8]
-                bg-[#F2F2F2] */}

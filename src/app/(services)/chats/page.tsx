@@ -4,7 +4,7 @@ import UserCardSkeleton from '@/app/components/userSkeleton';
 
 const numberOfSkeletons = 3;
 
-const DymanicUsers = dynamic(() => import('@/app/client/users'), {
+const DymanicUsers = dynamic(() => import('@/app/client/chats/users'), {
     ssr: false,
     loading: () => (
         <>

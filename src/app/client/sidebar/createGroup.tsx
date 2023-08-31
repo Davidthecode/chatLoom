@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai';
 import { toast } from 'react-hot-toast'
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebase/firebase-config';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../firebase/firebase-config';
 import { useRouter } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid'
 
@@ -35,11 +35,14 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
     const handleCreateGroup = async () => {
         if (isFormValid) {
             const groupId = uuidv4();
+            const privateToken = isPrivate ? uuidv4() : null
             const groupInfo = {
                 groupName,
                 groupDescription,
                 groupType: isPublic ? 'public' : 'private',
-                groupId
+                groupId,
+                privateToken,
+                createdAt: serverTimestamp()
             };
             await addDoc(collectionRef, groupInfo);
             toast.success('Group created successfully');

@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { db, auth } from "../firebase/firebase-config";
+import { db, auth } from "../../firebase/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { PiUserCircleLight } from 'react-icons/pi';
 import { MdDarkMode } from 'react-icons/md';
 import { IoMdNotificationsOutline } from 'react-icons/io';
-import NotificationsPopup from "../components/notificationsPopup";
+import NotificationsPopup from "../../components/notificationsPopup";
 import Image from 'next/image';
-import loom from '../../../public/loom.png';
+import loom from '../../../../public/loom.png';
 import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 

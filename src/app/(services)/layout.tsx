@@ -4,7 +4,7 @@ import Loading from './loading';
 import dynamic from "next/dynamic";
 import {Toaster} from 'react-hot-toast'
 
-const DynamicSidebar = dynamic(()=> import('@/app/client/sidebar'), {
+const DynamicSidebar = dynamic(()=> import('@/app/client/sidebar/sidebar'), {
   ssr: false,
   loading: ()=> <h1 className="h-full w-14 bg-black animate-pulse">.</h1>
 })

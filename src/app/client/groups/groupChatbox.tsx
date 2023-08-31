@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { collection, addDoc, FieldValue, serverTimestamp } from 'firebase/firestore';
-import { db, auth } from '../firebase/firebase-config';
+import { db, auth } from '../../firebase/firebase-config';
 import { BsSend } from 'react-icons/bs';
 import toast from 'react-hot-toast';
 import { useParams } from 'next/navigation';

@@ -4,7 +4,7 @@ import { AiOutlinePushpin } from 'react-icons/ai';
 import { IoCallOutline } from 'react-icons/io5';
 import Loading from "@/app/components/loading";
 
-const DynamicGroupChatNav = dynamic(() => import('@/app/client/groupChatNav'), {
+const DynamicGroupChatNav = dynamic(() => import('@/app/client/groups/groupChatNav'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -13,7 +13,7 @@ const DynamicGroupChatNav = dynamic(() => import('@/app/client/groupChatNav'), {
     )
 });
 
-const DynamicGroupChatbox = dynamic(() => import('@/app/client/groupChatbox'), {
+const DynamicGroupChatbox = dynamic(() => import('@/app/client/groups/groupChatbox'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -22,7 +22,7 @@ const DynamicGroupChatbox = dynamic(() => import('@/app/client/groupChatbox'), {
     )
 });
 
-const DynamicGroupMessagebox = dynamic(() => import('@/app/client/groupMessagebox'), {
+const DynamicGroupMessagebox = dynamic(() => import('@/app/client/groups/groupMessagebox'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">
@@ -31,7 +31,7 @@ const DynamicGroupMessagebox = dynamic(() => import('@/app/client/groupMessagebo
     )
 });
 
-const DymanicGroupChatSidebar = dynamic(() => import('@/app/client/groupChatSidebar'), {
+const DymanicGroupChatSidebar = dynamic(() => import('@/app/client/groups/groupChatSidebar'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">

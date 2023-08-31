@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-const DynamicNavbarClient = dynamic(() => import('@/app/client/navbarClient'),
+const DynamicNavbarClient = dynamic(() => import('@/app/client/navbar/navbarClient'),
   {
     ssr: false,
     loading: () => (

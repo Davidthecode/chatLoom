@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-// import { useUserDataContext } from "../state/userDataContext";
 import { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
-import { db } from "../firebase/firebase-config";
+import { auth, db } from "../../firebase/firebase-config";
 
 type UserData = {
     creationTime: string,
@@ -17,7 +16,7 @@ type UserData = {
 };
 
 export default function Users() {
-    // const {users} = useUserDataContext();
+    const currentUserUid = auth.currentUser?.uid
     const [users, setUsers] = useState<UserData[]>([]);
 
     useEffect(() => {
@@ -25,7 +24,8 @@ export default function Users() {
             try {
                 const querySnapshot = await getDocs(collection(db, 'users'));
                 const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-                setUsers(collectionData);
+                const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
+                setUsers(filteredArray);
                 return collectionData;
             } catch (error) {
                 console.log(error);

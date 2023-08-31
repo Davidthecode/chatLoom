@@ -12,8 +12,8 @@ import Link from 'next/link';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
-import { auth, db } from '../firebase/firebase-config';
-import { useAuthContext } from '../state/authContext';
+import { auth, db } from '../../firebase/firebase-config';
+import { useAuthContext } from '../../state/authContext';
 import { updateDoc, doc } from 'firebase/firestore';
 import CreateGroup from './createGroup';
 
@@ -46,6 +46,7 @@ export default function Sidebar() {
         } else return
         await signOut(auth);
         deleteCookie('auth-token');
+        deleteCookie('sidebarActive');
         setIsAuth(false);
         router.push('/');
     }
@@ -104,12 +105,12 @@ export default function Sidebar() {
                         </Link>
                     </li>
 
-                    <li className={`${activeIcon == 'notifications' ? 'border-l-2 border-white' : ''} relative group mt-4 w-full flex justify-center items-center`}>
+                    {/* <li className={`${activeIcon == 'notifications' ? 'border-l-2 border-white' : ''} relative group mt-4 w-full flex justify-center items-center`}>
                         <IoMdNotificationsOutline size='1.5rem' onClick={() => setActiveIcon('notifications')} className={`${activeIcon == 'notifications' ? 'opacity-100' : 'opacity-80'}`} />
                         <span className={`tooltip absolute bottom-0 left-[6.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
                             Notifications
                         </span>
-                    </li>
+                    </li> */}
                 </ul>
 
                 <ul className='flex flex-col items-center justify-center mt-12'>

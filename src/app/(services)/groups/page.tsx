@@ -2,7 +2,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import dynamic from 'next/dynamic';
 import Loading from '@/app/components/loading';
 
-const DynamicGroupsClient = dynamic(() => import('@/app/client/groupsClient'), {
+const DynamicGroupsClient = dynamic(() => import('@/app/client/groups/groupsClient'), {
     ssr: false,
     loading: () => (
         <div className="flex items-center h-full justify-center">

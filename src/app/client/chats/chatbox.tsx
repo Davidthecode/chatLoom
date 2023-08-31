@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import { collection, addDoc, serverTimestamp, FieldValue } from 'firebase/firestore';
-import { db, auth } from '../firebase/firebase-config';
+import { db, auth } from '../../firebase/firebase-config';
 import { BsSend } from 'react-icons/bs';
 import toast from 'react-hot-toast';
 
