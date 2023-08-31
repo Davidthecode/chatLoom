@@ -2,6 +2,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { UseAuthContext } from '../app/state/authContext';
+import { ThemeProvider } from './state/themeState/themeProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,10 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <UseAuthContext>
-          {children}
-        </UseAuthContext>
+      <body className={`${inter.className} dark:bg-[#242633]`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <UseAuthContext>
+            {children}
+          </UseAuthContext>
+        </ThemeProvider>
       </body>
     </html>
   );

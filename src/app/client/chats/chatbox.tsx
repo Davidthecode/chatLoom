@@ -55,11 +55,11 @@ export default function Chatbox() {
     return (
         <div className='border h-5/6 flex items-center justify-center w-11/12 bg-white rounded-lg'>
             {currentuserUid ? (
-                <div className='border h-full flex items-center justify-center w-full shadow-md bg-white px-1 rounded-lg'>
+                <div className='border h-full flex items-center justify-center w-full shadow-md bg-white px-1 rounded-lg dark:bg-[#242633]'>
                     <input
                         type="text"
                         placeholder='write a message'
-                        className=" outline-none h-5/6 w-11/12 px-3"
+                        className=" outline-none h-5/6 w-11/12 px-3 dark:bg-[#242633]"
                         value={newMessage}
                         onChange={(e) => setNewMessage(e.target.value)}
                     />
