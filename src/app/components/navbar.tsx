@@ -24,10 +24,10 @@ const DynamicNavbarClient = dynamic(() => import('@/app/client/navbar/navbarClie
 
 export default function Navbar() {
   return (
-    <div className="w-full h-full dark:bg-[#111827] dark:text-white dark:opacity-95">
+    <div className="w-full h-full dark:bg-[#111827] dark:text-white">
       <div className="flex justify-between items-center px-4 w-full border-b h-full dark:border-[#686C76]">
         <aside>
-          <h1 className="font-semibold text-lg">CHATLOOM</h1>
+          <h1 className="font-semibold text-lg dark:opacity-95">CHATLOOM</h1>
         </aside>
         <DynamicNavbarClient />
       </div>

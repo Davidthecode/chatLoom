@@ -67,7 +67,7 @@ export default function ChatSidebar() {
                         <h1 className="text-center font-semibold mt-2">{data?.username}</h1>
                     </div>
                     <div className="border rounded-lg bg-white w-full mt-6 px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">
-                        <h2 className="font-semibold">Senior software engineer</h2>
+                        <h2 className="font-semibold">Senior software engineer @Amazon</h2>
                         <p>Full time</p>
                     </div>
                     <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">

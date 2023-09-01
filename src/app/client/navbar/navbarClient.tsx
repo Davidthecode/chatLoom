@@ -93,7 +93,7 @@ export default function NavbarClient() {
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-2 hover:bg-[#E3E3E6] dark:bg-[#374151]">
                             {userData?.photoUrl ? <Image src={userData?.photoUrl} alt='image' width={24} height={24} className='rounded-full' /> : <PiUserCircleLight size='1.4rem' className='' />}
                         </div>
-                        <h1 className="font-semibold text-sm">{userData?.username}</h1>
+                        <h1 className="font-semibold text-sm dark:opacity-95">{userData?.username}</h1>
                     </div>
                 </div>
             ) : (

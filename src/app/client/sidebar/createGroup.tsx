@@ -56,8 +56,8 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
     return (
         <div>
             <div className="fixed z-50 top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="bg-white rounded-lg text-black w-2/5 h-fit relative">
-                    <section className='flex items-center border-b px-4 py-2 bg-[#313338] text-white'>
+                <div className="bg-white rounded-lg text-black w-2/5 h-fit relative dark:bg-[#121928] dark:text-white dark:opacity-95">
+                    <section className='flex items-center border-b px-4 py-2 bg-[#313338] text-white dark:bg-[#121928]'>
                         <div>
                             CREATE GROUP
                         </div>
@@ -69,7 +69,11 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
                     <div className='flex flex-col items-center space-y-4 pt-4 pb-6'>
                         <div className='flex flex-col items-center'>
                             <h1 className='mr-2'>Group Name</h1>
-                            <input type="text" className='border-2 h-8 px-2' value={groupName} onChange={(e) => setGroupName(e.target.value)} />
+                            <input type="text"
+                                className='border-2 h-8 px-2 dark:bg-[#242633] dark:outline-none'
+                                value={groupName}
+                                onChange={(e) => setGroupName(e.target.value)}
+                            />
                         </div>
                         <div className='flex flex-col items-center'>
                             <h1 className='mr-2'>Group Description</h1>
@@ -78,9 +82,9 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
                                 id=""
                                 cols={40}
                                 rows={4}
-                                className='border-2 p-1'
+                                className='border-2 p-1 dark:bg-[#242633] dark:outline-none'
                                 value={groupDescription}
-                                onChange={(e)=> setGroupDescription(e.target.value)}>
+                                onChange={(e) => setGroupDescription(e.target.value)}>
                             </textarea>
                         </div>
                         <div className='flex items-center'>
