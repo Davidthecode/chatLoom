@@ -26,10 +26,8 @@ export default function GroupsClient() {
         const unsubscribe = onSnapshot(q, (snapshot) => {
             let tempGroup: any[] = []
             snapshot.forEach((doc) => {
-                tempGroup.push({ ...doc.data() as GroupData, id: doc.id })
-            })
-            console.log(tempGroup);
-            
+                tempGroup.push({ ...doc.data() as GroupData, id: doc.id });
+            });
             setGroups(tempGroup)
             setIsLoading(false)
         })

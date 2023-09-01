@@ -15,6 +15,11 @@ const DymanicUsers = dynamic(() => import('@/app/client/chats/users'), {
     )
 });
 
+const DynamicChatSearchBar = dynamic(()=> import('@/app/client/chats/searchBar'),{
+    ssr:false,
+    loading: ()=> <div className='w-full h-6 opacity-50'>search...</div>
+})
+
 export default function Chats() {
     return (
         <div className="flex flex-col w-1/5 h-full border-r pl bg-[#F8F9FA] text-black dark:bg-[#111827] dark:text-white dark:border-[#686C76] dark:border-none dark:opacity-90">
@@ -23,7 +28,7 @@ export default function Chats() {
                 <div className="text-black mr-2 dark:text-white">
                     <AiOutlineSearch size="1.3rem" />
                 </div>
-                <input type="text" className="w-4/5 outline-none text-black dark:text-white dark:bg-[#374151]" placeholder='search...' />
+                <DynamicChatSearchBar />
             </div>
             <div>
                 <DymanicUsers />
