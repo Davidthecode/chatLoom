@@ -1,10 +1,15 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { UseAuthContext } from '../app/state/authContext';
 import { ThemeProvider } from './state/themeState/themeProvider';
+import { Mulish } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] });
+const mulish = Mulish({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mulish',
+})
+
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} dark:bg-[#242633]`}>
+      <body className={`${mulish.variable} dark:bg-[#1D1D1D]`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UseAuthContext>
             {children}

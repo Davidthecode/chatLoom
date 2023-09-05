@@ -6,32 +6,31 @@ import { useEffect, useState } from 'react';
 import Link from "next/link";
 import { AiOutlineClose } from 'react-icons/ai';
 
-export default function ChatSearchBar() {
+export default function GroupSearchBar() {
     const currentUserUid = auth.currentUser?.uid;
-    const collectionRef = collection(db, 'users');
-    const [users, setUsers] = useState<any>([]);
+    const collectionRef = collection(db, 'groups');
+    const [groups, setGroups] = useState<any>([]);
     const [wordEntered, setWordEntered] = useState('');
     const [filteredData, setFilteredData] = useState<any[]>([]);
 
     useEffect(() => {
         const q = query(
-            collectionRef,
-            where('userId', '!=', currentUserUid)
+            collectionRef
         );
 
-        const getUsers = async () => {
+        const getGroups = async () => {
             const querySnapshot = await getDocs(q)
             const userDocs = querySnapshot.docs.map((doc) => doc.data())
-            setUsers(userDocs.map((user) => ({ username: user.username, id: user.userId })))
+            setGroups(userDocs.map((group) => ({ groupName: group.groupName, id: group.groupId })))
         }
-        getUsers()
+        getGroups()
     }, []);
 
     const handleFilter = (e: any) => {
         const enteredWord = e.target.value
         setWordEntered(enteredWord)
-        const newFilter = users.filter((user: any) => (
-            user.username.toLowerCase().includes(enteredWord.toLowerCase())
+        const newFilter = groups.filter((group: any) => (
+            group.groupName.toLowerCase().includes(enteredWord.toLowerCase())
         ))
 
         if (enteredWord === '') {
@@ -63,16 +62,16 @@ export default function ChatSearchBar() {
                 }
             </div>
             {filteredData.length > 0 &&
-                <div className="mt-[6.5rem] bg-blue-500 rounded-sm absolute w-full px-1">
-                    {filteredData.map((user) => {
+                <div className="mt-[6.5rem] bg-blue-500 h-fit rounded-sm absolute w-full px-2">
+                    {filteredData.slice(0, 15).map((group) => {
                         return (
-                            <Link href={`/chats/${user.id}`}>
-                                <p className="cursor-pointer mt-1 hover:bg-blue-600 text-white px-1">{user.username}</p>
+                            <Link href={`/chats/${group.groupId}`}>
+                                <p className="cursor-pointer mt-1 hover:bg-blue-600 text-white px-1">{group.groupName}</p>
                             </Link>
                         )
                     })}
                 </div>
-            }
+            }   
         </div>
     );
 };

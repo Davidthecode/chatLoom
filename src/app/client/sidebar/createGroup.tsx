@@ -70,7 +70,7 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
                         <div className='flex flex-col items-center'>
                             <h1 className='mr-2'>Group Name</h1>
                             <input type="text"
-                                className='border-2 h-8 px-2 dark:bg-[#242633] dark:outline-none'
+                                className='border-2 h-8 px-2 dark:bg-[#29292B] dark:outline-none'
                                 value={groupName}
                                 onChange={(e) => setGroupName(e.target.value)}
                             />
@@ -82,7 +82,7 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
                                 id=""
                                 cols={40}
                                 rows={4}
-                                className='border-2 p-1 dark:bg-[#242633] dark:outline-none'
+                                className='border-2 p-1 dark:bg-[#29292B] dark:outline-none'
                                 value={groupDescription}
                                 onChange={(e) => setGroupDescription(e.target.value)}>
                             </textarea>

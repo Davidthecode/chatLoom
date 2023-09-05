@@ -56,8 +56,8 @@ export default function GroupsClient() {
                                     <Image src={groupImage} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
                                 </div>
                                 <div>
-                                    <h1 className="font-semibold">{group.groupName}</h1>
-                                    <p className="text-sm">Lorem ipsum dolor sit, am</p>
+                                    <h1 className="">{group.groupName}</h1>
+                                    <p className="text-sm opacity-80">Lorem ipsum dolor sit, am</p>
                                 </div>
                             </div>
                             <div className="ml-auto mr-2 w-1/12">

@@ -82,15 +82,15 @@ export default function Sidebar() {
     };
 
     return (
-        <section className="w-14 bg-black text-white">
+        <section className="w-14 bg-[#1D1D1D] dark:bg-[#1D1D1D] dark:border-r dark:border-[#686C76] dark:border-opacity-30 text-white">
             {currentUserUid && <OnlineStatusUpdater />}
             {currentUserUid ? (
-                <aside className='flex flex-col justify-between h-full dark:bg-black dark:border-r dark:border-[#686C76] dark:border-none'>
+                <aside className='flex flex-col justify-between h-full'>
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
                         <li className={`${activeIcon == 'chats' ? 'border-l-2 border-white' : ''} relative group mt-8  w-full flex justify-center items-center`}>
                             <Link href='/chats'>
                                 <BsChat size='1.3rem' onClick={() => handleTabClick('chats')} className={`${activeIcon == 'chats' ? 'opacity-100' : 'opacity-80'}`} />
-                                <span className={`tooltip absolute bottom-0 left-[5.1rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100`}>
+                                <span className={`tooltip absolute bottom-0 left-[5.1rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                     chats
                                 </span>
                             </Link>
@@ -99,7 +99,7 @@ export default function Sidebar() {
                         <li className={`${activeIcon == 'Groups' ? 'border-l-2 border-white' : ''} relative group mt-4 w-full flex justify-center items-center `}>
                             <Link href='/groups'>
                                 <AiOutlineUsergroupDelete size='1.5rem' onClick={() => handleTabClick('Groups')} className={`${activeIcon == 'Groups' ? 'opacity-100' : 'opacity-80'}`} />
-                                <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
+                                <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                     Groups
                                 </span>
                             </Link>
@@ -116,7 +116,7 @@ export default function Sidebar() {
                     <ul className='flex flex-col items-center justify-center mt-12'>
                         <li className="relative group mt-4 w-full flex justify-center items-center" onClick={handleCreateGroup}>
                             <IoAdd size='1.5rem' onClick={() => setActiveIcon('creategroup')} className='opacity-80' />
-                            <span className={`tooltip absolute bottom-0 left-[6.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100`}>
+                            <span className={`tooltip absolute bottom-0 left-[6.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                 Creategroup
                             </span>
                         </li>
@@ -125,20 +125,20 @@ export default function Sidebar() {
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-auto mb-20'>
                         <li className="relative group mt-4 w-full flex justify-center items-center">
                             <IoSettingsOutline size='1.5rem' onClick={() => handleTabClick('Settings')} className='opacity-80' />
-                            <span className={`tooltip absolute bottom-0 left-[5.7rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
+                            <span className={`tooltip absolute bottom-0 left-[5.7rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                 Settings
                             </span>
                         </li>
                         <li className="relative group mt-4 w-full flex justify-center items-center">
                             <MdOutlineLogout size='1.5rem' onClick={handleLogout} className='opacity-80' />
-                            <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
+                            <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                 Logout
                             </span>
                         </li>
                         <li className="relative group mt-4 w-full flex justify-center items-center">
                             <Link href='https://github.com/Davidthecode/chatLoom' target='_blank'>
                                 <AiFillGithub size='1.5rem' className='opacity-80' />
-                                <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 `}>
+                                <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                     Github
                                 </span>
                             </Link>

@@ -54,7 +54,7 @@ export default function ChatSidebar() {
     return (
         <div>
             {currentUserUid ? (
-                <section className="flex flex-col justify-center items-center mt-6 px-4">
+                <section className="flex flex-col justify-center items-center mt-6 px-4 text-sm font-mulish">
                     <div className="">
                         {data ?
                             <Image src={data.photoUrl} alt="imahge" width={70} height={70} className="rounded-full" /> :
@@ -66,14 +66,14 @@ export default function ChatSidebar() {
                     <div>
                         <h1 className="text-center font-semibold mt-2">{data?.username}</h1>
                     </div>
-                    <div className="border rounded-lg bg-white w-full mt-6 px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">
-                        <h2 className="font-semibold">Senior software engineer @Amazon</h2>
+                    <div className="border rounded-lg bg-white w-full mt-6 px-2 py-3 dark:bg-[#292929] dark:border-[#686C76] dark:border-opacity-50">
+                        <h2 className="">Senior software engineer @Amazon</h2>
                         <p>Full time</p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">
+                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#292929] dark:border-[#686C76] dark:border-opacity-50 ">
                         <p>Status: Active</p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">
+                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#292929] dark:border-[#686C76] dark:border-opacity-50">
                         <h1 className="font-semibold">Socials</h1>
                         <ol>
                             <li>Twitter</li>
@@ -82,8 +82,8 @@ export default function ChatSidebar() {
                             <li>Thread</li>
                         </ol>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-[#686C76] w-full h-1 dark:bg-[#686C76]"></div>
-                    <div className="mt-20 flex items-center">
+                    <div className="mt-8 border rounded-lg bg-[#686C76] w-full h-[.1px] dark:border-[#686C76] dark:border-opacity-10"></div>
+                    <div className="mt-12 flex items-center">
                         <p className="mr-2">Star on github</p>
                         <div className="cursor-pointer">
                             <Link href='https://github.com/Davidthecode/chatLoom' target="_blank">

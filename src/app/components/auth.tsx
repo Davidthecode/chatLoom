@@ -4,7 +4,7 @@ import loom from '../../../public/loom.png';
 
 export default function Auth() {
   return (
-    <div className='flex'>
+    <div className='flex dark:text-white'>
       <div>
         <Image src={loom} alt='image' className='w-2/3 h-screen' />
       </div>

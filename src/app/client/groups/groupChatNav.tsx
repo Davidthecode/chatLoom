@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { auth, db } from "../../firebase/firebase-config";
-import { collection, doc, getDoc, getDocs, onSnapshot, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { useParams } from "next/navigation";
 
 type GroupNav = {
@@ -42,10 +42,10 @@ export default function GroupChatNav() {
         <div>
             {currentUserUid ? (
                 <div className="mx-2">
-                    <h1 className="font-semibold text-lg">
+                    <h1 className="font-semibold text-md">
                         Group Name: {groupInfo.groupName}
                     </h1>
-                    <p>Group Type: {groupInfo.groupType}</p>
+                    <p className="text-sm">Group Type: {groupInfo.groupType}</p>
                 </div>
             ) : (
                 <div></div>

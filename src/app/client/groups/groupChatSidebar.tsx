@@ -57,7 +57,7 @@ export default function GroupChatSidebar() {
     return (
         <div>
             {currentUserUid ? (
-                <section className="flex flex-col justify-center items-center mt-6 px-4">
+                <section className="flex flex-col justify-center items-center mt-6 px-4 font-mulish text-sm">
                     <div className="">
                         {data ?
                             <Image src={groupImage} alt="imahge" width={70} height={70} className="rounded-full" /> :
@@ -69,14 +69,14 @@ export default function GroupChatSidebar() {
                     <div>
                         <h1 className="text-center font-semibold mt-2">{data?.groupName}</h1>
                     </div>
-                    <div className="border rounded-lg bg-white w-full mt-6 px-2 py-3 h-48 overflow-y-scroll dark:bg-[#111827] dark:border-[#686C76]">
+                    <div className="border rounded-lg bg-white w-full mt-6 px-2 py-3 h-48 overflow-y-scroll dark:bg-[#29292A] dark:border-[#686C76]">
                         <h2 className="font-semibold">Group Description:</h2>
                         <p>{data ? data?.groupDescription : <div className="flex items-center h-full justify-center"><Loading /></div>}</p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">
+                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76]">
                         <p className="font-semibold">Group type: <span className="font-normal">{data?.groupType}</span> </p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#111827] dark:border-[#686C76]">
+                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76]">
                         <h1 className="font-semibold">Socials</h1>
                         <ol>
                             <li>Twitter</li>
