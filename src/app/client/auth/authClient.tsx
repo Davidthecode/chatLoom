@@ -34,13 +34,13 @@ export default function AuthClient() {
     };
 
     return (
-        <div>
+        <div className='flex justify-center'>
             <button
-                className="border px-8 py-2 rounded-lg bg-black text-white transform transition-all duration-300 flex w-full justify-center items-center mt-8 h-14 text-sm font-semibold"
+                className="border px-8 py-2 rounded-lg bg-black text-white transform transition-all duration-300 flex w-2/3 justify-center items-center mt-8 h-14 text-sm font-semibold"
                 onClick={handleSignIn}
             >
                 <Image src={google} alt='image' className='w-5 h-5 mr-2' />
-                Sign In with Google
+                <p className='text-xs'>Sign In with Google</p>
             </button>
         </div>
     );
