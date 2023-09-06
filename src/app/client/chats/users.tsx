@@ -46,7 +46,7 @@ export default function Users() {
                                     <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
                                 </div>
                                 <div>
-                                    <h1 className="">{user.username}</h1>
+                                    <h1 className="font-semibold">{user.username}</h1>
                                     <p className="text-sm opacity-80">Lorem ipsum dolor sit, am</p>
                                 </div>
                             </div>

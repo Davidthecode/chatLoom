@@ -50,13 +50,13 @@ export default function GroupsClient() {
             {groups.map((group, index) => {
                 return (
                     <Link href={`/groups/${group.groupId}`} key={index}>
-                        <div className={`flex mt-2 h-20 pt-4 cursor-pointer font-sans items-center`}>
+                        <div className={`flex mt-2 h-20 pt-4 cursor-pointer font-mulish items-center`}>
                             <div className="flex items-center justify-start w-11/12">
                                 <div className="">
                                     <Image src={groupImage} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
                                 </div>
                                 <div>
-                                    <h1 className="">{group.groupName}</h1>
+                                    <h1 className="font-semibold">{group.groupName}</h1>
                                     <p className="text-sm opacity-80">Lorem ipsum dolor sit, am</p>
                                 </div>
                             </div>

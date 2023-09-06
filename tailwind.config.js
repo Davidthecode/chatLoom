@@ -19,7 +19,15 @@ module.exports = {
         xxs: {
           min: "0px",
           max: "639px"
-        }
+        },
+        blg: { //blg- break large
+          min: "700px",
+          max: "1129px"
+        },
+        alg:{ //alg- after large
+          min: "1130px",
+          max: "1287px"
+        },
       }
     },
   },
