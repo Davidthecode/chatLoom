@@ -47,7 +47,7 @@ export default function ChatSearchBar() {
     }
 
     return (
-        <div className=" h-full flex flex-col items-center w-full justify-center rounded-r-md relative">
+        <div className=" h-full flex flex-col items-start w-full justify-center rounded-r-md relative">
             <div className="flex items-center">
                 <input
                     type="text"

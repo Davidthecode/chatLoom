@@ -40,7 +40,7 @@ export default function Users() {
             {users?.map((user: UserData, index: number) => {
                 return (
                     <Link href={`/chats/${user.userId}`} key={index}>
-                        <div className={`flex mt-2 h-20 pt-4 pl-2 cursor-pointer font-mulish items-center`}>
+                        <div className={`flex mt-2 h-20 pt-4 pl-3 cursor-pointer font-mulish items-center`}>
                             <div className="flex justify-start items-center w-11/12">
                                 <div className="">
                                     <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />

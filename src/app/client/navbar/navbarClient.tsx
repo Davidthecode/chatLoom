@@ -72,7 +72,7 @@ export default function NavbarClient() {
     return (
         <div>
             {currentUserUid ? (
-                <div className="flex items-center">
+                <div className="flex items-center xxs:hidden sm:hidden md:flex">
                     <div className="flex items-center">
                         <div className="bg-[#F7F7F8] z-10 w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] relative dark:bg-[#374151]">
                             <IoMdNotificationsOutline size='1.4rem' className='' onClick={handleNotificationClick} />

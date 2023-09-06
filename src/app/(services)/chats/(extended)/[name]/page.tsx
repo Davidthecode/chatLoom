@@ -43,7 +43,7 @@ const DymanicChatSidebar = dynamic(() => import('@/app/client/chats/chatSidebar'
 export default function ChatsExtended() {
     return (
         <div className="h-full flex font-mulish dark:bg-[#1D1D1D] dark:opacity-90">
-            <div className="xl:w-3/4 alg:w-[68%] blg:w-[70%]">
+            <div className="xl:w-3/4 alg:w-[68%] blg:w-[100%] amd:w-[100%] test:w-[100%] check:w-[65%] last:w-[100%]">
                 <section className="h-[10%] flex justify-between items-center dark:bg-[#1D1D1D]">
                     <DynamicChatNav />
                     <div className="flex items-center">
@@ -69,7 +69,7 @@ export default function ChatsExtended() {
                 </section>
             </div>
 
-            <div className="xl:w-1/4 alg:w-[32%] blg:w-[30%] border-l bg-[#F8F9FA] dark:bg-[#1D1D1D] dark:border-l-[#686C76] dark:border-opacity-30">
+            <div className="xl:w-1/4 alg:w-[32%] amd:hidden blg:hidden check:block check:w-[35%] test:hidden last:hidden border-l bg-[#F8F9FA] dark:bg-[#1D1D1D] dark:border-l-[#686C76] dark:border-opacity-30">
                 <DymanicChatSidebar />
             </div>
         </div>

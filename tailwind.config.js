@@ -20,12 +20,28 @@ module.exports = {
           min: "0px",
           max: "639px"
         },
+        last:{
+          min: "0px",
+          max: "669px"
+        },
+        check:{
+          min: "669px",
+          max: "789px"
+        },
+        test:{
+          min: "789px",
+          max: "879px"
+        },
+        amd:{
+          min: "879px",
+          max: "999px"
+        },
         blg: { //blg- break large
-          min: "700px",
+          min: "999px",
           max: "1129px"
         },
         alg:{ //alg- after large
-          min: "1130px",
+          min: "1129px",
           max: "1287px"
         },
       }

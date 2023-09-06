@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { AiOutlineBars } from 'react-icons/ai'
 const DynamicNavbarClient = dynamic(() => import('@/app/client/navbar/navbarClient'),
   {
     ssr: false,
@@ -25,10 +26,13 @@ const DynamicNavbarClient = dynamic(() => import('@/app/client/navbar/navbarClie
 export default function Navbar() {
   return (
     <div className="w-full h-full dark:bg-[#1D1D1D] dark:text-white font-mulish">
-      <div className="flex justify-between items-center px-4 w-full border-b  h-full dark:border-opacity-30 dark:border-[#686C76]">
+      <div className="flex justify-between items-center px-3 w-full border-b h-full dark:border-opacity-30 dark:border-[#686C76]">
         <aside>
           <h1 className="text-lg dark:opacity-95">CHATLOOM</h1>
         </aside>
+        <div className="md:hidden ml-auto">
+          <AiOutlineBars  size='1.2rem'/>
+        </div>
         <DynamicNavbarClient />
       </div>
     </div>
