@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import { UseAuthContext } from '../app/state/authContext';
 import { ThemeProvider } from './state/themeState/themeProvider';
 import { Mulish } from 'next/font/google'
-import { UsePathnameContext } from '@/app/state/pathname/pathname'
 
 const mulish = Mulish({
   subsets: ['latin'],
@@ -27,9 +26,7 @@ export default function RootLayout({
       <body className={`${mulish.variable} dark:bg-[#1D1D1D]`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UseAuthContext>
-            <UsePathnameContext>
-              {children}
-            </UsePathnameContext>
+            {children}
           </UseAuthContext>
         </ThemeProvider>
       </body>

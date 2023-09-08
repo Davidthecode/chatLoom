@@ -6,7 +6,7 @@ import {Toaster} from 'react-hot-toast'
 
 const DynamicSidebar = dynamic(()=> import('@/app/client/sidebar/sidebar'), {
   ssr: false,
-  loading: ()=> <h1 className="h-full w-14 bg-black animate-pulse">.</h1>
+  loading: ()=> <h1 className="h-full w-14 bg-black animate-pulse"></h1>
 })
 
 export default function ServiceLayout({

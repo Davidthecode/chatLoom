@@ -10,7 +10,7 @@ import { IoAdd } from 'react-icons/io5';
 import { AiFillGithub } from 'react-icons/ai';
 import Link from 'next/link';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase-config';
 import { useAuthContext } from '../../state/authContext';
