@@ -26,9 +26,9 @@ export default function Chats() {
     const pathname = headersList.get("x-invoke-path") || "";
 
     return (
-        <div className={`flex flex-col xl:w-1/5 alg:w-[25%] blg:w-[30%] amd:w-[35%] test:w-[35%] ${pathname !== '/chats'&& 'check:hidden last:hidden'} h-full border-r pl bg-[#F8F9FA] text-black dark:bg-[#1D1D1D] dark:text-white dark:border-r-[#686C76] dark:border-opacity-30 font-mulish`}>
+        <div className={`flex flex-col xl:w-1/5 largeDesktop:w-[25%] mediumDesktop:w-[30%] wideTablet:w-[35%] narrowDesktop:w-[35%] ${pathname !== '/chats'&& 'smallTablet:hidden mobile:hidden'} h-full border-r pl bg-[#F8F9FA] text-black dark:bg-[#1D1D1D] dark:text-white dark:border-r-[#686C76] dark:border-opacity-20 font-mulish`}>
             <h1 className='my-2 ml-3'>All Chats</h1>
-            <div className='flex border rounded-lg w-11/12 h-10 items-center pl-2 ml-3 bg-white dark:bg-[#374151]'>
+            <div className='flex border-none rounded-lg w-11/12 h-10 items-center pl-2 ml-3 bg-white dark:bg-[#282829]'>
                 <div className="text-black mr-2 dark:text-white">
                     <AiOutlineSearch size="1.3rem" />
                 </div>

@@ -57,7 +57,7 @@ export default function GroupsClient() {
                                 </div>
                                 <div>
                                     <h1 className="font-semibold">{group.groupName}</h1>
-                                    <p className="text-sm opacity-80">Lorem ipsum dolor sit, am</p>
+                                    <p className="text-sm opacity-80 dark:text-[#CEC9A9]">Lorem ipsum dolor sit, am</p>
                                 </div>
                             </div>
                             <div className="ml-auto mr-2 w-1/12">

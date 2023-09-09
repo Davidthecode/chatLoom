@@ -13,7 +13,9 @@ import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { MdOutlineLightMode } from 'react-icons/md'
-import {MdOutlineDarkMode} from 'react-icons/md'
+import {MdOutlineDarkMode} from 'react-icons/md';
+import {useMobileNavContext} from '@/app/state/navbar/mobileNavProvider';
+import {AiOutlineClose} from 'react-icons/ai'
 
 type NavData = {
     photoUrl: string | StaticImageData,
@@ -23,6 +25,7 @@ type NavData = {
 
 export default function NavbarClient() {
     const router = useRouter();
+    const {isMobile, setIsMobile} = useMobileNavContext()
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [userData, setUserData] = useState<NavData | null>(null);
     const [notificationCount, setNotificationCount] = useState(5);
@@ -69,13 +72,20 @@ export default function NavbarClient() {
         setTheme(theme == "dark" ? "light" : "dark");
     }
 
+    const closeMobile = () => {
+        setIsMobile(false)
+    }
+
     return (
         <div>
             {currentUserUid ? (
-                <div className="flex items-center xxs:hidden sm:hidden md:flex">
+                <div className={`flex ${isMobile ? 'fixed inset-0 justify-center items-center z-50 bg-[#F8F9FA] dark:bg-[#1D1D1D]' : 'flex items-center xxs:hidden sm:hidden md:flex'}`}>
+                    <div className='absolute top-4 right-0 md:hidden'>
+                        <AiOutlineClose size='1.5rem' className='cursor-pointer mr-4' onClick={closeMobile}/>
+                    </div>
                     <div className="flex items-center">
                         <div className="bg-[#F7F7F8] z-10 w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] relative dark:bg-[#374151]">
-                            <IoMdNotificationsOutline size='1.4rem' className='' onClick={handleNotificationClick} />
+                            <IoMdNotificationsOutline size='1.4rem' className='cursor-pointer' onClick={handleNotificationClick}/>
                             {notificationCount > 0 && (
                                 <div className="bg-[#4F46E5] text-white rounded-full w-4 h-4 text-xs flex items-center justify-center absolute -top-[5px] -right-[.5rem]">
                                     {notificationCount}
@@ -83,7 +93,7 @@ export default function NavbarClient() {
                             )}
                         </div>
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-1 hover:bg-[#E3E3E6] dark:bg-[#374151]">
-                            {theme == 'light' ? <MdOutlineDarkMode size='1.4rem' onClick={handleThemeSwitch} /> : <MdOutlineLightMode size='1.4rem' onClick={handleThemeSwitch} />}
+                            {theme == 'light' ? <MdOutlineDarkMode size='1.4rem' onClick={handleThemeSwitch} className='cursor-pointer' /> : <MdOutlineLightMode size='1.4rem' onClick={handleThemeSwitch} className='cursor-pointer' />}
                         </div>
                     </div>
                     <div className="flex items-center">

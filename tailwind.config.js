@@ -20,27 +20,27 @@ module.exports = {
           min: "0px",
           max: "639px"
         },
-        last:{
+        mobile:{ //last
           min: "0px",
           max: "669px"
         },
-        check:{
+        smallTablet:{ //check
           min: "669px",
           max: "789px"
         },
-        test:{
+        narrowDesktop:{ //test
           min: "789px",
           max: "879px"
         },
-        amd:{
+        wideTablet:{ //amd
           min: "879px",
           max: "999px"
         },
-        blg: { //blg- break large
+        mediumDesktop: { //blg
           min: "999px",
           max: "1129px"
         },
-        alg:{ //alg- after large
+        largeDesktop:{ //alg
           min: "1129px",
           max: "1287px"
         },

@@ -1,7 +1,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { UseAuthContext } from '../app/state/authContext';
+import { UseAuthContext } from './state/auth/authContext';
 import { ThemeProvider } from './state/themeState/themeProvider';
+import { UseSidebarContext } from './state/sidebar/toggleSidebar';
+import { UseMobileNavContext } from './state/navbar/mobileNavProvider'
 import { Mulish } from 'next/font/google'
 
 const mulish = Mulish({
@@ -26,7 +28,11 @@ export default function RootLayout({
       <body className={`${mulish.variable} dark:bg-[#1D1D1D]`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UseAuthContext>
-            {children}
+            <UseSidebarContext>
+              <UseMobileNavContext>
+                {children}
+              </UseMobileNavContext>
+            </UseSidebarContext>
           </UseAuthContext>
         </ThemeProvider>
       </body>

@@ -49,7 +49,7 @@ export default function GroupSearchBar() {
             <div className="flex items-center">
                 <input
                     type="text"
-                    className="w-full outline-none text-black dark:text-white dark:bg-[#374151]"
+                    className="w-full outline-none text-black dark:text-white dark:bg-[#282829]"
                     placeholder='search...'
                     value={wordEntered}
                     onChange={handleFilter}

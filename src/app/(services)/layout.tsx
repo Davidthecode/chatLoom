@@ -17,7 +17,7 @@ export default function ServiceLayout({
   return (
     <Suspense fallback={<Loading />}>
       <section className="flex">
-        <section className="h-screen flex test:hidden check:hidden last:hidden">
+        <section className="h-screen flex">
           <DynamicSidebar />
         </section>
 

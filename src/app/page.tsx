@@ -3,7 +3,7 @@
 import Auth from "./components/auth";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthContext } from "./state/authContext";
+import { useAuthContext } from "./state/auth/authContext";
 
 export default function Home() {
   const {isAuth} = useAuthContext();

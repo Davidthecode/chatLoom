@@ -5,7 +5,7 @@ import { auth, provider, db } from '../../firebase/firebase-config';
 import { collection, doc, setDoc} from 'firebase/firestore';
 import { signInWithPopup } from 'firebase/auth';
 import { setCookie } from 'cookies-next';
-import { useAuthContext } from '../../state/authContext';
+import { useAuthContext } from '../../state/auth/authContext';
 import google from '../../../../public/google-icon.png';
 
 export default function AuthClient() {
