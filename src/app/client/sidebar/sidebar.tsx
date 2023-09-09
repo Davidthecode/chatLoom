@@ -96,7 +96,7 @@ export default function Sidebar() {
             {currentUserUid ? (
                 <aside className='flex flex-col justify-between h-full'>
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
-                        {isOpen && <li className={`relative group mt-4 w-full flex justify-center items-center`}>
+                        {isOpen && <li className={`relative group mt-0 w-full flex justify-center items-center`}>
                             <PiSidebarSimple size='1.4rem' onClick={handleSidebarToggle} className='group-hover:text-white text-slate-300 opacity-80 cursor-pointer'/>
                         </li>}
 
