@@ -56,7 +56,7 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
     return (
         <div>
             <div className="fixed z-50 top-0 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="bg-white rounded-lg text-black w-2/5 h-fit relative dark:bg-[#121928] dark:text-white dark:opacity-95">
+                <div className="bg-white rounded-lg text-black largeDesktop:w-[50%] mediumDesktop:w-[65%] wideTablet:w-[65%] narrowDesktop:w-[65%] smallTablet:w-[75%] mobile:w-[100%] mobile:h-[100%] w-2/5 h-fit relative dark:bg-[#121928] dark:text-white dark:opacity-95">
                     <section className='flex items-center border-b px-4 py-2 bg-[#313338] text-white dark:bg-[#121928]'>
                         <div>
                             CREATE GROUP
@@ -66,7 +66,7 @@ export default function CreateGroup({ onClose }: CreateGroupPopupProps) {
                         </div>
                     </section>
 
-                    <div className='flex flex-col items-center space-y-4 pt-4 pb-6'>
+                    <div className='flex flex-col items-center space-y-4 pt-4 pb-6 mobile:pt-[30%]'>
                         <div className='flex flex-col items-center'>
                             <h1 className='mr-2'>Group Name</h1>
                             <input type="text"
