@@ -45,7 +45,7 @@ export default function GroupsExtended({ params }: any) {
 
     return (
         <div className="h-full flex font-mulish dark:bg-[#1D1D1D] dark:opacity-90">
-            <div className="w-3/4">
+            <div className="xl:w-3/4 largeDesktop:w-[68%] mediumDesktop:w-[100%] wideTablet:w-[100%] narrowDesktop:w-[100%] smallTablet:w-[65%] mobile:w-[100%]">
                 <section className="h-[10%] flex justify-between items-center dark:bg-[#1D1D1D]">
                     <DynamicGroupChatNav />
                     <div className="flex items-center">
@@ -70,7 +70,7 @@ export default function GroupsExtended({ params }: any) {
                     </div>
                 </section>
             </div>
-            <div className="w-1/4 border-l bg-[#F8F9FA] dark:bg-[#1D1D1D] dark:border-l-[#686C76] dark:border-opacity-30">
+            <div className="xl:w-1/4 largeDesktop:w-[32%] wideTablet:hidden mediumDesktop:hidden smallTablet:block smallTablet:w-[35%] narrowDesktop:hidden mobile:hidden border-l bg-[#F8F9FA] dark:bg-[#1D1D1D] dark:border-l-[#686C76] dark:border-opacity-30">
                 <DymanicGroupChatSidebar />
             </div>
         </div>
