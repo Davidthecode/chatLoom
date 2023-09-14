@@ -2,23 +2,21 @@
 
 import { useEffect, useState } from 'react';
 import { BsChat } from 'react-icons/bs';
-import { IoMdNotificationsOutline } from 'react-icons/io';
 import { AiOutlineUsergroupDelete } from 'react-icons/ai';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { MdOutlineLogout } from 'react-icons/md';
-import { IoAdd } from 'react-icons/io5';
 import { AiFillGithub } from 'react-icons/ai';
 import Link from 'next/link';
 import { setCookie, getCookie, deleteCookie } from 'cookies-next';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { signOut } from 'firebase/auth';
 import { auth, db } from '../../firebase/firebase-config';
 import { useAuthContext } from '../../state/auth/authContext';
 import { updateDoc, doc } from 'firebase/firestore';
 import CreateGroup from './createGroup';
 import { useSidebarContext } from '@/app/state/sidebar/toggleSidebar'
-import { PiSidebarSimple } from 'react-icons/pi'
 import {AiOutlineUsergroupAdd} from 'react-icons/ai'
+import {GoSidebarExpand} from 'react-icons/go'
 
 export default function Sidebar() {
     const { setIsAuth } = useAuthContext();
@@ -57,6 +55,7 @@ export default function Sidebar() {
 
     //Function to update online status
     function OnlineStatusUpdater() {
+       if(currentUserUid){
         useEffect(() => {
             if (!currentUserUid) return;
             const userRef = doc(db, 'users', currentUserUid);
@@ -72,6 +71,7 @@ export default function Sidebar() {
                 document.removeEventListener('visibilitychange', handleVisibilityChange);
             };
         }, [currentUserUid]);
+       }
         return null;
     }
 
@@ -97,7 +97,7 @@ export default function Sidebar() {
                 <aside className='flex flex-col justify-between h-full'>
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
                         {isOpen && <li className={`relative group mt-0 w-full flex justify-center items-center`}>
-                            <PiSidebarSimple size='1.4rem' onClick={handleSidebarToggle} className='group-hover:text-white text-slate-300 opacity-80 cursor-pointer'/>
+                            <GoSidebarExpand size='1.3rem' onClick={handleSidebarToggle} className='group-hover:text-white text-slate-300 opacity-80 cursor-pointer'/>
                         </li>}
 
                         <li className={`${activeIcon == 'chats' ? 'border-l-2 border-white' : ''} relative group mt-8  w-full flex justify-center items-center`}>

@@ -46,7 +46,7 @@ export default function GroupSearchBar() {
 
     return (
         <div className=" h-full flex flex-col items-start w-full justify-center rounded-r-md relative">
-            <div className="flex items-center">
+            <div className="flex items-center w-full">
                 <input
                     type="text"
                     className="w-full outline-none text-black dark:text-white dark:bg-[#282829]"
@@ -56,12 +56,12 @@ export default function GroupSearchBar() {
                 />
                 {wordEntered !== "" &&
                     <div>
-                        <AiOutlineClose className='cursor-pointer mr-1' onClick={clearInput} />
+                        <AiOutlineClose className='cursor-pointer mx-1' onClick={clearInput} />
                     </div>
                 }
             </div>
             {filteredData.length > 0 &&
-                <div className="mt-[6.5rem] bg-blue-500 h-fit rounded-sm absolute w-full px-2">
+                <div className="mt-[7rem] bg-blue-500 h-fit rounded-sm absolute w-full px-2 py-2 z-30">
                     {filteredData.slice(0, 15).map((group) => {
                         return (
                             <Link href={`/chats/${group.groupId}`}>

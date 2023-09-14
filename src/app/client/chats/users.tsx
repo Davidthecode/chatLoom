@@ -19,21 +19,23 @@ export default function Users() {
     const currentUserUid = auth.currentUser?.uid
     const [users, setUsers] = useState<UserData[]>([]);
 
-    useEffect(() => {
-        async function fetchCollectionData(): Promise<UserData[]> {
-            try {
-                const querySnapshot = await getDocs(collection(db, 'users'));
-                const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-                const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
-                setUsers(filteredArray);
-                return collectionData;
-            } catch (error) {
-                console.log(error);
-                return [];
+    if(currentUserUid){
+        useEffect(() => {
+            async function fetchCollectionData(): Promise<UserData[]> {
+                try {
+                    const querySnapshot = await getDocs(collection(db, 'users'));
+                    const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
+                    const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
+                    setUsers(filteredArray);
+                    return collectionData;
+                } catch (error) {
+                    // console.log(error);
+                    return [];
+                };
             };
-        };
-        fetchCollectionData();
-    }, []);
+            fetchCollectionData();
+        }, []);
+    }
 
     return (
         <div>

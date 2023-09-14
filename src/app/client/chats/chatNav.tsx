@@ -21,28 +21,30 @@ export default function ChatNav() {
     const currentUsreUid = auth.currentUser?.uid
     const userRef = doc(db, 'users', receiveruserUid);
 
-    useEffect(() => {
-        async function getOnlineStatus() {
-            const unsubscribe = onSnapshot(userRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    setUserInfo({
-                        username: data.username,
-                        online: data.online
-                    });
-                } else {
-                    setUserInfo({
-                        username: 'no user',
-                        online: null
-                    });
+    if(currentUsreUid){
+        useEffect(() => {
+            async function getOnlineStatus() {
+                const unsubscribe = onSnapshot(userRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        setUserInfo({
+                            username: data.username,
+                            online: data.online
+                        });
+                    } else {
+                        setUserInfo({
+                            username: 'no user',
+                            online: null
+                        });
+                    }
+                })
+                return () => {
+                    unsubscribe();
                 }
-            })
-            return () => {
-                unsubscribe();
             }
-        }
-        getOnlineStatus();
-    }, [])
+            getOnlineStatus();
+        }, [])
+    }
 
     return (
         <div>

@@ -23,26 +23,28 @@ export default function MessageBox() {
 
     const conversationId = getConversationId({ currentuserUid, receiveruserUid });
 
-    useEffect(() => {
-        const queryMessage = query(
-            messageRef,
-            where('conversationId', '==', conversationId),
-            orderBy('createdAt')
-        );
-
-        const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
-            let temPmessages: any[] = [];
-            snapshot.forEach((doc) => {
-                temPmessages.push({ ...doc.data(), id: doc.id });
+    if(currentuserUid){
+        useEffect(() => {
+            const queryMessage = query(
+                messageRef,
+                where('conversationId', '==', conversationId),
+                orderBy('createdAt')
+            );
+    
+            const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
+                let temPmessages: any[] = [];
+                snapshot.forEach((doc) => {
+                    temPmessages.push({ ...doc.data(), id: doc.id });
+                });
+                setMessages(temPmessages);
+                setLoading(false);
             });
-            setMessages(temPmessages);
-            setLoading(false);
-        });
-
-        return () => {
-            unsubscribe();
-        };
-    }, []);
+    
+            return () => {
+                unsubscribe();
+            };
+        }, []);
+    }
 
     if (loading) {
         return (

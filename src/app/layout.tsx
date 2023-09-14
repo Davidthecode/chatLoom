@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { UseAuthContext } from './state/auth/authContext';
 import { ThemeProvider } from './state/themeState/themeProvider';
 import { UseSidebarContext } from './state/sidebar/toggleSidebar';
-import { UseMobileNavContext } from './state/navbar/mobileNavProvider'
+import { UseMobileNavContext } from './state/navbar/mobileNavProvider';
+import { UseProfileContext } from '@/app/state/chats/profileProvider'
 import { Mulish } from 'next/font/google'
 
 const mulish = Mulish({
@@ -30,7 +31,9 @@ export default function RootLayout({
           <UseAuthContext>
             <UseSidebarContext>
               <UseMobileNavContext>
-                {children}
+                <UseProfileContext>
+                  {children}
+                </UseProfileContext>
               </UseMobileNavContext>
             </UseSidebarContext>
           </UseAuthContext>

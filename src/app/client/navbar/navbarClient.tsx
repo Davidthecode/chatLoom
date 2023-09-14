@@ -40,6 +40,7 @@ export default function NavbarClient() {
         setIsPopupVisible(false);
     };
 
+   if(currentUserUid){
     useEffect(() => {
         async function fetchNavData(): Promise<NavData[]> {
             try {
@@ -57,12 +58,13 @@ export default function NavbarClient() {
                 };
                 return userData;
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 return [];
             };
         };
         fetchNavData();
     }, []);
+   }
 
     const handleSignIn = () => {
         router.push('/')

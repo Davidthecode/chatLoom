@@ -40,6 +40,10 @@ const DymanicChatSidebar = dynamic(() => import('@/app/client/chats/chatSidebar'
     )
 });
 
+const DynamicShowUserprofile = dynamic(() => import('@/app/client/chats/showUserprofile'), {
+    ssr: false
+})
+
 export default function ChatsExtended() {
     return (
         <div className="h-full flex font-mulish dark:bg-[#1D1D1D] dark:opacity-90">
@@ -51,10 +55,10 @@ export default function ChatsExtended() {
                             <AiOutlinePushpin size='1.1rem' />
                         </div>
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151]">
-                            <IoCallOutline size='1.1rem' />
-                        </div>
-                        <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151]">
                             <FiMoreHorizontal size='1.1rem' />
+                        </div>
+                        <div className="hidden mediumDesktop:block wideTablet:block narrowDesktop:block mobile:block">
+                            <DynamicShowUserprofile />
                         </div>
                     </div>
                 </section>

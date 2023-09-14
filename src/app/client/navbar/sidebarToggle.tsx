@@ -1,7 +1,7 @@
 'use client';
 
-import {PiSidebarSimple} from 'react-icons/pi';
-import {useSidebarContext} from '@/app/state/sidebar/toggleSidebar'
+import {useSidebarContext} from '@/app/state/sidebar/toggleSidebar';
+import {GoSidebarCollapse} from 'react-icons/go';
 
 export default function SideBarToggle () {
     const {isOpen, setIsOpen} = useSidebarContext();
@@ -12,7 +12,7 @@ export default function SideBarToggle () {
 
     return (
         <div>
-            <PiSidebarSimple size='1.2rem' className='cursor-pointer' onClick={handleSidebarToggle}/>
+            <GoSidebarCollapse size='1.2rem' className='cursor-pointer' onClick={handleSidebarToggle}/>
         </div>
     )
 };
