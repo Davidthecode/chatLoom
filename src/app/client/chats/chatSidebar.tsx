@@ -5,12 +5,11 @@ import { useParams } from "next/navigation";
 import { db } from "../../firebase/firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
-import Loading from "../../components/loading";
 import { AiFillGithub } from 'react-icons/ai'
 import Link from "next/link";
 import { auth } from "../../firebase/firebase-config";
 import { useProfileContext } from '@/app/state/chats/profileProvider'
-import {ChatsidebarSkeleton} from '@/app/components/skeleton'
+import { SidebarTopdivSkeleton } from '@/app/components/skeleton'
 
 type Chatsidebar = {
     photoUrl: string,
@@ -50,23 +49,15 @@ export default function ChatSidebar() {
         }, [])
     }
 
-    // if (data == undefined) {
-    //     <div className="flex items-center h-full justify-center">
-    //         <Loading />
-    //     </div>
-    // };
-
     return (
         <div>
             {currentUserUid ? (
                 <div>
-                    {data ? <section className={`flex flex-col justify-center items-center mt-6 px-4 text-sm font-mulish`}>
+                    <section className={`flex flex-col justify-center items-center mt-6 px-4 text-sm font-mulish`}>
                         <div className="">
                             {data ?
                                 <Image src={data.photoUrl} alt="imahge" width={70} height={70} className="rounded-full" /> :
-                                <div className="flex items-center h-full justify-center">
-                                    <Loading />
-                                </div>
+                                <SidebarTopdivSkeleton />
                             }
                         </div>
                         <div>
@@ -98,7 +89,7 @@ export default function ChatSidebar() {
                             </div>
                         </div>
 
-                    </section> : <ChatsidebarSkeleton />}
+                    </section>
                 </div>
             ) : (
                 <div></div>

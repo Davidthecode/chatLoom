@@ -4,6 +4,7 @@ import { AiOutlinePushpin } from 'react-icons/ai';
 import Loading from "@/app/components/loading";
 import {ChatsidebarSkeleton} from '@/app/components/skeleton'
 import {ChatboxSkeleton} from '@/app/components/skeleton'
+import {ChatNavSkeleton} from '@/app/components/skeleton'
 
 const DynamicChatbox = dynamic(() => import('@/app/client/chats/chatbox'), {
     ssr: false,
@@ -24,9 +25,7 @@ const DynamicMessageBox = dynamic(() => import('@/app/client/chats/messageBox'),
 const DynamicChatNav = dynamic(() => import('@/app/client/chats/chatNav'), {
     ssr: false,
     loading: () => (
-        <div className="flex items-center h-full justify-center">
-            <Loading />
-        </div>
+        <ChatNavSkeleton />
     )
 });
 
