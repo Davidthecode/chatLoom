@@ -1,18 +1,14 @@
 import dynamic from 'next/dynamic';
 import { AiOutlineSearch } from 'react-icons/ai';
-import UserCardSkeleton from '@/app/components/userSkeleton';
 import { headers } from "next/headers";
+import { UsersSkeleton } from '@/app/components/skeleton';
 
 const numberOfSkeletons = 2;
 
 const DymanicUsers = dynamic(() => import('@/app/client/chats/users'), {
     ssr: false,
     loading: () => (
-        <>
-            {Array.from({ length: numberOfSkeletons }, (_: any, index: number) => (
-                <UserCardSkeleton key={index} />
-            ))}
-        </>
+        <UsersSkeleton />
     )
 });
 

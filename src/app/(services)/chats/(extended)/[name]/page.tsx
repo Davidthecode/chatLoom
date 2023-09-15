@@ -1,15 +1,14 @@
 import dynamic from "next/dynamic";
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { AiOutlinePushpin } from 'react-icons/ai';
-import { IoCallOutline } from 'react-icons/io5';
 import Loading from "@/app/components/loading";
+import {ChatsidebarSkeleton} from '@/app/components/skeleton'
+import {ChatboxSkeleton} from '@/app/components/skeleton'
 
 const DynamicChatbox = dynamic(() => import('@/app/client/chats/chatbox'), {
     ssr: false,
     loading: () => (
-        <div className="flex items-center h-full justify-center">
-            <Loading />
-        </div>
+        <ChatboxSkeleton />
     )
 });
 
@@ -34,9 +33,7 @@ const DynamicChatNav = dynamic(() => import('@/app/client/chats/chatNav'), {
 const DymanicChatSidebar = dynamic(() => import('@/app/client/chats/chatSidebar'), {
     ssr: false,
     loading: () => (
-        <div className="flex items-center h-full justify-center">
-            <Loading />
-        </div>
+       <ChatsidebarSkeleton />
     )
 });
 
