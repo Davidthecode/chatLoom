@@ -73,7 +73,7 @@ export default function GroupMessagebox() {
             {messages?.map((message) => {
                 const isSentByCurrentUser = message.senderId === currentuserUid;
                 return (
-                    <div key={message.createdAt} className={`flex flex-col justify-between items-center max-w-[70%] border w-fit px-4 py-2 mb-4 mt-1 font-sans shadow-md bg-[#4F46E5] text-white text-md ${isSentByCurrentUser ? 'ml-auto mr-2 rounded-md rounded-tr-none' : 'ml-2 rounded-md rounded-tl-none'}`}>
+                    <div key={message.createdAt} className={`flex flex-col justify-between items-center max-w-[70%] border w-fit px-4 py-2 mb-4 mt-1 font-sans shadow-md  text-white text-md ${isSentByCurrentUser ? 'ml-auto bg-gray-500 mr-2 rounded-md rounded-tr-none' : 'ml-2 rounded-md rounded-tl-none bg-gray-600'}`}>
                         <div className=" w-full">
                             <p className="text-xs text-start">{message.user}</p>
                         </div>

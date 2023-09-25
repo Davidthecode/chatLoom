@@ -60,7 +60,7 @@ export default function ChatsExtended() {
                 </section>
 
                 <section className=" text-center h-[90%] flex flex-col justify-center items-center">
-                    <div className="border-y h-5/6 w-full overflow-y-auto overscroll-contain dark:border-y-[#686C76] dark:border-opacity-30 ">
+                    <div className="border-y h-5/6 w-full overflow-y-auto overscroll-contain dark:border-y-[#686C76] dark:border-opacity-30">
                         <DynamicMessageBox />
                     </div>
                     <div className="h-1/6 w-full bg-[#F8F8F8] flex items-center justify-center dark:bg-[#1D1D1D]">

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { db } from "../../firebase/firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
 import Image from "next/image";
 import { AiFillGithub } from 'react-icons/ai'
 import Link from "next/link";
@@ -14,15 +14,19 @@ import { SidebarTopdivSkeleton } from '@/app/components/skeleton'
 type Chatsidebar = {
     photoUrl: string,
     username: string,
-    userId: string
+    userId: string,
+    online: boolean
 };
 
 export default function ChatSidebar() {
     const { isProfile } = useProfileContext()
     const currentUserUid = auth.currentUser?.uid
-    const { name } = useParams();
+    const params = useParams();
+    const receiverUserId = params.name as string
     const [data, setData] = useState<Chatsidebar>();
+    const [online, setOnline] = useState(false)
     const collectionRef = collection(db, 'users');
+    const userRef = doc(db, "users", receiverUserId)
 
     if (currentUserUid) {
         useEffect(() => {
@@ -31,11 +35,12 @@ export default function ChatSidebar() {
                     const res = await getDocs(collectionRef);
                     const collectionData = res.docs.map(doc => doc.data() as Chatsidebar);
                     collectionData.map((data) => {
-                        if (data.userId == name) {
+                        if (data.userId == receiverUserId) {
                             setData({
                                 photoUrl: data.photoUrl,
                                 username: data.username,
-                                userId: data.userId
+                                userId: data.userId,
+                                online: data.online
                             });
                         };
                     });
@@ -45,7 +50,22 @@ export default function ChatSidebar() {
                     return [];
                 }
             }
+
+            async function getOnlineStatus() {
+                const unsubscribe = onSnapshot(userRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        setOnline(data.online)
+                    } else return
+                })
+                return () => {
+                    unsubscribe()
+                }
+            }
+
             getInfo();
+            getOnlineStatus()
+
         }, [])
     }
 
@@ -67,27 +87,30 @@ export default function ChatSidebar() {
                             <h2 className="">Senior software engineer @Amazon</h2>
                             <p>Full time</p>
                         </div>
-                        <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#292929] dark:border-[#686C76] dark:border-opacity-50 ">
-                            <p>Status: Active</p>
+                        <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#292929] dark:border-[#686C76] dark:border-opacity-50 flex">
+                            <p className="font-bold mr-1">Status:</p>  <span> {online ? "Online" : "Offline"}</span>
                         </div>
                         <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#292929] dark:border-[#686C76] dark:border-opacity-50">
-                            <h1 className="font-semibold">Socials</h1>
+                            <h1 className="font-bold">Socials</h1>
                             <ol>
                                 <li>Twitter</li>
                                 <li>Facebook</li>
                                 <li>Instagram</li>
-                                <li>Thread</li>
+                                <li>LinkedIn</li>
                             </ol>
                         </div>
                         <div className="mt-8 border rounded-lg bg-[#686C76] w-full h-[.1px] dark:border-[#686C76] dark:border-opacity-10"></div>
-                        <div className="mt-12 flex items-center">
-                            <p className="mr-2">Star on github</p>
-                            <div className="cursor-pointer">
-                                <Link href='https://github.com/Davidthecode/chatLoom' target="_blank">
-                                    <AiFillGithub size='1.2rem' />
-                                </Link>
-                            </div>
+                        <div className="mt-12">
+                            <Link href='https://github.com/Davidthecode/chatLoom' target="_blank">
+                                <div className="flex items-center cursor-pointer">
+                                    <p className="mr-2">Star on github</p>
+                                    <div>
+                                        <AiFillGithub size='1.2rem' />
+                                    </div>
+                                </div>
+                            </Link>
                         </div>
+
 
                     </section>
                 </div>

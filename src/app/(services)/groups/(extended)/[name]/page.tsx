@@ -1,7 +1,6 @@
 import dynamic from "next/dynamic";
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { AiOutlinePushpin } from 'react-icons/ai';
-import { IoCallOutline } from 'react-icons/io5';
 import Loading from "@/app/components/loading";
 
 const DynamicGroupChatNav = dynamic(() => import('@/app/client/groups/groupChatNav'), {
@@ -41,8 +40,6 @@ const DymanicGroupChatSidebar = dynamic(() => import('@/app/client/groups/groupC
 });
 
 export default function GroupsExtended({ params }: any) {
-    console.log(params);
-
     return (
         <div className="h-full flex font-mulish dark:bg-[#1D1D1D] dark:opacity-90">
             <div className="xl:w-3/4 largeDesktop:w-[68%] mediumDesktop:w-[100%] wideTablet:w-[100%] narrowDesktop:w-[100%] smallTablet:w-[65%] mobile:w-[100%]">
@@ -51,9 +48,6 @@ export default function GroupsExtended({ params }: any) {
                     <div className="flex items-center">
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151]">
                             <AiOutlinePushpin size='1.1rem' />
-                        </div>
-                        <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151]">
-                            <IoCallOutline size='1.1rem' />
                         </div>
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151]">
                             <FiMoreHorizontal size='1.1rem' />

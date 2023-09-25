@@ -66,9 +66,17 @@ export default function Sidebar() {
                     await updateDoc(userRef, { online: true })
                 }
             };
+            
+            const handleBeforeUnload =async () => {
+                await updateDoc(userRef, {online: false})
+            };
+            
             document.addEventListener('visibilitychange', handleVisibilityChange);
+            document.addEventListener('beforeunload', handleBeforeUnload);
+
             return () => {
                 document.removeEventListener('visibilitychange', handleVisibilityChange);
+                document.removeEventListener('beforeunload', handleBeforeUnload);
             };
         }, [currentUserUid]);
        }

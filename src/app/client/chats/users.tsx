@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -20,19 +20,19 @@ export default function Users() {
     const currentUserUid = auth.currentUser?.uid
     const [users, setUsers] = useState<UserData[]>([]);
     const [loading, setLoading] = useState(true)
+    console.log(users)
 
     if (currentUserUid) {
         useEffect(() => {
             async function fetchCollectionData(): Promise<UserData[]> {
                 try {
-                    const querySnapshot = await getDocs(collection(db, 'users'));
+                    const querySnapshot = await getDocs(collection(db, "users"));
                     const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
                     const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
                     setUsers(filteredArray);
                     setLoading(false)
                     return collectionData;
                 } catch (error) {
-                    // console.log(error);
                     return [];
                 };
             };
@@ -40,14 +40,22 @@ export default function Users() {
         }, []);
     }
 
+    const numberOfSkeletons = 8;
+
     return (
         <div>
-            {loading ? <UsersSkeleton /> : (
+            {loading ? (
+                <>
+                    {Array.from({ length: numberOfSkeletons }, (_: any, index: number) => (
+                        <UsersSkeleton key={index} />
+                    ))}
+                </>
+            ) : (
                 <div>
                     {users?.map((user: UserData, index: number) => {
                         return (
                             <Link href={`/chats/${user.userId}`} key={index}>
-                                <div className={`flex mt-2 h-20 pt-4 pl-3 cursor-pointer font-mulish items-center`}>
+                                <div className="flex mt-2 h-20 pt-4 pl-3 cursor-pointer font-mulish items-center">
                                     <div className="flex justify-start items-center w-11/12">
                                         <div className="">
                                             <Image src={user.photoUrl} alt="image" className="w-10 h-10 rounded-full mr-2" width={10} height={10} />
@@ -65,8 +73,8 @@ export default function Users() {
                             </Link>
                         );
                     })}
-                </div>
-            )}
+                </div>)
+            }
         </div>
     );
 };

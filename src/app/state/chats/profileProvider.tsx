@@ -1,6 +1,6 @@
 "use client"
 
-import { Dispatch, SetStateAction, useContext, useEffect } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { createContext, useState, ReactNode } from 'react';
 
 type ProfileType = {

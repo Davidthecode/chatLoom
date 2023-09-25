@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { db, auth } from "../../firebase/firebase-config";
+import { doc, onSnapshot } from 'firebase/firestore';
 import { collection, getDocs } from "firebase/firestore";
 import { PiUserCircleLight } from 'react-icons/pi';
 import { MdDarkMode } from 'react-icons/md';
@@ -13,9 +14,9 @@ import { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { MdOutlineLightMode } from 'react-icons/md'
-import {MdOutlineDarkMode} from 'react-icons/md';
-import {useMobileNavContext} from '@/app/state/navbar/mobileNavProvider';
-import {AiOutlineClose} from 'react-icons/ai'
+import { MdOutlineDarkMode } from 'react-icons/md';
+import { useMobileNavContext } from '@/app/state/navbar/mobileNavProvider';
+import { AiOutlineClose } from 'react-icons/ai'
 
 type NavData = {
     photoUrl: string | StaticImageData,
@@ -25,11 +26,13 @@ type NavData = {
 
 export default function NavbarClient() {
     const router = useRouter();
-    const {isMobile, setIsMobile} = useMobileNavContext()
+    const { isMobile, setIsMobile } = useMobileNavContext()
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [userData, setUserData] = useState<NavData | null>(null);
-    const [notificationCount, setNotificationCount] = useState(5);
+    const [notificationCount, setNotificationCount] = useState(0);
     const currentUserUid = auth.currentUser?.uid;
+    const userDocRef = doc(db, "users", currentUserUid as string)
+
     const { theme, setTheme } = useTheme();
 
     const handleNotificationClick = () => {
@@ -40,31 +43,51 @@ export default function NavbarClient() {
         setIsPopupVisible(false);
     };
 
-   if(currentUserUid){
-    useEffect(() => {
-        async function fetchNavData(): Promise<NavData[]> {
-            try {
-                const queryNavData = await getDocs(collection(db, 'users'));
-                const userData = queryNavData.docs.map(doc => doc.data() as NavData);
-                const currentUserData = userData.find(user => user.userId === currentUserUid);
-                if (currentUserData) {
-                    setUserData(currentUserData);
-                } else {
-                    setUserData({
-                        photoUrl: loom,
-                        username: 'Guest User',
-                        userId: ''
-                    });
+    useEffect(()=> {
+        getNotifications()
+    },[])
+
+    if (currentUserUid) {
+        useEffect(() => {
+            async function fetchNavData(): Promise<NavData[]> {
+                try {
+                    const queryNavData = await getDocs(collection(db, 'users'));
+                    const userData = queryNavData.docs.map(doc => doc.data() as NavData);
+                    const currentUserData = userData.find(user => user.userId === currentUserUid);
+                    if (currentUserData) {
+                        setUserData(currentUserData);
+                    } else {
+                        setUserData({
+                            photoUrl: loom,
+                            username: 'Guest User',
+                            userId: ''
+                        });
+                    };
+                    return userData;
+                } catch (error) {
+                    // console.log(error);
+                    return [];
                 };
-                return userData;
-            } catch (error) {
-                // console.log(error);
-                return [];
             };
-        };
-        fetchNavData();
-    }, []);
-   }
+            fetchNavData();
+        }, []);
+    }
+
+    function getNotifications() {
+        const unsubscribe = onSnapshot(userDocRef, (snapshot) => {
+            let tempNotifications: any[] = [];
+            if (snapshot.exists()) {
+                const notificationSnapshot = snapshot.data()
+                if (notificationSnapshot && notificationSnapshot.notifications) {
+                    tempNotifications = notificationSnapshot.notifications;
+                }
+            }
+            setNotificationCount(tempNotifications.length)
+        })
+        return () => {
+            unsubscribe()
+        }
+    }
 
     const handleSignIn = () => {
         router.push('/')
@@ -83,11 +106,11 @@ export default function NavbarClient() {
             {currentUserUid ? (
                 <div className={`flex ${isMobile ? 'fixed inset-0 justify-center items-center z-50 bg-[#F8F9FA] dark:bg-[#1D1D1D]' : 'flex items-center xxs:hidden sm:hidden md:flex'}`}>
                     <div className='absolute top-4 right-0 md:hidden'>
-                        <AiOutlineClose size='1.5rem' className='cursor-pointer mr-4' onClick={closeMobile}/>
+                        <AiOutlineClose size='1.5rem' className='cursor-pointer mr-4' onClick={closeMobile} />
                     </div>
                     <div className="flex items-center">
                         <div className="bg-[#F7F7F8] z-10 w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] relative dark:bg-[#374151]">
-                            <IoMdNotificationsOutline size='1.4rem' className='cursor-pointer' onClick={handleNotificationClick}/>
+                            <IoMdNotificationsOutline size='1.4rem' className='cursor-pointer' onClick={handleNotificationClick} />
                             {notificationCount > 0 && (
                                 <div className="bg-[#4F46E5] text-white rounded-full w-4 h-4 text-xs flex items-center justify-center absolute -top-[5px] -right-[.5rem]">
                                     {notificationCount}
