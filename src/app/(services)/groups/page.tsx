@@ -34,7 +34,7 @@ export default function Groups() {
                 </div>
                 <DynamicGroupSearchBar />
             </div>
-            <div>
+            <div className="overflow-y-auto h-full">
                 <DynamicGroupsClient />
             </div>
         </div>

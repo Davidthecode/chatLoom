@@ -31,7 +31,7 @@ export default function NavbarClient() {
     const [userData, setUserData] = useState<NavData | null>(null);
     const [notificationCount, setNotificationCount] = useState(0);
     const currentUserUid = auth.currentUser?.uid;
-    const userDocRef = doc(db, "users", currentUserUid as string)
+    const userDocRef = currentUserUid ? doc(db, "users", currentUserUid as string) : null
 
     const { theme, setTheme } = useTheme();
 
@@ -43,9 +43,9 @@ export default function NavbarClient() {
         setIsPopupVisible(false);
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         getNotifications()
-    },[])
+    }, [])
 
     if (currentUserUid) {
         useEffect(() => {
@@ -74,19 +74,22 @@ export default function NavbarClient() {
     }
 
     function getNotifications() {
-        const unsubscribe = onSnapshot(userDocRef, (snapshot) => {
-            let tempNotifications: any[] = [];
-            if (snapshot.exists()) {
-                const notificationSnapshot = snapshot.data()
-                if (notificationSnapshot && notificationSnapshot.notifications) {
-                    tempNotifications = notificationSnapshot.notifications;
+        if (userDocRef) {
+            const unsubscribe = onSnapshot(userDocRef, (snapshot) => {
+                let tempNotifications: any[] = [];
+                if (snapshot.exists()) {
+                    const notificationSnapshot = snapshot.data()
+                    if (notificationSnapshot && notificationSnapshot.notifications) {
+                        tempNotifications = notificationSnapshot.notifications;
+                    }
                 }
+                setNotificationCount(tempNotifications.length)
+            })
+            return () => {
+                unsubscribe()
             }
-            setNotificationCount(tempNotifications.length)
-        })
-        return () => {
-            unsubscribe()
         }
+
     }
 
     const handleSignIn = () => {

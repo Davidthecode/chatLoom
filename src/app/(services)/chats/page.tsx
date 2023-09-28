@@ -34,7 +34,7 @@ export default function Chats() {
                 </div>
                 <DynamicChatSearchBar />
             </div>
-            <div>
+            <div className="overflow-y-auto h-full">
                 <DymanicUsers />
             </div>
         </div>

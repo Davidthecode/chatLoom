@@ -46,7 +46,7 @@ export default function InvitePopup({ onClose }: InvitePopupProps) {
         }
     }
 
-    async function handleInvite(username:string, id:string) {
+    async function handleInvite(username: string, id: string) {
         const userDocRef = doc(db, "users", id)
         try {
             const response = await getDocs(groupsCollectionRef)
@@ -54,15 +54,16 @@ export default function InvitePopup({ onClose }: InvitePopupProps) {
             const filteredData = collectionData.filter((data) => {
                 return data.groupId == name
             })
-           
-            filteredData.map((data)=> {
-                return(
-                    updateDoc(userDocRef, {
-                        notifications: arrayUnion(`${data.groupAdminName} invited you to join ${data.groupName}`)
-                    })
-                )
+
+            const notificationArray = filteredData.map((data) => ({
+                notification: `${data.groupAdminName} invited you to join ${data.groupName}`,
+                groupId: data.groupId
+            }))
+
+            updateDoc(userDocRef, {
+                notifications: arrayUnion(...notificationArray)
             })
-           
+
             console.log(filteredData);
 
         } catch (error) {
