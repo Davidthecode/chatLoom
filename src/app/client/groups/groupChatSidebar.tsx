@@ -34,7 +34,6 @@ export default function GroupChatSidebar() {
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [isMembersLoading, setIsMembersLoading] = useState(true)
     const collectionRef = collection(db, 'groups');
-    console.log(groupMembers)
 
     useEffect(() => {
         const fetchData = async () => {
