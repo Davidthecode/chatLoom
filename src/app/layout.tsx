@@ -5,6 +5,7 @@ import { ThemeProvider } from "./state/themeState/themeProvider";
 import { UseSidebarContext } from "./state/sidebar/toggleSidebar";
 import { UseMobileNavContext } from "./state/navbar/mobileNavProvider";
 import { UseProfileContext } from "@/app/state/chats/profileProvider";
+import { UseGroupSidebarContext } from "@/app/state/groups/showSidebar"
 import { Mulish } from "next/font/google";
 
 const mulish = Mulish({
@@ -30,11 +31,13 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <UseAuthContext>
             <UseSidebarContext>
-              <UseMobileNavContext>
-                <UseProfileContext>
-                  {children}
-                </UseProfileContext>
-              </UseMobileNavContext>
+              <UseGroupSidebarContext>
+                <UseMobileNavContext>
+                  <UseProfileContext>
+                    {children}
+                  </UseProfileContext>
+                </UseMobileNavContext>
+              </UseGroupSidebarContext>
             </UseSidebarContext>
           </UseAuthContext>
         </ThemeProvider>

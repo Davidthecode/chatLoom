@@ -10,6 +10,8 @@ import Link from "next/link";
 import { auth } from "../../firebase/firebase-config";
 import { useProfileContext } from '@/app/state/chats/profileProvider'
 import { SidebarTopdivSkeleton } from '@/app/components/skeleton'
+import { BsArrowRight } from 'react-icons/bs'
+
 
 type Chatsidebar = {
     photoUrl: string,
@@ -19,7 +21,7 @@ type Chatsidebar = {
 };
 
 export default function ChatSidebar() {
-    const { isProfile } = useProfileContext()
+    const { isProfile, setIsProfile } = useProfileContext()
     const currentUserUid = auth.currentUser?.uid
     const params = useParams();
     const receiverUserId = params.name as string
@@ -69,12 +71,21 @@ export default function ChatSidebar() {
         }, [])
     }
 
+    const handleCloseSidebar = () => {
+        setIsProfile(false)
+    }
+
     return (
         <div>
             {currentUserUid ? (
                 <div>
                     <section className={`flex flex-col justify-center items-center mt-6 px-4 text-sm font-mulish`}>
                         <div className="">
+                        {isProfile &&
+                            <div className="absolute left-0 ml-4 bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151] cursor-pointer">
+                                <BsArrowRight size="1.1rem" onClick={handleCloseSidebar}/>
+                            </div>
+                        }
                             {data ?
                                 <Image src={data.photoUrl} alt="imahge" width={70} height={70} className="rounded-full" /> :
                                 <SidebarTopdivSkeleton />

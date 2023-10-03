@@ -13,13 +13,16 @@ import groupImage from '../../../../public/no-user.png'
 import InvitePopup from "./invitePopup";
 import { PiSpinnerLight } from 'react-icons/pi'
 import { LuSend } from 'react-icons/lu'
+import { useGroupSidebarContext } from "@/app/state/groups/showSidebar";
+import { BsArrowRight } from 'react-icons/bs'
 
 type GroupChatsidebar = {
     groupName: string,
     groupDescription: string,
     groupType: string,
     groupId: string,
-    groupMembersId: string[]
+    groupMembersId: string[],
+    groupAdminId: string
 };
 type UsersType = {
     userId: string,
@@ -27,6 +30,7 @@ type UsersType = {
 }
 
 export default function GroupChatSidebar() {
+    const { isOpen, setIsOpen } = useGroupSidebarContext()
     const currentUserUid = auth.currentUser?.uid
     const { name } = useParams();
     const [data, setData] = useState<GroupChatsidebar>();
@@ -55,7 +59,8 @@ export default function GroupChatSidebar() {
                         groupDescription: data.groupDescription,
                         groupType: data.groupType,
                         groupId: data.groupId,
-                        groupMembersId: data.groupMembersId
+                        groupMembersId: data.groupMembersId,
+                        groupAdminId: data.groupAdminId
                     });
                 };
             });
@@ -100,11 +105,20 @@ export default function GroupChatSidebar() {
         setIsPopupVisible(false)
     }
 
+    const handleCloseSidebar = () => {
+        setIsOpen(false)
+    }
+
     return (
         <div>
             {currentUserUid ? (
                 <section className="flex flex-col justify-center items-center mt-3 px-4 font-mulish text-sm">
                     <div className="">
+                        {isOpen &&
+                            <div className="absolute left-0 ml-4 bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151] cursor-pointer">
+                                <BsArrowRight size="1.1rem" onClick={handleCloseSidebar}/>
+                            </div>
+                        }
                         {data ?
                             <Image src={groupImage} alt="imahge" width={70} height={70} className="rounded-full" /> :
                             <div className="flex items-center h-full justify-center">
@@ -140,7 +154,7 @@ export default function GroupChatSidebar() {
                             </div>
                         }
                     </div>
-                    {data?.groupType == "private" && <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76] flex items-center">
+                    {currentUserUid === data?.groupAdminId && data?.groupType == "private" && <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76] flex items-center">
                         <p className="font-bold cursor-pointer mr-1" onClick={handleInvite}>send an invite </p>
                         <div>
                             <LuSend />
