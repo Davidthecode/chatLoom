@@ -75,13 +75,13 @@ export default function InvitePopup({ onClose }: InvitePopupProps) {
 
     return (
         <div>
-            <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-800 bg-opacity-50">
-                <div className="bg-white rounded-lg text-black w-[50%] mediumDesktop:w-[65%] wideTablet:w-[65%] narrowDesktop:w-[65%] smallTablet:w-[75%] mobile:w-[90%] mobile:h-[75%] h-2/5 dark:bg-[#121928] dark:text-white">
+            <div className="fixed top-0 z-50 left-0 right-0 bottom-0 flex justify-center items-center bg-gray-400 mobile:bg-black bg-opacity-100">
+                <div className="bg-white rounded-lg text-black w-[50%] mediumDesktop:w-[65%] wideTablet:w-[65%] narrowDesktop:w-[65%] smallTablet:w-[75%] mobile:w-[100%] mobile:h-[100%] h-2/5 dark:bg-[#121928] dark:text-white">
                     <section className='flex items-center border-b px-4 py-2 bg-[#313338] text-white dark:bg-[#121928]'>
-                        <div className='flex items-center px-4 py-2 bg-[white] text-white dark:bg-black rounded-md'>
+                        <div className='flex items-center px-4 py-2 bg-[white] text-white dark:bg-[#282829] rounded-md'>
                             <div>
                                 <input
-                                    className='outline-none text-black dark:text-white px-1 dark:bg-black'
+                                    className='outline-none text-black dark:text-white px-1 dark:bg-[#282829]'
                                     placeholder='Search user'
                                     value={searchValue}
                                     onChange={handleInputChange}
@@ -96,15 +96,17 @@ export default function InvitePopup({ onClose }: InvitePopupProps) {
                         </div>
                     </section>
 
-                    <div className='flex flex-col cursor-pointer justify-center items-center mt-4'>
+                    <div className='flex flex-col cursor-pointer mt-4 overflow-y-scroll h-[75%] items-center'>
                         {users.map((user) => (
-                            <h2
-                                key={user.id}
-                                className='text-center bg-gray-300 hover:bg-gray-500 w-[30%] px-2 mt-2'
-                                onClick={() => handleInvite(user.username, user.id)}
-                            >
-                                {user.username}
-                            </h2>
+                            <div className='bg-gray-300 dark:bg-[#282829] hover:bg-gray-500 dark:hover:bg-gray-700 w-[30%] mobile:w-[90%] px-2 mt-2 mobile:mt-6 mobile:py-4'>
+                                <h2
+                                    key={user.id}
+                                    className='text-center '
+                                    onClick={() => handleInvite(user.username, user.id)}
+                                >
+                                    {user.username}
+                                </h2>
+                            </div>
                         ))}
                     </div>
                 </div>

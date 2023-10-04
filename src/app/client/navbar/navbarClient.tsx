@@ -112,7 +112,7 @@ export default function NavbarClient() {
                         <AiOutlineClose size='1.5rem' className='cursor-pointer mr-4' onClick={closeMobile} />
                     </div>
                     <div className="flex items-center">
-                        <div className="bg-[#F7F7F8] z-10 w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] relative dark:bg-[#374151]">
+                        <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] relative dark:bg-[#374151]">
                             <IoMdNotificationsOutline size='1.4rem' className='cursor-pointer' onClick={handleNotificationClick} />
                             {notificationCount > 0 && (
                                 <div className="bg-[#4F46E5] text-white rounded-full w-4 h-4 text-xs flex items-center justify-center absolute -top-[5px] -right-[.5rem]">

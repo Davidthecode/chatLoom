@@ -8,7 +8,7 @@ const DynamicGroupsMain = dynamic(()=> import('@/app/client/groups/groupsMain'),
             <Loading />
         </div>
     )
-})
+});
 
 export default function GroupsExtended({ params }: any) {
     return (
@@ -16,4 +16,4 @@ export default function GroupsExtended({ params }: any) {
             <DynamicGroupsMain />
         </div>
     )
-}
+};

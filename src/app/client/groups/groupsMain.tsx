@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import GroupChatNav from "./groupChatNav"
 import GroupChatbox from "./groupChatbox"
 import GroupMessagebox from "./groupMessagebox"
@@ -9,9 +9,27 @@ import ShowSidebar from "./showSidebar"
 import { FiMoreHorizontal } from 'react-icons/fi';
 import { AiOutlinePushpin } from 'react-icons/ai';
 import { useGroupSidebarContext } from "@/app/state/groups/showSidebar";
+import { auth, db } from '@/app/firebase/firebase-config'
+import { collection, getDocs } from 'firebase/firestore'
+import { useParams } from 'next/navigation'
 
 export default function GroupsMain() {
-    const { isOpen, setIsOpen } = useGroupSidebarContext()
+    const params = useParams()
+    const {name} = params
+
+    const currentUserUid = auth.currentUser?.uid;
+    const { isOpen, setIsOpen } = useGroupSidebarContext();
+
+    const [groups, setGroups] = useState<any[]>([])
+    console.log(groups)
+
+    useEffect(()=> {
+
+    },[])
+
+    useEffect(()=> {
+        getGroups()
+    },[])
 
     useEffect(() => {
         const handleResize = () => {
@@ -24,6 +42,24 @@ export default function GroupsMain() {
             window.removeEventListener("resize", handleResize)
         }
     }, [])
+
+    const collectionRef = collection(db, "groups");
+
+    const getGroups = async()=> {
+        const res = await getDocs(collectionRef);
+        const data = res.docs.map((doc)=> doc.data())
+        setGroups(data)
+    }
+
+    const validateGroup = async() => {
+        groups.map((group)=>{
+            if(group.groupType === "public"){
+                return
+            }else {
+                
+            }
+        })
+    }
 
     return (
         <div className="h-full flex font-mulish dark:bg-[#1D1D1D] dark:opacity-90">
