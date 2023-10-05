@@ -17,15 +17,24 @@ import CreateGroup from './createGroup';
 import { useSidebarContext } from '@/app/state/sidebar/toggleSidebar'
 import { AiOutlineUsergroupAdd } from 'react-icons/ai'
 import { GoSidebarExpand } from 'react-icons/go'
+import { onAuthStateChanged } from 'firebase/auth';
 
 export default function Sidebar() {
     const { setIsAuth } = useAuthContext();
     const { isOpen, setIsOpen } = useSidebarContext()
     const router = useRouter();
+    const [currentUser, setCurrentUser] = useState(auth.currentUser)
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [loading, setLoading] = useState(true)
-    const currentUserUid = auth.currentUser?.uid;
+
+    useEffect(()=> {
+        const unsubscribe = onAuthStateChanged(auth, (user)=> {
+            setCurrentUser(user)
+        })
+
+        return()=> unsubscribe()
+    },[])
 
     //Handle active sidebar
     useEffect(() => {
@@ -44,8 +53,8 @@ export default function Sidebar() {
 
     //Handle logout
     const handleLogout = async () => {
-        if (currentUserUid) {
-            const userRef = doc(db, 'users', currentUserUid);
+        if (currentUser?.uid) {
+            const userRef = doc(db, 'users', currentUser?.uid);
             await updateDoc(userRef, { online: false })
         } else return
         await signOut(auth);
@@ -53,13 +62,14 @@ export default function Sidebar() {
         deleteCookie('sidebarActive');
         setIsAuth(false);
         router.replace('/');
+        console.log("log out clicked")
     }
 
     //Function to update online status
     function OnlineStatusUpdater() {
         useEffect(() => {
-            if (!currentUserUid) return;
-            const userRef = doc(db, 'users', currentUserUid);
+            if (!currentUser?.uid) return;
+            const userRef = doc(db, 'users', currentUser?.uid);
             const handleVisibilityChange = async () => {
                 if (document.visibilityState === 'hidden') {
                     await updateDoc(userRef, { online: false });
@@ -79,7 +89,7 @@ export default function Sidebar() {
                 document.removeEventListener('visibilitychange', handleVisibilityChange);
                 document.removeEventListener('beforeunload', handleBeforeUnload);
             };
-        }, [currentUserUid]);
+        }, [currentUser?.uid]);
         return null;
     }
 
@@ -102,7 +112,7 @@ export default function Sidebar() {
         <div className='h-screen'>
             {loading ? <div>Loading...</div> :(
                 <section className={`h-full w-14 bg-[#1D1D1D] dark:bg-[#1D1D1D] dark:border-r dark:border-[#686C76] dark:border-opacity-20 text-white ${isOpen ? 'narrowDesktop:block smallTablet:block mobile:block narrowDesktop:absolute narrowDesktop:z-50 narrowDesktop:h-full smallTablet:absolute smallTablet:z-50 smallTablet:h-full mobile:absolute mobile:z-50 mobile:h-full' : 'narrowDesktop:hidden smallTablet:hidden mobile:hidden'}`}>
-                {currentUserUid && <OnlineStatusUpdater />}
+                {currentUser?.uid && <OnlineStatusUpdater />}
                 <aside className='flex flex-col justify-between h-full'>
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
                         {isOpen && <li className={`relative group mt-0 w-full flex justify-center items-center`}>
