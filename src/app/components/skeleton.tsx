@@ -79,3 +79,24 @@ export const ChatboxSkeleton = () => {
         </div>
     )
 }
+
+export const NavBarSkeleton = () => {
+    return (
+        <aside className="flex items-center">
+            <div className="flex items-center animate-pulse">
+                <div className="bg-[#E3E3E6] dark:bg-[#616161] z-10 w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] relative">
+                </div>
+                <div className="bg-[#E3E3E6] dark:bg-[#616161] w-8 h-8 flex items-center justify-center rounded-full mr-1 hover:bg-[#E3E3E6]">
+                </div>
+            </div>
+            <div className="flex items-center">
+                <div className="">
+                    <hr className="mx-3 w-0 border h-8" />
+                </div>
+                <div className="bg-[#E3E3E6] dark:bg-[#616161] w-8 h-8 flex items-center justify-center rounded-full mr-2 hover:bg-[#E3E3E6] animate-pulse">
+                </div>
+                <div className="w-20 rounded-md h-6 bg-[#E3E3E6] dark:bg-[#616161] animate-pulse"></div>
+            </div>
+        </aside>
+    )
+}

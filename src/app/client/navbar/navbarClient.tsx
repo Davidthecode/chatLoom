@@ -18,6 +18,7 @@ import { MdOutlineDarkMode } from 'react-icons/md';
 import { useMobileNavContext } from '@/app/state/navbar/mobileNavProvider';
 import { AiOutlineClose } from 'react-icons/ai'
 import { onAuthStateChanged } from 'firebase/auth';
+import { NavBarSkeleton } from '@/app/components/skeleton';
 
 type NavData = {
     photoUrl: string | StaticImageData,
@@ -33,9 +34,7 @@ export default function NavbarClient() {
     const [loading, setLoading] = useState(true)
     const [notificationCount, setNotificationCount] = useState(0);
     const [currentUser, setCurrentUser] = useState(auth.currentUser)
-    // const currentUserUid = auth.currentUser?.uid;
     const userDocRef = currentUser?.uid ? doc(db, "users", currentUser?.uid as string) : null
-    console.log(currentUser?.uid)
 
     const { theme, setTheme } = useTheme();
 
@@ -77,7 +76,6 @@ export default function NavbarClient() {
             })
             return userDataArray;
         } catch (error) {
-            // console.log(error);
             return [];
         };
     };
@@ -115,7 +113,7 @@ export default function NavbarClient() {
 
     return (
         <div>
-            {loading ? <div>Loading</div> : (
+            {loading ? <NavBarSkeleton/> : (
                     <div className={`flex ${isMobile ? 'fixed inset-0 justify-center items-center z-50 bg-[#F8F9FA] dark:bg-[#1D1D1D]' : 'flex items-center xxs:hidden sm:hidden md:flex'}`}>
                     <div className='absolute top-4 right-0 md:hidden'>
                         <AiOutlineClose size='1.5rem' className='cursor-pointer mr-4' onClick={closeMobile} />
