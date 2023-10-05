@@ -31,8 +31,10 @@ export default function Users() {
     }, [])
 
     useEffect(() => {
-        fetchCollectionData();
-    }, []);
+        if (currentUser) {
+            fetchCollectionData();
+        }
+    }, [currentUser]);
 
     async function fetchCollectionData(): Promise<UserData[]> {
         try {
