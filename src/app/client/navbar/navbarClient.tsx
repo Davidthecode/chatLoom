@@ -17,6 +17,7 @@ import { MdOutlineLightMode } from 'react-icons/md'
 import { MdOutlineDarkMode } from 'react-icons/md';
 import { useMobileNavContext } from '@/app/state/navbar/mobileNavProvider';
 import { AiOutlineClose } from 'react-icons/ai'
+import { onAuthStateChanged } from 'firebase/auth';
 
 type NavData = {
     photoUrl: string | StaticImageData,
@@ -31,9 +32,10 @@ export default function NavbarClient() {
     const [userData, setUserData] = useState<NavData | null>(null);
     const [loading, setLoading] = useState(true)
     const [notificationCount, setNotificationCount] = useState(0);
-    const currentUserUid = auth.currentUser?.uid;
-    const userDocRef = currentUserUid ? doc(db, "users", currentUserUid as string) : null
-    console.log(currentUserUid)
+    const [currentUser, setCurrentUser] = useState(auth.currentUser)
+    // const currentUserUid = auth.currentUser?.uid;
+    const userDocRef = currentUser?.uid ? doc(db, "users", currentUser?.uid as string) : null
+    console.log(currentUser?.uid)
 
     const { theme, setTheme } = useTheme();
 
@@ -45,20 +47,30 @@ export default function NavbarClient() {
         setIsPopupVisible(false);
     };
 
+    useEffect(()=> {
+       const unsubscribe =  onAuthStateChanged(auth, (user)=> {
+            if(user){
+                setCurrentUser(user)
+            }else setCurrentUser(null)
+        })
+
+        return ()=> unsubscribe()
+    },[])
+
     useEffect(() => {
         getNotifications()
     }, [])
 
     useEffect(() => {
         fetchNavData();
-    }, [currentUserUid]);
+    }, [currentUser?.uid]);
 
     async function fetchNavData(): Promise<NavData[]> {
         try {
             const queryNavData = await getDocs(collection(db, 'users'));
             const userDataArray = queryNavData.docs.map(doc => doc.data() as NavData);
             userDataArray.map((user) => {
-                if (user.userId === currentUserUid) {
+                if (user.userId === currentUser?.uid) {
                     setUserData(user)
                     setLoading(false)
                 } 
