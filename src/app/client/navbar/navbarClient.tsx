@@ -33,6 +33,7 @@ export default function NavbarClient() {
     const [notificationCount, setNotificationCount] = useState(0);
     const currentUserUid = auth.currentUser?.uid;
     const userDocRef = currentUserUid ? doc(db, "users", currentUserUid as string) : null
+    console.log(currentUserUid)
 
     const { theme, setTheme } = useTheme();
 
@@ -49,24 +50,25 @@ export default function NavbarClient() {
     }, [])
 
     useEffect(() => {
-        async function fetchNavData(): Promise<NavData[]> {
-            try {
-                const queryNavData = await getDocs(collection(db, 'users'));
-                const userDataArray = queryNavData.docs.map(doc => doc.data() as NavData);
-                userDataArray.map((user) => {
-                    if (user.userId === currentUserUid) {
-                        setUserData(user)
-                        setLoading(false)
-                    } 
-                })
-                return userDataArray;
-            } catch (error) {
-                // console.log(error);
-                return [];
-            };
-        };
         fetchNavData();
-    }, []);
+    }, [currentUserUid]);
+
+    async function fetchNavData(): Promise<NavData[]> {
+        try {
+            const queryNavData = await getDocs(collection(db, 'users'));
+            const userDataArray = queryNavData.docs.map(doc => doc.data() as NavData);
+            userDataArray.map((user) => {
+                if (user.userId === currentUserUid) {
+                    setUserData(user)
+                    setLoading(false)
+                } 
+            })
+            return userDataArray;
+        } catch (error) {
+            // console.log(error);
+            return [];
+        };
+    };
 
     function getNotifications() {
         if (userDocRef) {
