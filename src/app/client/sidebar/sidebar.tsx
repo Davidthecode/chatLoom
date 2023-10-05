@@ -62,7 +62,6 @@ export default function Sidebar() {
         deleteCookie('sidebarActive');
         setIsAuth(false);
         router.replace('/');
-        console.log("log out clicked")
     }
 
     //Function to update online status
@@ -110,7 +109,7 @@ export default function Sidebar() {
 
     return (
         <div className='h-screen'>
-            {loading ? <div>Loading...</div> :(
+            {loading ? <div className='w-14 bg-[#1D1D1D] animate-pulse'></div> :(
                 <section className={`h-full w-14 bg-[#1D1D1D] dark:bg-[#1D1D1D] dark:border-r dark:border-[#686C76] dark:border-opacity-20 text-white ${isOpen ? 'narrowDesktop:block smallTablet:block mobile:block narrowDesktop:absolute narrowDesktop:z-50 narrowDesktop:h-full smallTablet:absolute smallTablet:z-50 smallTablet:h-full mobile:absolute mobile:z-50 mobile:h-full' : 'narrowDesktop:hidden smallTablet:hidden mobile:hidden'}`}>
                 {currentUser?.uid && <OnlineStatusUpdater />}
                 <aside className='flex flex-col justify-between h-full'>

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { getDocs, collection } from "firebase/firestore";
 import { auth, db } from "../../firebase/firebase-config";
 import { UsersSkeleton } from "@/app/components/skeleton";
+import { onAuthStateChanged } from "firebase/auth";
 
 type UserData = {
     creationTime: string,
@@ -17,16 +18,24 @@ type UserData = {
 };
 
 export default function Users() {
-    const currentUserUid = auth.currentUser?.uid
     const [users, setUsers] = useState<UserData[]>([]);
     const [loading, setLoading] = useState(true)
+    const [currentUser, setCurrentUser] = useState(auth.currentUser)
+
+    useEffect(()=> {
+        const unsubscribe = onAuthStateChanged(auth, (user)=> {
+            setCurrentUser(user)
+        })
+
+        return()=> unsubscribe()
+    },[])
 
     useEffect(() => {
         async function fetchCollectionData(): Promise<UserData[]> {
             try {
                 const querySnapshot = await getDocs(collection(db, "users"));
                 const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-                const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
+                const filteredArray = collectionData.filter(users => users.userId !== currentUser?.uid)
                 setUsers(filteredArray);
                 setLoading(false)
                 return collectionData;
