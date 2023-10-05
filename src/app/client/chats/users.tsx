@@ -35,7 +35,7 @@ export default function Users() {
             try {
                 const querySnapshot = await getDocs(collection(db, "users"));
                 const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-                const filteredArray = collectionData.filter(users => users.userId !== currentUser?.uid)
+                const filteredArray = collectionData.filter(users => users.userId !== currentUser?.uid);
                 setUsers(filteredArray);
                 setLoading(false)
                 return collectionData;

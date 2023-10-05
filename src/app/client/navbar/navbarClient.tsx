@@ -36,7 +36,7 @@ export default function NavbarClient() {
     const [currentUser, setCurrentUser] = useState(auth.currentUser)
     const userDocRef = currentUser?.uid ? doc(db, "users", currentUser?.uid as string) : null
 
-    const { theme, setTheme } = useTheme();
+    const { resolvedTheme, setTheme } = useTheme();
 
     const handleNotificationClick = () => {
         setIsPopupVisible(true);
@@ -104,7 +104,7 @@ export default function NavbarClient() {
     }
 
     const handleThemeSwitch = () => {
-        setTheme(theme == "dark" ? "light" : "dark");
+        setTheme(resolvedTheme == "dark" ? "light" : "dark");
     }
 
     const closeMobile = () => {
@@ -128,7 +128,7 @@ export default function NavbarClient() {
                             )}
                         </div>
                         <div className="bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-1 hover:bg-[#E3E3E6] dark:bg-[#374151]">
-                            {theme == 'light' ? <MdOutlineDarkMode size='1.4rem' onClick={handleThemeSwitch} className='cursor-pointer' /> : <MdOutlineLightMode size='1.4rem' onClick={handleThemeSwitch} className='cursor-pointer' />}
+                            {resolvedTheme == 'light' ? <MdOutlineDarkMode size='1.4rem' onClick={handleThemeSwitch} className='cursor-pointer' /> : <MdOutlineLightMode size='1.4rem' onClick={handleThemeSwitch} className='cursor-pointer' />}
                         </div>
                     </div>
                     <div className="flex items-center">
