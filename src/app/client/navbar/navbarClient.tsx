@@ -52,16 +52,17 @@ export default function NavbarClient() {
             try {
                 const queryNavData = await getDocs(collection(db, 'users'));
                 const userData = queryNavData.docs.map(doc => doc.data() as NavData);
-                const currentUserData = userData.find(user => user.userId === currentUserUid);
-                if (currentUserData) {
-                    setUserData(currentUserData)
-                } else {
-                    setUserData({
-                        photoUrl: loom,
-                        username: 'Guest User',
-                        userId: ''
-                    });
-                }
+                userData.map((user) => {
+                    if (user.userId === currentUserUid) {
+                        setUserData(user)
+                    } else {
+                        setUserData({
+                            photoUrl: loom,
+                            username: 'Guest User',
+                            userId: ''
+                        });
+                    }
+                })
                 return userData;
             } catch (error) {
                 // console.log(error);
