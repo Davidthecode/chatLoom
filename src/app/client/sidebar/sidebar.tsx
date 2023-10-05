@@ -153,8 +153,8 @@ export default function Sidebar() {
                                 Settings
                             </span>
                         </li>
-                        <li className="relative group mt-4 w-full flex justify-center items-center">
-                            <MdOutlineLogout size='1.4rem' onClick={handleLogout} className='opacity-80 group-hover:text-white text-slate-300 cursor-pointer' />
+                        <li className="relative group mt-4 w-full flex justify-center items-center" onClick={handleLogout}>
+                            <MdOutlineLogout size='1.4rem' className='opacity-80 group-hover:text-white text-slate-300 cursor-pointer' />
                             <span className={`tooltip absolute bottom-0 left-[5.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                 Logout
                             </span>

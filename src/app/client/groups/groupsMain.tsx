@@ -21,7 +21,6 @@ export default function GroupsMain() {
     const { isOpen, setIsOpen } = useGroupSidebarContext();
 
     const [groups, setGroups] = useState<any[]>([])
-    console.log(groups)
 
     useEffect(()=> {
 

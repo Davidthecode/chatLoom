@@ -71,13 +71,12 @@ export default function GroupChatSidebar() {
         }
     }
 
-
     useEffect(() => {
         const getGroupMembers = async () => {
-            if (data) {
+            if (data && data.groupType === 'private') {
                 const userCollectionRef = collection(db, "users");
                 const querydoc = query(userCollectionRef,
-                    where('userId', 'in', data.groupMembersId)
+                    where('userId', 'in', data?.groupMembersId)
                 );
                 const unsubscribe = onSnapshot(querydoc, (snapshot) => {
                     const members: any[] = [];
@@ -92,7 +91,7 @@ export default function GroupChatSidebar() {
                 });
 
                 return () => unsubscribe();
-            }else console.log("theres an error")
+            } else return
         }
         getGroupMembers()
     }, [data])
@@ -116,7 +115,7 @@ export default function GroupChatSidebar() {
                     <div className="">
                         {isOpen &&
                             <div className="absolute left-0 ml-4 bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151] cursor-pointer">
-                                <BsArrowRight size="1.1rem" onClick={handleCloseSidebar}/>
+                                <BsArrowRight size="1.1rem" onClick={handleCloseSidebar} />
                             </div>
                         }
                         {data ?
@@ -136,24 +135,31 @@ export default function GroupChatSidebar() {
                     <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76]">
                         <p className="font-bold">Group type: <span className="font-normal">{data?.groupType}</span> </p>
                     </div>
-                    <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76]">
-                        <h1 className="font-bold">GroupMembers</h1>
-                        {isMembersLoading ?
-                            <div className="flex items-center justify-center h-20">
-                                <PiSpinnerLight />
-                            </div>
-                            :
-                            <div className=" h-20 overflow-y-auto">
-                                {groupMembers?.map((members, index) => (
-                                    <div key={index}>
-                                        <ol>
-                                            <li>{members}</li>
-                                        </ol>
-                                    </div>
-                                ))}
-                            </div>
-                        }
-                    </div>
+                    {data && data.groupType == 'private' ? (
+                        <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76]">
+                            <h1 className="font-bold">GroupMembers</h1>
+                            {isMembersLoading ?
+                                <div className="flex items-center justify-center h-20">
+                                    <PiSpinnerLight />
+                                </div>
+                                :
+                                <div className=" h-20 overflow-y-auto">
+                                    {groupMembers?.map((members, index) => (
+                                        <div key={index}>
+                                            <ol>
+                                                <li>{members}</li>
+                                            </ol>
+                                        </div>
+                                    ))}
+                                </div>
+                            }
+                        </div>
+                    ) : (
+                        <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76]">
+                            <h1 className="font-bold">CHATLOOM</h1>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sit aspernatur fuga laudantium totam veniam repellendus est qui natus corporis, possimus velit illum expedita praesentium debitis, quae quaerat? Pariatur, assumenda.</p>
+                        </div>
+                    )}
                     {currentUserUid === data?.groupAdminId && data?.groupType == "private" && <div className="mt-4 border rounded-lg bg-white w-full px-2 py-3 dark:bg-[#29292A] dark:border-[#686C76] flex items-center">
                         <p className="font-bold cursor-pointer mr-1" onClick={handleInvite}>send an invite </p>
                         <div>

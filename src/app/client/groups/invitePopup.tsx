@@ -20,7 +20,6 @@ export default function InvitePopup({ onClose }: InvitePopupProps) {
     const groupsCollectionRef = collection(db, "groups")
     const [searchValue, setSearchValue] = useState('')
     const [users, setUsers] = useState<any[]>([])
-    console.log(users)
 
     const handleInputChange = (e: any) => {
         setSearchValue(e.target.value)
