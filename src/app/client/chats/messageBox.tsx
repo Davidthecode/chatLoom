@@ -24,7 +24,7 @@ export default function MessageBox() {
     const handleScroll = () => {
         if (divRef.current) {
             divRef.current.scrollIntoView({ behavior: "smooth" });
-        } else console.log('not working')
+        } else return
     }
 
     const getConversationId = ({ currentuserUid, receiveruserUid }: any) => {

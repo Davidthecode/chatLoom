@@ -46,14 +46,10 @@ export default function ChatNav() {
 
     return (
         <div>
-            {currentUsreUid ? (
-                <div className="mx-2">
-                    <h1 className="text-md font-semibold">{userInfo?.username && userInfo.username}</h1>
-                    {userInfo?.online ? <p><span className="mr-1 inline-block w-2 h-2 bg-green-500 rounded-full"></span>Online</p> : <p className="text-sm"><span className="mr-1 inline-block w-2 h-2 bg-red-500 rounded-full"></span>Offline</p>}
-                </div>
-            ) : (
-                <div></div>
-            )}
+            <div className="mx-2">
+                <h1 className="text-md font-semibold text-black dark:text-white">{userInfo?.username && userInfo.username}</h1>
+                {userInfo?.online ? <p><span className="mr-1 inline-block w-2 h-2 bg-green-500 rounded-full"></span>Online</p> : <p className="text-sm"><span className="mr-1 inline-block w-2 h-2 bg-red-500 rounded-full"></span>Offline</p>}
+            </div>
         </div>
     );
 };
