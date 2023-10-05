@@ -95,7 +95,7 @@ export default function NotificationsPopup({ onClose }: NotificationsPopupProps)
                     <div className='flex flex-col justify-center items-center mt-4 cursor-pointer'>
                         {notifications.map((notification, index) => {
                             return (
-                                <div className='w-[95%] rounded-md  flex flex-col justify-center items-center bg-[#313338] text-white dark:bg-gray-700 mt-2 pb-4'>
+                                <div className='w-[95%] rounded-md  flex flex-col justify-center items-center bg-[#313338] text-white dark:bg-gray-700 mt-2 pb-4' key={index}>
                                     <div className='text-center w-[70%] rounded-md p-2 mt-2'>{notification.notification}</div>
                                     <div className='flex'>
                                         <div>

@@ -20,25 +20,22 @@ export default function Users() {
     const currentUserUid = auth.currentUser?.uid
     const [users, setUsers] = useState<UserData[]>([]);
     const [loading, setLoading] = useState(true)
-    console.log(users)
 
-    if (currentUserUid) {
-        useEffect(() => {
-            async function fetchCollectionData(): Promise<UserData[]> {
-                try {
-                    const querySnapshot = await getDocs(collection(db, "users"));
-                    const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-                    const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
-                    setUsers(filteredArray);
-                    setLoading(false)
-                    return collectionData;
-                } catch (error) {
-                    return [];
-                };
+    useEffect(() => {
+        async function fetchCollectionData(): Promise<UserData[]> {
+            try {
+                const querySnapshot = await getDocs(collection(db, "users"));
+                const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
+                const filteredArray = collectionData.filter(users => users.userId !== currentUserUid)
+                setUsers(filteredArray);
+                setLoading(false)
+                return collectionData;
+            } catch (error) {
+                return [];
             };
-            fetchCollectionData();
-        }, []);
-    }
+        };
+        fetchCollectionData();
+    }, []);
 
     const numberOfSkeletons = 8;
 

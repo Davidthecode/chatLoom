@@ -62,9 +62,9 @@ export default function GroupSearchBar() {
             </div>
             {filteredData.length > 0 &&
                 <div className="mt-[7rem] bg-white dark:bg-[#282829] dark:text-white text-black h-fit rounded-sm absolute w-full px-2 py-2 z-30">
-                    {filteredData.slice(0, 15).map((group) => {
+                    {filteredData.slice(0, 15).map((group, id) => {
                         return (
-                            <Link href={`/chats/${group.groupId}`}>
+                            <Link href={`/chats/${group.groupId}`} key={id}>
                                 <p className="cursor-pointer mt-1 hover:bg-[#F8F9FA] dark:hover:bg-[#1D1D1D] px-1">{group.groupName}</p>
                             </Link>
                         )

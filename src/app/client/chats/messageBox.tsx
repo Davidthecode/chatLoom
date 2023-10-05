@@ -17,14 +17,14 @@ export default function MessageBox() {
     const receiveruserUid = params.name;
     const divRef = useRef<HTMLDivElement>(null)
 
-    useEffect(()=> {
+    useEffect(() => {
         handleScroll()
     })
 
     const handleScroll = () => {
-        if(divRef.current){
+        if (divRef.current) {
             divRef.current.scrollIntoView({ behavior: "smooth" });
-        }else console.log('not working')
+        } else console.log('not working')
     }
 
     const getConversationId = ({ currentuserUid, receiveruserUid }: any) => {
@@ -34,29 +34,27 @@ export default function MessageBox() {
 
     const conversationId = getConversationId({ currentuserUid, receiveruserUid });
 
-    if (currentuserUid) {
-        useEffect(() => {
-            const queryMessage = query(
-                messageRef,
-                where("conversationId", "==", conversationId),
-                orderBy("createdAt")
-            );
+    useEffect(() => {
+        const queryMessage = query(
+            messageRef,
+            where("conversationId", "==", conversationId),
+            orderBy("createdAt")
+        );
 
-            const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
-                let temPmessages: any[] = [];
-                snapshot.forEach((doc) => {
-                    temPmessages.push({ ...doc.data(), id: doc.id });
-                });
-                setMessages(temPmessages);
-                setLoading(false);
-                
+        const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
+            let temPmessages: any[] = [];
+            snapshot.forEach((doc) => {
+                temPmessages.push({ ...doc.data(), id: doc.id });
             });
-          
-            return () => {
-                unsubscribe();
-            };
-        }, []);
-    }
+            setMessages(temPmessages);
+            setLoading(false);
+
+        });
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
 
     if (loading) {
         return (
@@ -86,7 +84,7 @@ export default function MessageBox() {
             return `${formattedHours}:${formattedMinutes} ${period}`;
         }
     };
- 
+
 
     return (
         <div>

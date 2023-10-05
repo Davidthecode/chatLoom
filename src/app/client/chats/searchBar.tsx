@@ -64,9 +64,9 @@ export default function ChatSearchBar() {
             </div>
             {filteredData.length > 0 &&
                 <div className="mt-[7rem] bg-white dark:bg-[#282829] dark:text-white text-black rounded-sm absolute w-full px-1 py-2 z-30">
-                    {filteredData.map((user) => {
+                    {filteredData.map((user, id) => {
                         return (
-                            <Link href={`/chats/${user.id}`}>
+                            <Link href={`/chats/${user.id}`} key={id}>
                                 <p className="cursor-pointer mt-1 hover:bg-[#F8F9FA] dark:hover:bg-[#1D1D1D] px-1">{user.username}</p>
                             </Link>
                         )

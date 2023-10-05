@@ -12,9 +12,11 @@ export default function Home() {
 
   useEffect(() => {
     // Redirect to Chatloom if user is already authenticated
-    if (isAuth) {
-      push("/chats");
-    };
+    if (!isAuth) {
+      push("/");
+    }else {
+      push("/chats")
+    }
   }, [isAuth]);
 
   return (

@@ -30,46 +30,44 @@ export default function ChatSidebar() {
     const collectionRef = collection(db, 'users');
     const userRef = doc(db, "users", receiverUserId)
 
-    if (currentUserUid) {
-        useEffect(() => {
-            const getInfo = async (): Promise<Chatsidebar[]> => {
-                try {
-                    const res = await getDocs(collectionRef);
-                    const collectionData = res.docs.map(doc => doc.data() as Chatsidebar);
-                    collectionData.map((data) => {
-                        if (data.userId == receiverUserId) {
-                            setData({
-                                photoUrl: data.photoUrl,
-                                username: data.username,
-                                userId: data.userId,
-                                online: data.online
-                            });
-                        };
-                    });
-                    return collectionData;
-                } catch (error) {
-                    console.log(error);
-                    return [];
-                }
+    useEffect(() => {
+        const getInfo = async (): Promise<Chatsidebar[]> => {
+            try {
+                const res = await getDocs(collectionRef);
+                const collectionData = res.docs.map(doc => doc.data() as Chatsidebar);
+                collectionData.map((data) => {
+                    if (data.userId == receiverUserId) {
+                        setData({
+                            photoUrl: data.photoUrl,
+                            username: data.username,
+                            userId: data.userId,
+                            online: data.online
+                        });
+                    };
+                });
+                return collectionData;
+            } catch (error) {
+                console.log(error);
+                return [];
             }
+        }
 
-            async function getOnlineStatus() {
-                const unsubscribe = onSnapshot(userRef, (docSnap) => {
-                    if (docSnap.exists()) {
-                        const data = docSnap.data();
-                        setOnline(data.online)
-                    } else return
-                })
-                return () => {
-                    unsubscribe()
-                }
+        async function getOnlineStatus() {
+            const unsubscribe = onSnapshot(userRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    setOnline(data.online)
+                } else return
+            })
+            return () => {
+                unsubscribe()
             }
+        }
 
-            getInfo();
-            getOnlineStatus()
+        getInfo();
+        getOnlineStatus()
 
-        }, [])
-    }
+    }, [])
 
     const handleCloseSidebar = () => {
         setIsProfile(false)
@@ -81,11 +79,11 @@ export default function ChatSidebar() {
                 <div>
                     <section className={`flex flex-col justify-center items-center mt-6 px-4 text-sm font-mulish`}>
                         <div className="">
-                        {isProfile &&
-                            <div className="absolute left-0 ml-4 bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151] cursor-pointer">
-                                <BsArrowRight size="1.1rem" onClick={handleCloseSidebar}/>
-                            </div>
-                        }
+                            {isProfile &&
+                                <div className="absolute left-0 ml-4 bg-[#F7F7F8] w-8 h-8 flex items-center justify-center rounded-full mr-3 hover:bg-[#E3E3E6] dark:bg-[#374151] cursor-pointer">
+                                    <BsArrowRight size="1.1rem" onClick={handleCloseSidebar} />
+                                </div>
+                            }
                             {data ?
                                 <Image src={data.photoUrl} alt="imahge" width={70} height={70} className="rounded-full" /> :
                                 <SidebarTopdivSkeleton />

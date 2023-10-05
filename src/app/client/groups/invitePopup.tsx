@@ -98,9 +98,8 @@ export default function InvitePopup({ onClose }: InvitePopupProps) {
 
                     <div className='flex flex-col cursor-pointer mt-4 overflow-y-scroll h-[75%] items-center'>
                         {users.map((user) => (
-                            <div className='bg-gray-300 dark:bg-[#282829] hover:bg-gray-500 dark:hover:bg-gray-700 w-[30%] mobile:w-[90%] px-2 mt-2 mobile:mt-6 mobile:py-4'>
+                            <div className='bg-gray-300 dark:bg-[#282829] hover:bg-gray-500 dark:hover:bg-gray-700 w-[30%] mobile:w-[90%] px-2 mt-2 mobile:mt-6 mobile:py-4' key={user.id}>
                                 <h2
-                                    key={user.id}
                                     className='text-center '
                                     onClick={() => handleInvite(user.username, user.id)}
                                 >

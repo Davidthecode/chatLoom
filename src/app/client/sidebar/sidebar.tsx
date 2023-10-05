@@ -55,7 +55,6 @@ export default function Sidebar() {
 
     //Function to update online status
     function OnlineStatusUpdater() {
-       if(currentUserUid){
         useEffect(() => {
             if (!currentUserUid) return;
             const userRef = doc(db, 'users', currentUserUid);
@@ -79,7 +78,6 @@ export default function Sidebar() {
                 document.removeEventListener('beforeunload', handleBeforeUnload);
             };
         }, [currentUserUid]);
-       }
         return null;
     }
 

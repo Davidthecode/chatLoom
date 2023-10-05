@@ -47,31 +47,29 @@ export default function NavbarClient() {
         getNotifications()
     }, [])
 
-    if (currentUserUid) {
-        useEffect(() => {
-            async function fetchNavData(): Promise<NavData[]> {
-                try {
-                    const queryNavData = await getDocs(collection(db, 'users'));
-                    const userData = queryNavData.docs.map(doc => doc.data() as NavData);
-                    const currentUserData = userData.find(user => user.userId === currentUserUid);
-                    if (currentUserData) {
-                        setUserData(currentUserData);
-                    } else {
-                        setUserData({
-                            photoUrl: loom,
-                            username: 'Guest User',
-                            userId: ''
-                        });
-                    };
-                    return userData;
-                } catch (error) {
-                    // console.log(error);
-                    return [];
+    useEffect(() => {
+        async function fetchNavData(): Promise<NavData[]> {
+            try {
+                const queryNavData = await getDocs(collection(db, 'users'));
+                const userData = queryNavData.docs.map(doc => doc.data() as NavData);
+                const currentUserData = userData.find(user => user.userId === currentUserUid);
+                if (currentUserData) {
+                    setUserData(currentUserData);
+                } else {
+                    setUserData({
+                        photoUrl: loom,
+                        username: 'Guest User',
+                        userId: ''
+                    });
                 };
+                return userData;
+            } catch (error) {
+                // console.log(error);
+                return [];
             };
-            fetchNavData();
-        }, []);
-    }
+        };
+        fetchNavData();
+    }, []);
 
     function getNotifications() {
         if (userDocRef) {
