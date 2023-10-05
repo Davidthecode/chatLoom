@@ -52,14 +52,14 @@ export default function NavbarClient() {
         async function fetchNavData(): Promise<NavData[]> {
             try {
                 const queryNavData = await getDocs(collection(db, 'users'));
-                const userData = queryNavData.docs.map(doc => doc.data() as NavData);
-                userData.map((user) => {
+                const userDataArray = queryNavData.docs.map(doc => doc.data() as NavData);
+                userDataArray.map((user) => {
                     if (user.userId === currentUserUid) {
                         setUserData(user)
                         setLoading(false)
                     } 
                 })
-                return userData;
+                return userDataArray;
             } catch (error) {
                 // console.log(error);
                 return [];
