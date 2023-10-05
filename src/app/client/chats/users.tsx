@@ -22,29 +22,30 @@ export default function Users() {
     const [loading, setLoading] = useState(true)
     const [currentUser, setCurrentUser] = useState(auth.currentUser)
 
-    useEffect(()=> {
-        const unsubscribe = onAuthStateChanged(auth, (user)=> {
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
             setCurrentUser(user)
         })
 
-        return()=> unsubscribe()
-    },[])
+        return () => unsubscribe()
+    }, [])
 
     useEffect(() => {
-        async function fetchCollectionData(): Promise<UserData[]> {
-            try {
-                const querySnapshot = await getDocs(collection(db, "users"));
-                const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
-                const filteredArray = collectionData.filter(users => users.userId !== currentUser?.uid);
-                setUsers(filteredArray);
-                setLoading(false)
-                return collectionData;
-            } catch (error) {
-                return [];
-            };
-        };
         fetchCollectionData();
     }, []);
+
+    async function fetchCollectionData(): Promise<UserData[]> {
+        try {
+            const querySnapshot = await getDocs(collection(db, "users"));
+            const collectionData = querySnapshot.docs.map(doc => doc.data() as UserData);
+            const filteredArray = collectionData.filter(users => users.userId !== currentUser?.uid);
+            setUsers(filteredArray);
+            setLoading(false)
+            return collectionData;
+        } catch (error) {
+            return [];
+        };
+    };
 
     const numberOfSkeletons = 8;
 
