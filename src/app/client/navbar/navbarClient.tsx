@@ -54,14 +54,14 @@ export default function NavbarClient() {
                 const userData = queryNavData.docs.map(doc => doc.data() as NavData);
                 const currentUserData = userData.find(user => user.userId === currentUserUid);
                 if (currentUserData) {
-                    setUserData(currentUserData);
+                    setUserData(currentUserData)
                 } else {
                     setUserData({
                         photoUrl: loom,
                         username: 'Guest User',
                         userId: ''
                     });
-                };
+                }
                 return userData;
             } catch (error) {
                 // console.log(error);
