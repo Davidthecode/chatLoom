@@ -92,7 +92,7 @@ export default function GroupChatSidebar() {
                 });
 
                 return () => unsubscribe();
-            }
+            }else console.log("theres an error")
         }
         getGroupMembers()
     }, [data])

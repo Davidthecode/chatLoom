@@ -1,7 +1,7 @@
 'use client';
 
 import { db } from "@/app/firebase/firebase-config";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query } from "firebase/firestore";
 import { useEffect, useState } from 'react';
 import Link from "next/link";
 import { AiOutlineClose } from 'react-icons/ai';

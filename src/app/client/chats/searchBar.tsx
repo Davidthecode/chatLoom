@@ -14,17 +14,21 @@ export default function ChatSearchBar() {
     const [filteredData, setFilteredData] = useState<any[]>([]);
 
     useEffect(() => {
-        const q = query(
-            collectionRef,
-            where('userId', '!=', currentUserUid)
-        );
+        if (currentUserUid) {
+            const q = query(
+                collectionRef,
+                where('userId', '!=', currentUserUid)
+            );
 
-        const getUsers = async () => {
-            const querySnapshot = await getDocs(q)
-            const userDocs = querySnapshot.docs.map((doc) => doc.data())
-            setUsers(userDocs.map((user) => ({ username: user.username, id: user.userId })))
+            const getUsers = async () => {
+                const querySnapshot = await getDocs(q)
+                const userDocs = querySnapshot.docs.map((doc) => doc.data())
+                setUsers(userDocs.map((user) => ({ username: user.username, id: user.userId })))
+            }
+            getUsers()
+        }else {
+            setUsers([])
         }
-        getUsers()
     }, []);
 
     const handleFilter = (e: any) => {

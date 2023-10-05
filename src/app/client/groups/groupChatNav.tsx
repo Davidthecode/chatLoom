@@ -21,21 +21,29 @@ export default function GroupChatNav() {
     const groupId = params.name as string
 
     useEffect(() => {
-        async function getGroupNavData() {
-            const q = query(collection(db, "groups"), where("groupId", "==", groupId));
-            const querySnapshot = await getDocs(q);
-            if (!querySnapshot.empty) {
-                const docSnapshot = querySnapshot.docs[0];
-                const data = docSnapshot.data();
-                setGroupInfo({
-                    groupName: data.groupName,
-                    groupType: data.groupType,
-                });
-            } else {
-                console.log("Document not found");
+        if(groupId){
+            const getGroupNavData = async() => {
+                const q = query(collection(db, "groups"), where("groupId", "==", groupId));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) {
+                    const docSnapshot = querySnapshot.docs[0];
+                    const data = docSnapshot.data();
+                    setGroupInfo({
+                        groupName: data.groupName,
+                        groupType: data.groupType,
+                    });
+                } else {
+                    console.log("Document not found");
+                }
             }
+            getGroupNavData()
+        }else {
+            setGroupInfo({
+                groupName: "",
+                groupType: "",
+            });
+            console.log("groupId is undefined");
         }
-        getGroupNavData()
     }, [groupId])
 
     return (

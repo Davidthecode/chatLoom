@@ -17,24 +17,29 @@ export default function GroupMessagebox() {
     const groupId = params.name;
 
     useEffect(() => {
-        const queryMessage = query(
-            groupsRef,
-            where('groupId', '==', groupId),
-            orderBy('createdAt')
-        );
+        if (groupId) {
+            const queryMessage = query(
+                groupsRef,
+                where('groupId', '==', groupId),
+                orderBy('createdAt')
+            );
 
-        const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
-            let temPmessages: any[] = [];
-            snapshot.forEach((doc) => {
-                temPmessages.push({ ...doc.data(), id: doc.id });
+            const unsubscribe = onSnapshot(queryMessage, (snapshot) => {
+                let temPmessages: any[] = [];
+                snapshot.forEach((doc) => {
+                    temPmessages.push({ ...doc.data(), id: doc.id });
+                });
+                setMessages(temPmessages);
+                setLoading(false);
             });
-            setMessages(temPmessages);
-            setLoading(false);
-        });
 
-        return () => {
-            unsubscribe();
-        };
+            return () => {
+                unsubscribe();
+            };
+        } else {
+            setMessages([])
+            setLoading(false)
+        }
     }, []);
 
     if (loading) {
@@ -63,8 +68,8 @@ export default function GroupMessagebox() {
             const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
             const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
             return `${formattedHours}:${formattedMinutes} ${period}`;
-        }else console.log('wait');
-        
+        } else console.log('wait');
+
 
     };
 

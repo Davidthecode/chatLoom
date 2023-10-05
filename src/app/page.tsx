@@ -1,5 +1,6 @@
 'use client';
 
+import Auth from "./components/auth";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthContext } from "./state/auth/authContext";
@@ -16,4 +17,9 @@ export default function Home() {
     }else push("/")
   }, [isAuth]);
 
+  return(
+    <div>
+      <Auth />
+    </div>
+  )
 };
