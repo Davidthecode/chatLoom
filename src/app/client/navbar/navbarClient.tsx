@@ -29,6 +29,7 @@ export default function NavbarClient() {
     const { isMobile, setIsMobile } = useMobileNavContext()
     const [isPopupVisible, setIsPopupVisible] = useState(false);
     const [userData, setUserData] = useState<NavData | null>(null);
+    const [loading, setLoading] = useState(true)
     const [notificationCount, setNotificationCount] = useState(0);
     const currentUserUid = auth.currentUser?.uid;
     const userDocRef = currentUserUid ? doc(db, "users", currentUserUid as string) : null
@@ -55,13 +56,8 @@ export default function NavbarClient() {
                 userData.map((user) => {
                     if (user.userId === currentUserUid) {
                         setUserData(user)
-                    } else {
-                        setUserData({
-                            photoUrl: loom,
-                            username: 'Guest User',
-                            userId: ''
-                        });
-                    }
+                        setLoading(false)
+                    } 
                 })
                 return userData;
             } catch (error) {
@@ -105,8 +101,8 @@ export default function NavbarClient() {
 
     return (
         <div>
-            {currentUserUid ? (
-                <div className={`flex ${isMobile ? 'fixed inset-0 justify-center items-center z-50 bg-[#F8F9FA] dark:bg-[#1D1D1D]' : 'flex items-center xxs:hidden sm:hidden md:flex'}`}>
+            {loading ? <div>Loading</div> : (
+                    <div className={`flex ${isMobile ? 'fixed inset-0 justify-center items-center z-50 bg-[#F8F9FA] dark:bg-[#1D1D1D]' : 'flex items-center xxs:hidden sm:hidden md:flex'}`}>
                     <div className='absolute top-4 right-0 md:hidden'>
                         <AiOutlineClose size='1.5rem' className='cursor-pointer mr-4' onClick={closeMobile} />
                     </div>
@@ -133,13 +129,8 @@ export default function NavbarClient() {
                         <h1 className="font-semibold text-sm dark:opacity-95">{userData?.username}</h1>
                     </div>
                 </div>
-            ) : (
-                <div>
-                    <button className='px-3 py-2 hover:opacity-80 border rounded-md bg-black text-white font-sans text-xs' onClick={handleSignIn}>
-                        SIGN IN
-                    </button>
-                </div>
             )}
+                
             {isPopupVisible && <NotificationsPopup onClose={closePopup} />}
         </div>
     );

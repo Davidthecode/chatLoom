@@ -15,8 +15,8 @@ import { useAuthContext } from '../../state/auth/authContext';
 import { updateDoc, doc } from 'firebase/firestore';
 import CreateGroup from './createGroup';
 import { useSidebarContext } from '@/app/state/sidebar/toggleSidebar'
-import {AiOutlineUsergroupAdd} from 'react-icons/ai'
-import {GoSidebarExpand} from 'react-icons/go'
+import { AiOutlineUsergroupAdd } from 'react-icons/ai'
+import { GoSidebarExpand } from 'react-icons/go'
 
 export default function Sidebar() {
     const { setIsAuth } = useAuthContext();
@@ -24,6 +24,7 @@ export default function Sidebar() {
     const router = useRouter();
     const [activeIcon, setActiveIcon] = useState<string | null>(null);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const [loading, setLoading] = useState(true)
     const currentUserUid = auth.currentUser?.uid;
 
     //Handle active sidebar
@@ -32,6 +33,7 @@ export default function Sidebar() {
         if (savedActiveTab) {
             setActiveIcon(savedActiveTab as string);
         } else setActiveIcon('chats');
+        setLoading(false)
     }, []);
 
     //Handle sidebar tab click
@@ -50,7 +52,7 @@ export default function Sidebar() {
         deleteCookie('auth-token');
         deleteCookie('sidebarActive');
         setIsAuth(false);
-        router.push('/');
+        router.replace('/');
     }
 
     //Function to update online status
@@ -65,11 +67,11 @@ export default function Sidebar() {
                     await updateDoc(userRef, { online: true })
                 }
             };
-            
-            const handleBeforeUnload =async () => {
-                await updateDoc(userRef, {online: false})
+
+            const handleBeforeUnload = async () => {
+                await updateDoc(userRef, { online: false })
             };
-            
+
             document.addEventListener('visibilitychange', handleVisibilityChange);
             document.addEventListener('beforeunload', handleBeforeUnload);
 
@@ -92,20 +94,21 @@ export default function Sidebar() {
     };
 
     //function to handle sidebar toggle
-    const handleSidebarToggle = ()=> {
+    const handleSidebarToggle = () => {
         setIsOpen(false)
     }
 
     return (
-        <section className={`w-14 bg-[#1D1D1D] dark:bg-[#1D1D1D] dark:border-r dark:border-[#686C76] dark:border-opacity-20 text-white ${isOpen ? 'narrowDesktop:block smallTablet:block mobile:block narrowDesktop:absolute narrowDesktop:z-50 narrowDesktop:h-full smallTablet:absolute smallTablet:z-50 smallTablet:h-full mobile:absolute mobile:z-50 mobile:h-full' : 'narrowDesktop:hidden smallTablet:hidden mobile:hidden'}`}>
-            {currentUserUid && <OnlineStatusUpdater />}
-            {currentUserUid ? (
+        <div className='h-screen'>
+            {loading ? <div>Loading...</div> :(
+                <section className={`h-full w-14 bg-[#1D1D1D] dark:bg-[#1D1D1D] dark:border-r dark:border-[#686C76] dark:border-opacity-20 text-white ${isOpen ? 'narrowDesktop:block smallTablet:block mobile:block narrowDesktop:absolute narrowDesktop:z-50 narrowDesktop:h-full smallTablet:absolute smallTablet:z-50 smallTablet:h-full mobile:absolute mobile:z-50 mobile:h-full' : 'narrowDesktop:hidden smallTablet:hidden mobile:hidden'}`}>
+                {currentUserUid && <OnlineStatusUpdater />}
                 <aside className='flex flex-col justify-between h-full'>
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-6'>
                         {isOpen && <li className={`relative group mt-0 w-full flex justify-center items-center`}>
-                            <GoSidebarExpand size='1.3rem' onClick={handleSidebarToggle} className='group-hover:text-white text-slate-300 opacity-80 cursor-pointer'/>
+                            <GoSidebarExpand size='1.3rem' onClick={handleSidebarToggle} className='group-hover:text-white text-slate-300 opacity-80 cursor-pointer' />
                         </li>}
-
+    
                         <li className={`${activeIcon == 'chats' ? 'border-l-2 border-white' : ''} relative group mt-8  w-full flex justify-center items-center`}>
                             <Link href='/chats'>
                                 <BsChat size='1.25rem' onClick={() => handleTabClick('chats')} className={`${activeIcon == 'chats' ? 'text-white' : 'opacity-80'} group-hover:text-white text-slate-300`} />
@@ -114,7 +117,7 @@ export default function Sidebar() {
                                 </span>
                             </Link>
                         </li>
-
+    
                         <li className={`${activeIcon == 'Groups' ? 'border-l-2 border-white' : ''} relative group mt-4 w-full flex justify-center items-center `}>
                             <Link href='/groups'>
                                 <AiOutlineUsergroupDelete size='1.4rem' onClick={() => handleTabClick('Groups')} className={`${activeIcon == 'Groups' ? 'text-white' : 'opacity-80'} group-hover:text-white text-slate-400`} />
@@ -124,16 +127,16 @@ export default function Sidebar() {
                             </Link>
                         </li>
                     </ul>
-
+    
                     <ul className='flex flex-col items-center justify-center mt-12'>
                         <li className="relative group mt-4 w-full flex justify-center items-center" onClick={handleCreateGroup}>
-                            <AiOutlineUsergroupAdd size='1.4rem' onClick={() => setActiveIcon('creategroup')} className='opacity-80 group-hover:text-white text-slate-300 cursor-pointer'/>
+                            <AiOutlineUsergroupAdd size='1.4rem' onClick={() => setActiveIcon('creategroup')} className='opacity-80 group-hover:text-white text-slate-300 cursor-pointer' />
                             <span className={`tooltip absolute bottom-0 left-[6.4rem] transform -translate-x-1/2 opacity-0 bg-black text-white text-xs py-1 px-2 rounded pointer-events-none group-hover:opacity-100 z-50`}>
                                 Creategroup
                             </span>
                         </li>
                     </ul>
-
+    
                     <ul className='flex flex-col items-center justify-center space-y-6 mt-auto mb-20'>
                         <li className="relative group mt-4 w-full flex justify-center items-center">
                             <IoSettingsOutline size='1.4rem' onClick={() => handleTabClick('Settings')} className='opacity-80 group-hover:text-white stroke-[0.5px] text-slate-300 cursor-pointer' />
@@ -157,10 +160,9 @@ export default function Sidebar() {
                         </li>
                     </ul>
                 </aside>
-            ) : (
-                <div className='h-full'></div>
+                {isPopupVisible && <CreateGroup onClose={closePopup} />}
+            </section>
             )}
-            {isPopupVisible && <CreateGroup onClose={closePopup} />}
-        </section>
+        </div>
     );
 };
