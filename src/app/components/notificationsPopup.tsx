@@ -15,8 +15,6 @@ export default function NotificationsPopup({ onClose }: NotificationsPopupProps)
     const currentUserUid = auth.currentUser?.uid
     const userDocRef = doc(db, "users", currentUserUid as string)
 
-    console.log(notifications)
-
     useEffect(() => {
         getNotifications()
     }, [])
@@ -67,7 +65,7 @@ export default function NotificationsPopup({ onClose }: NotificationsPopupProps)
                         return
                     }
                 } else {
-                    console.log('No matching group found for groupId:', notification.groupId);
+                   return
                 }
             }
         }
