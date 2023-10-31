@@ -69,24 +69,38 @@ export default function Sidebar() {
         useEffect(() => {
             if (!currentUser?.uid) return;
             const userRef = doc(db, 'users', currentUser?.uid);
+
+            const setOnline = async () => {
+                await updateDoc(userRef, { online: true });
+            }
+
+            const setOffline = async () => {
+                await updateDoc(userRef, { online: false })
+            }
+
             const handleVisibilityChange = async () => {
                 if (document.visibilityState === 'hidden') {
-                    await updateDoc(userRef, { online: false });
+                    setOffline()
                 } else if (document.visibilityState === 'visible') {
-                    await updateDoc(userRef, { online: true })
+                    setOnline()
                 }
             };
 
-            const handleBeforeUnload = async () => {
-                await updateDoc(userRef, { online: false })
-            };
+            const handleBeforeUnload = () => {
+                setOffline()
+            }
 
             document.addEventListener('visibilitychange', handleVisibilityChange);
             document.addEventListener('beforeunload', handleBeforeUnload);
 
+            setOnline()
+
+            // const heartbeatInterval = setInterval(setOnline, 5000);
+
             return () => {
                 document.removeEventListener('visibilitychange', handleVisibilityChange);
                 document.removeEventListener('beforeunload', handleBeforeUnload);
+                // clearInterval(heartbeatInterval)
             };
         }, [currentUser?.uid]);
         return null;
